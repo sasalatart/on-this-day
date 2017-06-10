@@ -3,6 +3,7 @@ const data = require('./seeds.json');
 const months = require('./months.json');
 const Day = require('../models/day');
 
+/* eslint-disable no-console */
 console.log('Seeding data...');
 
 function createDay(date) {
