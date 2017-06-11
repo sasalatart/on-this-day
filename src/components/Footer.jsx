@@ -2,7 +2,7 @@ import React from 'react';
 import FontIcon from 'material-ui/FontIcon';
 
 const Footer = () => (
-  <footer className="aligner">
+  <footer className="flex justify-space-around">
     <p>Sebastián Salata R-T</p>
 
     <p>2017</p>
