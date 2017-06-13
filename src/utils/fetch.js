@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+
 export default function jsonFetch(route) {
   const headers = new Headers();
   headers.set('Content-Type', 'application/json');
@@ -6,7 +8,7 @@ export default function jsonFetch(route) {
 
   return fetch(request)
     .then((response) => {
-      if (response.status !== 200) {
+      if (response.status >= 400) {
         return response.json()
           .then((json) => {
             throw new Error(json.message);
