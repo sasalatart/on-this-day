@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import moment from 'moment';
+import swal from 'sweetalert';
+import jsonFetch from '../utils/fetch';
 import Landing from '../components/Landing';
 import {
   possibleDaysForMonth,
   possibleMonthsForDay,
   validateDay,
   validateMonth,
+  translateMonth,
 } from '../utils/dates';
 
 const currentDay = `${moment().date()}`;
@@ -64,8 +67,26 @@ class LandingContainer extends Component {
     }
   }
 
-  onSubmit() {
-    this.setState({ loading: !this.state.loading });
+  onSubmit(event) {
+    event.preventDefault();
+
+    this.setState({ loading: true });
+
+    const intMonth = translateMonth(this.state.currentMonth);
+    const route = `/episodes?day=${this.state.currentDay}&month=${intMonth}`;
+    jsonFetch(`api/${route}`)
+      .then((response) => {
+        /* eslint-disable react/prop-types */
+        this.props.history.push({
+          pathname: `${route}`,
+          query: { day: this.state.currentDay, month: this.state.currentMonth },
+          data: response,
+        });
+      })
+      .catch((err) => {
+        swal('Error', err.message, 'error');
+        this.setState({ loading: false });
+      });
   }
 
   render() {

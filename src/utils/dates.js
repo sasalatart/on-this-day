@@ -39,3 +39,7 @@ export const validateDay = (day, currentMonth) => (
 export const validateMonth = (currentDay, monthName) => (
   includes(possibleMonthsForDay(parseInt(currentDay, 10)), capitalize(monthName))
 );
+
+export const translateMonth = (monthName, name) => (
+  months.find(month => month.label === monthName)[name ? 'label' : 'value']
+);

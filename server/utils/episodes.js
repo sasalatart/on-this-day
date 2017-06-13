@@ -19,23 +19,27 @@ function checkValidRequest(day, month, type) {
     return { message: 'Not a valid date.', status: 406 };
   }
 
-  if (!type) {
-    return { message: 'Type is required.', status: 406 };
-  }
-
   const validType = _.includes(['events', 'births', 'deaths'], _.toLower(type));
-  if (!validType) {
+  if (type && !validType) {
     return { message: 'Not a valid type of episode.', status: 406 };
   }
 
   return false;
 }
 
-function parseResponse(day, type) {
-  return _.pick(day, ['_id', 'day', 'month', 'description', `${_.toLower(type)}`]);
+function createSelector(type, short) {
+  if (type) {
+    const selector = ['events', 'births', 'deaths']
+      .filter(text => text !== type)
+      .reduce((acc, text) => `${acc} -${text}`, '');
+
+    return short ? `${selector} -${type}.kw` : `${selector}`;
+  }
+
+  return short ? '-events.kw -births.kw -deaths.kw' : '';
 }
 
 module.exports = {
   checkValidRequest,
-  parseResponse,
+  createSelector,
 };
