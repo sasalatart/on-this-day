@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import App from './components/App';
 import registerServiceWorker from './registerServiceWorker';
+import Router from './router';
+import '../node_modules/sweetalert/dist/sweetalert.css';
 import '../node_modules/font-awesome/css/font-awesome.min.css';
 import './styles/index.css';
 
@@ -12,5 +13,9 @@ injectTapEventPlugin();
 
 /* global document */
 /* eslint-disable react/jsx-filename-extension */
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(
+  <Router />,
+  document.getElementById('root'),
+);
+
 registerServiceWorker();

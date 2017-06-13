@@ -1,19 +1,19 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Header from './Header';
-import Footer from './Footer';
-import Landing from '../containers/Landing';
 
-const App = () => (
+const Layout = ({ children }) => (
   <MuiThemeProvider>
     <div className="app-container">
       <Header />
-      <div className="main-body">
-        <Landing />
-        <Footer />
-      </div>
+      { children }
     </div>
   </MuiThemeProvider>
 );
 
-export default App;
+Layout.propTypes = {
+  children: PropTypes.arrayOf(PropTypes.element).isRequired,
+};
+
+export default Layout;

@@ -5,12 +5,13 @@ import Paper from 'material-ui/Paper';
 const style = {
   maxHeight: '100%',
   maxWidth: '100%',
-  height: 480,
+  height: 'auto',
   width: 800,
-  minHeight: '50%',
   minWidth: '50%',
-  padding: 50,
-  overflow: 'auto',
+  padding: 25,
+  marginTop: 25,
+  marginBottom: 50,
+  overflowY: 'auto',
 };
 
 const PaperBox = props => (
