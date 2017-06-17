@@ -16,13 +16,13 @@ const EpisodeListItem = (props) => {
 
   return (
     <div key={_id}>
+      <Divider />
       <ListItem
         leftAvatar={leftAvatar}
         primaryText={data}
         secondaryText={generateKeywordsText(kw)}
         disabled
       />
-      <Divider />
     </div>
   );
 };
