@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import FontIcon from 'material-ui/FontIcon';
 import EpisodesList from './EpisodesList';
+import customPropTypes from '../custom-prop-types';
 
 export const tabs = {
   events: 0,
@@ -67,21 +68,9 @@ Episodes.propTypes = {
     }),
     data: PropTypes.shape({
       description: PropTypes.string.isRequired,
-      events: PropTypes.arrayOf(PropTypes.shape({
-        data: PropTypes.string.isRequired,
-        year: PropTypes.string.isRequired,
-        kw: PropTypes.arrayOf(PropTypes.shape({ text: PropTypes.string, href: PropTypes.string })),
-      })).isRequired,
-      births: PropTypes.arrayOf(PropTypes.shape({
-        data: PropTypes.string.isRequired,
-        year: PropTypes.string.isRequired,
-        kw: PropTypes.arrayOf(PropTypes.shape({ text: PropTypes.string, href: PropTypes.string })),
-      })).isRequired,
-      deaths: PropTypes.arrayOf(PropTypes.shape({
-        data: PropTypes.string.isRequired,
-        year: PropTypes.string.isRequired,
-        kw: PropTypes.arrayOf(PropTypes.shape({ text: PropTypes.string, href: PropTypes.string })),
-      })).isRequired,
+      events: customPropTypes.episodes.isRequired,
+      births: customPropTypes.episodes.isRequired,
+      deaths: customPropTypes.episodes.isRequired,
     }).isRequired,
   }).isRequired,
   currentTab: PropTypes.number.isRequired,

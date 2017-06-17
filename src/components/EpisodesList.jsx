@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { List } from 'material-ui/List';
 import PaperBox from './PaperBox';
 import EpisodesListItem from './EpisodesListItem';
+import customPropTypes from '../custom-prop-types';
 
 const writeDescription = description => (
   /* eslint-disable react/no-array-index-key */
@@ -34,11 +35,7 @@ EpisodesList.propTypes = {
   day: PropTypes.string.isRequired,
   month: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
-  episodes: PropTypes.arrayOf(PropTypes.shape({
-    data: PropTypes.string.isRequired,
-    year: PropTypes.string.isRequired,
-    kw: PropTypes.arrayOf(PropTypes.shape({ text: PropTypes.string, href: PropTypes.string })),
-  })).isRequired,
+  episodes: customPropTypes.episodes.isRequired,
 };
 
 export default EpisodesList;
