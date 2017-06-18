@@ -19,7 +19,7 @@ function checkValidRequest(day, month, type) {
     return { message: 'Not a valid date.', status: 406 };
   }
 
-  const validType = _.includes(['events', 'births', 'deaths'], _.toLower(type));
+  const validType = _.includes(['all', 'events', 'births', 'deaths'], _.toLower(type));
   if (type && !validType) {
     return { message: 'Not a valid type of episode.', status: 406 };
   }
@@ -28,7 +28,7 @@ function checkValidRequest(day, month, type) {
 }
 
 function createSelector(type, short) {
-  if (type) {
+  if (type && type !== 'all') {
     const selector = ['events', 'births', 'deaths']
       .filter(text => text !== type)
       .reduce((acc, text) => `${acc} -${text}`, '');
