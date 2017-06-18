@@ -73,7 +73,7 @@ class LandingContainer extends Component {
     this.setState({ loading: true });
 
     const intMonth = translateMonth(this.state.currentMonth);
-    const route = `/episodes?day=${this.state.currentDay}&month=${intMonth}`;
+    const route = `episodes?day=${this.state.currentDay}&month=${intMonth}`;
     jsonFetch(`api/${route}`)
       .then((response) => {
         /* eslint-disable react/prop-types */
