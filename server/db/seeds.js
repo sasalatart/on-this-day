@@ -1,19 +1,14 @@
+/* eslint-disable no-console */
 const mongoose = require('.');
 const data = require('./seeds.json');
 const months = require('./months.json');
 const Day = require('../models/day');
 
-/* eslint-disable no-console */
 console.log('Seeding data...');
 
 function createDay(date) {
   const [monthName, day] = date.split('-');
-  const month = months[monthName];
-
-  const { description, events, births, deaths } = data[date];
-
-  const dayEntry = new Day({ day, month, description, events, births, deaths });
-  return dayEntry.save();
+  return Day.create(Object.assign({}, { day, month: months[monthName] }, data[date]));
 }
 
 function mapJson() {
@@ -22,11 +17,14 @@ function mapJson() {
     .map(createDay);
 }
 
-Day
-  .remove({})
+Day.remove({})
   .then(() => Promise.all(mapJson()))
-  .then(() => { console.log('Finished seeding data.'); })
-  .catch((err) => { console.error(err); })
+  .then(() => {
+    console.log('Finished seeding data.');
+  })
+  .catch((err) => {
+    console.error(`Error: ${err}`);
+  })
   .finally(() => {
     console.log('Closing connection...');
     mongoose.connection.close();

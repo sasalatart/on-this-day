@@ -12,7 +12,6 @@
     "moment": "^2.18.1",
     "mongoose": "^4.10.5",
     "morgan": "^1.8.2",
-    "on-this-day-scraper": "^2.0.3",
     "prop-types": "^15.5.10",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
