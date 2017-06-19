@@ -39,11 +39,15 @@ class LandingContainer extends Component {
 
   onDayChange(event, day) {
     if (validateDay(day, this.state.previousValidMonth)) {
+      const validMonth = validateMonth(day, this.state.currentMonth);
       this.setState({
         currentDay: day,
         previousValidDay: day,
         possibleMonths: possibleMonthsForDay(parseInt(day, 10)),
-        errors: { ...this.state.errors, day: undefined },
+        errors: {
+          day: undefined,
+          month: validMonth ? undefined : 'Invalid month.',
+        },
       });
     } else {
       this.setState({
@@ -54,11 +58,15 @@ class LandingContainer extends Component {
 
   onMonthChange(month) {
     if (validateMonth(this.state.previousValidDay, month)) {
+      const validDay = validateDay(this.state.currentDay, month);
       this.setState({
         currentMonth: month,
         previousValidMonth: month,
         possibleDays: possibleDaysForMonth(month),
-        errors: { ...this.state.errors, month: undefined },
+        errors: {
+          day: validDay ? undefined : 'Invalid day.',
+          month: undefined,
+        },
       });
     } else {
       this.setState({
