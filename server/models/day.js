@@ -23,4 +23,17 @@ const daySchema = mongoose.Schema({
   deaths: [episodeSchema],
 });
 
+function createSelector(type, short) {
+  if (type && type !== 'all') {
+    const selector = ['events', 'births', 'deaths']
+      .filter(text => text !== type)
+      .reduce((acc, text) => `${acc} -${text}`, '');
+
+    return short ? `${selector} -${type}.kw` : `${selector}`;
+  }
+
+  return short ? '-events.kw -births.kw -deaths.kw' : '';
+}
+
 module.exports = mongoose.model('Day', daySchema);
+module.exports.createSelector = createSelector;

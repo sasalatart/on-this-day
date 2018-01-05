@@ -1,7 +1,7 @@
 const router = require('express').Router();
-const checkValidRequest = require('../middlewares/episodes');
+const checkValidRequest = require('../middlewares/valid-request');
 const Day = require('../models/day');
-const { createSelector } = require('../utils/episodes');
+const { createSelector } = require('../models/day');
 
 router.get('/', checkValidRequest, (req, res, next) => {
   const { day: intDay, month: intMonth, type, short } = req.query;

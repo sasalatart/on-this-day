@@ -2,14 +2,10 @@ const _ = require('lodash');
 const moment = require('moment');
 
 function twoDigits(number) {
-  if (number < 10) {
-    return `0${number}`;
-  }
-
-  return number;
+  return number < 10 ? `0${number}` : number;
 }
 
-function checkValidRequest(day, month, type) {
+function checkInvalidRequest(day, month, type) {
   if (!day || !month) {
     return { message: 'Both day and month must be present.', status: 406 };
   }
@@ -27,19 +23,14 @@ function checkValidRequest(day, month, type) {
   return false;
 }
 
-function createSelector(type, short) {
-  if (type && type !== 'all') {
-    const selector = ['events', 'births', 'deaths']
-      .filter(text => text !== type)
-      .reduce((acc, text) => `${acc} -${text}`, '');
+module.exports = function checkValidRequestMiddleware(req, res, next) {
+  const { day: intDay, month: intMonth, type } = req.query;
 
-    return short ? `${selector} -${type}.kw` : `${selector}`;
+  const invalidRequest = checkInvalidRequest(intDay, intMonth, type);
+  if (invalidRequest) {
+    next(invalidRequest);
+    return;
   }
 
-  return short ? '-events.kw -births.kw -deaths.kw' : '';
-}
-
-module.exports = {
-  checkValidRequest,
-  createSelector,
+  next();
 };
