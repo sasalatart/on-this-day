@@ -8,25 +8,21 @@ console.log('Seeding data...');
 
 function createDay(date) {
   const [monthName, day] = date.split('-');
-  return Day.create(Object.assign({}, { day, month: months[monthName] }, data[date]));
+  return Day.create({ ...data[date], day, month: months[monthName] });
 }
 
-function mapJson() {
-  return Object
-    .keys(data)
-    .map(createDay);
-}
-
-Day.remove({})
-  .then(() => Promise.all(mapJson()))
-  .then(() => {
+async function seed() {
+  try {
+    await Day.remove({});
+    await Promise.all(Object.keys(data).map(createDay));
     console.log('Finished seeding data.');
-  })
-  .catch((err) => {
-    console.error(`Error: ${err}`);
-  })
-  .finally(() => {
-    console.log('Closing connection...');
-    mongoose.connection.close();
-    process.exit();
-  });
+  } catch (error) {
+    console.error(`Error: ${error}`);
+  }
+
+  console.log('Closing connection...');
+  mongoose.connection.close();
+  process.exit();
+}
+
+seed();
