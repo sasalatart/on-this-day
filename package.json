@@ -36,6 +36,7 @@
     "build": "react-scripts build",
     "seed": "node server/db/seeds",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint ."
   }
 }
