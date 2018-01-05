@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
-const mongoose = require('.');
-const data = require('./seeds.json');
+const mongoose = require('../');
+const data = require('./data.json');
 const months = require('./months.json');
-const Day = require('../models/day');
+const Day = require('../../models/day');
 
 console.log('Seeding data...');
 
