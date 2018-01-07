@@ -126,11 +126,11 @@ If the `short` query string is supplied, no keywords (`kw`) will be returned in 
 #### Development
 
 1. Clone and cd into this repository
-2. run `npm install` (or `yarn install`)
+2. run `yarn install`
 3. Export the environment variables `DB_HOST` and `DB_PORT` (27017 by default), or alternatively `MONGODB_URI`.
 4. Turn on your local mongodb server if that is the case.
-5. run `nodemon server` (turns on the backend server)
-6. run `npm run startDev` (turns on the frontend development server)
+5. run `nodemon src/server` (turns on the backend server)
+6. run `yarn run start-dev` (turns on the frontend development server)
 
 #### Docker
 

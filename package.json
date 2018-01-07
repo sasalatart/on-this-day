@@ -30,8 +30,8 @@
   },
   "proxy": "http://localhost:9000",
   "scripts": {
-    "start": "node server",
-    "startDev": "react-scripts start",
+    "start": "node src/server",
+    "start-dev": "react-scripts start",
     "postinstall": "react-scripts build",
     "build": "react-scripts build",
     "seed": "node server/db/seeds",
