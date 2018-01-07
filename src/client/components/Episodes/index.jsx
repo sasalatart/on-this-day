@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import FontIcon from 'material-ui/FontIcon';
 import EpisodesList from './List';
-import customPropTypes from '../../custom-prop-types';
+import customPropTypes from '../../prop-types';
 
 export const tabs = {
   events: 0,

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { List } from 'material-ui/List';
 import PaperBox from '../PaperBox';
 import EpisodesListItem from './ListItem';
-import customPropTypes from '../../custom-prop-types';
+import customPropTypes from '../../prop-types';
 
 const writeDescription = description => (
   /* eslint-disable react/no-array-index-key */
