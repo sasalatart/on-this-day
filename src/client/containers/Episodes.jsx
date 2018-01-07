@@ -7,10 +7,10 @@ class EpisodesContainer extends Component {
 
     this.state = { currentTab: tabs.events };
 
-    this.onTabChange = this.onTabChange.bind(this);
+    this.handleTabChange = this.handleTabChange.bind(this);
   }
 
-  onTabChange(tab) {
+  handleTabChange(tab) {
     this.setState({ currentTab: tab });
   }
 
@@ -19,7 +19,7 @@ class EpisodesContainer extends Component {
       <Episodes
         {...this.props}
         currentTab={this.state.currentTab}
-        handleTabChange={this.onTabChange}
+        onTabChange={this.handleTabChange}
       />
     );
   }

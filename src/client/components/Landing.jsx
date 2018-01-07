@@ -31,9 +31,9 @@ const Landing = ({
   currentMonth,
   possibleMonths,
   errors,
-  handleDayChange,
-  handleMonthChange,
-  handleSubmit,
+  onDayChange,
+  onMonthChange,
+  onSubmit,
   loading,
 }) => (
   <div className="landing">
@@ -53,7 +53,7 @@ const Landing = ({
               floatingLabelText="Insert day"
               hintText="Example: 15"
               errorText={errors.day}
-              onChange={handleDayChange}
+              onChange={onDayChange}
               value={currentDay}
             />
 
@@ -63,7 +63,7 @@ const Landing = ({
               errorText={errors.month}
               dataSource={possibleMonths}
               filter={AutoComplete.caseInsensitiveFilter}
-              onUpdateInput={handleMonthChange}
+              onUpdateInput={onMonthChange}
               searchText={currentMonth}
             />
 
@@ -72,7 +72,7 @@ const Landing = ({
               icon={properSubmitButtonIcon(loading)}
               primary
               disabled={submitDisabled(loading, errors)}
-              onTouchTap={handleSubmit}
+              onTouchTap={onSubmit}
               style={styles.button}
             />
           </div>
@@ -88,9 +88,9 @@ Landing.propTypes = {
   currentMonth: PropTypes.string.isRequired,
   possibleMonths: PropTypes.arrayOf(PropTypes.string).isRequired,
   errors: PropTypes.shape({ day: PropTypes.string, month: PropTypes.string }).isRequired,
-  handleDayChange: PropTypes.func.isRequired,
-  handleMonthChange: PropTypes.func.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
+  onDayChange: PropTypes.func.isRequired,
+  onMonthChange: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
 };
 

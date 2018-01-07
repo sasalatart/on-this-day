@@ -26,7 +26,7 @@ const Episodes = (props) => {
       },
     },
     currentTab,
-    handleTabChange,
+    onTabChange,
   } = props;
 
   const eventsIcon = <FontIcon className="fa fa-calendar" />;
@@ -45,7 +45,7 @@ const Episodes = (props) => {
 
   return (
     <div className="height-100">
-      <Tabs onChange={handleTabChange} value={currentTab}>
+      <Tabs onChange={onTabChange} value={currentTab}>
         <Tab label="Events" value={tabs.events} icon={eventsIcon}>
           {createEpisodesList('Events', events)}
         </Tab>
@@ -74,7 +74,7 @@ Episodes.propTypes = {
     }).isRequired,
   }).isRequired,
   currentTab: PropTypes.number.isRequired,
-  handleTabChange: PropTypes.func.isRequired,
+  onTabChange: PropTypes.func.isRequired,
 };
 
 export default Episodes;
