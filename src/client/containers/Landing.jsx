@@ -32,12 +32,12 @@ class LandingContainer extends Component {
       loading: false,
     };
 
-    this.onDayChange = this.onDayChange.bind(this);
-    this.onMonthChange = this.onMonthChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
+    this.handleDayChange = this.handleDayChange.bind(this);
+    this.handleMonthChange = this.handleMonthChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  onDayChange(event, day) {
+  handleDayChange(event, day) {
     if (validateDay(day, this.state.previousValidMonth)) {
       const validMonth = validateMonth(day, this.state.currentMonth);
       this.setState({
@@ -56,7 +56,7 @@ class LandingContainer extends Component {
     }
   }
 
-  onMonthChange(month) {
+  handleMonthChange(month) {
     if (validateMonth(this.state.previousValidDay, month)) {
       const validDay = validateDay(this.state.currentDay, month);
       this.setState({
@@ -75,7 +75,7 @@ class LandingContainer extends Component {
     }
   }
 
-  onSubmit(event) {
+  handleSubmit(event) {
     event.preventDefault();
 
     this.setState({ loading: true });
@@ -104,9 +104,9 @@ class LandingContainer extends Component {
         currentMonth={this.state.currentMonth}
         possibleMonths={this.state.possibleMonths}
         errors={this.state.errors}
-        handleDayChange={this.onDayChange}
-        handleMonthChange={this.onMonthChange}
-        handleSubmit={this.onSubmit}
+        onDayChange={this.handleDayChange}
+        onMonthChange={this.handleMonthChange}
+        onSubmit={this.handleSubmit}
         loading={this.state.loading}
       />
     );
