@@ -4,7 +4,7 @@ import { ListItem } from 'material-ui/List';
 import Divider from 'material-ui/Divider';
 import Avatar from 'material-ui/Avatar';
 import { blue900, transparent } from 'material-ui/styles/colors';
-import customPropTypes from '../../custom-prop-types';
+import customPropTypes from '../../prop-types';
 
 function generateKeywordsText(kw) {
   if (!kw) {
