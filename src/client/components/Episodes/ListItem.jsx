@@ -4,8 +4,8 @@ import { ListItem } from 'material-ui/List';
 import Divider from 'material-ui/Divider';
 import Avatar from 'material-ui/Avatar';
 import { blue900, transparent } from 'material-ui/styles/colors';
-import generateKeywordsText from '../utils/keywords';
-import customPropTypes from '../custom-prop-types';
+import generateKeywordsText from '../../utils/keywords';
+import customPropTypes from '../../custom-prop-types';
 
 const EpisodeListItem = (props) => {
   const { _id, data, year, kw } = props;

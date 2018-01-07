@@ -7,7 +7,7 @@ const Layout = ({ children }) => (
   <MuiThemeProvider>
     <div className="app-container">
       <Header />
-      { children }
+      {children}
     </div>
   </MuiThemeProvider>
 );

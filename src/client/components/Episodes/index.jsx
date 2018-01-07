@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import FontIcon from 'material-ui/FontIcon';
-import EpisodesList from './EpisodesList';
-import customPropTypes from '../custom-prop-types';
+import EpisodesList from './List';
+import customPropTypes from '../../custom-prop-types';
 
 export const tabs = {
   events: 0,
@@ -47,13 +47,13 @@ const Episodes = (props) => {
     <div className="height-100">
       <Tabs onChange={handleTabChange} value={currentTab}>
         <Tab label="Events" value={tabs.events} icon={eventsIcon}>
-          { createEpisodesList('Events', events) }
+          {createEpisodesList('Events', events)}
         </Tab>
         <Tab label="Births" value={tabs.births} icon={birthsIcon}>
-          { createEpisodesList('Births', births) }
+          {createEpisodesList('Births', births)}
         </Tab>
         <Tab label="Deaths" value={tabs.deaths} icon={deathsIcon}>
-          { createEpisodesList('Deaths', deaths) }
+          {createEpisodesList('Deaths', deaths)}
         </Tab>
       </Tabs>
     </div>
