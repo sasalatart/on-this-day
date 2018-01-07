@@ -1,6 +1,8 @@
 const _ = require('lodash');
 const moment = require('moment');
 
+const VALID_EPISODE_TYPES = ['all', 'events', 'births', 'deaths'];
+
 function twoDigits(number) {
   return number < 10 ? `0${number}` : number;
 }
@@ -15,7 +17,7 @@ function checkInvalidRequest(day, month, type) {
     return { message: 'Not a valid date.', status: 406 };
   }
 
-  const validType = _.includes(['all', 'events', 'births', 'deaths'], _.toLower(type));
+  const validType = VALID_EPISODE_TYPES.includes(_.toLower(type));
   if (type && !validType) {
     return { message: 'Not a valid type of episode.', status: 406 };
   }
