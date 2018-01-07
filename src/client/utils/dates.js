@@ -1,4 +1,3 @@
-import includes from 'lodash/includes';
 import capitalize from 'lodash/capitalize';
 
 export const months = [
@@ -33,11 +32,11 @@ export const possibleMonthsForDay = dayIndex => (
 );
 
 export const validateDay = (day, currentMonth) => (
-  !isNaN(day) && includes(possibleDaysForMonth(currentMonth), parseInt(day, 10))
+  !isNaN(day) && possibleDaysForMonth(currentMonth).includes(parseInt(day, 10))
 );
 
 export const validateMonth = (currentDay, monthName) => (
-  includes(possibleMonthsForDay(parseInt(currentDay, 10)), capitalize(monthName))
+  possibleMonthsForDay(parseInt(currentDay, 10)).includes(capitalize(monthName))
 );
 
 export const translateMonth = (monthName, name) => (
