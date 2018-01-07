@@ -16,7 +16,7 @@ const style = {
 
 const PaperBox = props => (
   <Paper style={style} zDepth={5} >
-    { props.children }
+    {props.children}
   </Paper>
 );
 

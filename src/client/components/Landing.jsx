@@ -5,7 +5,7 @@ import AutoComplete from 'material-ui/AutoComplete';
 import RaisedButton from 'material-ui/RaisedButton';
 import FontIcon from 'material-ui/FontIcon';
 import PaperBox from './PaperBox';
-import Footer from './Footer';
+import Footer from './Layout/Footer';
 
 const styles = {
   button: {
