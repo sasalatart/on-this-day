@@ -3,9 +3,15 @@ import PropTypes from 'prop-types';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Header from './Header';
 
+const styles = {
+  appContainer: {
+    height: 'calc(100vh - 64px)',
+  },
+};
+
 const Layout = ({ children }) => (
   <MuiThemeProvider>
-    <div className="app-container">
+    <div style={styles.appContainer}>
       <Header />
       {children}
     </div>

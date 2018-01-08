@@ -4,6 +4,7 @@ import { Tabs, Tab } from 'material-ui/Tabs';
 import FontIcon from 'material-ui/FontIcon';
 import EpisodesList from './List';
 import customPropTypes from '../../prop-types';
+import theme from '../../theme';
 
 export const tabs = {
   events: 0,
@@ -44,7 +45,7 @@ const Episodes = (props) => {
   );
 
   return (
-    <div className="height-100">
+    <div style={theme.height100}>
       <Tabs onChange={onTabChange} value={currentTab}>
         <Tab label="Events" value={tabs.events} icon={eventsIcon}>
           {createEpisodesList('Events', events)}
