@@ -6,8 +6,26 @@ import RaisedButton from 'material-ui/RaisedButton';
 import FontIcon from 'material-ui/FontIcon';
 import PaperBox from './PaperBox';
 import Footer from './Layout/Footer';
+import theme from '../theme';
 
 const styles = {
+  landing: {
+    height: '100%',
+    display: 'flex',
+    justifyContent: 'space-between',
+    flexDirection: 'column',
+  },
+  wrapper: {
+    height: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  form: {
+    display: 'flex',
+    justifyContent: 'spaceAround',
+    flexWrap: 'wrap',
+  },
   button: {
     margin: 20,
   },
@@ -36,19 +54,24 @@ const Landing = ({
   onSubmit,
   loading,
 }) => (
-  <div className="landing">
-    <div className="height-100 flex justify-center align-center">
+  <div style={styles.landing}>
+    <div style={styles.wrapper}>
       <PaperBox>
-        <div className="height-100 flex justify-center flex-column">
-          <div>
-            <h1 className="centered-text">Search For Historical Episodes</h1>
+        <div>
+          <h1 style={theme.h1}>Search For Historical Episodes</h1>
 
-            <h2 className="centered-text">
-              Data Taken From <a href="http://www.wikipedia.org" target="_blank" rel="noopener noreferrer">Wikipedia</a>
-            </h2>
-          </div>
+          <h2 style={theme.h2}>
+            <a
+              href="http://www.wikipedia.org"
+              style={theme.anchor}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Source: Wikipedia
+            </a>
+          </h2>
 
-          <div className="flex flex-wrap justify-space-around">
+          <form style={styles.form}>
             <TextField
               floatingLabelText="Insert day"
               hintText="Example: 15"
@@ -75,7 +98,7 @@ const Landing = ({
               onTouchTap={onSubmit}
               style={styles.button}
             />
-          </div>
+          </form>
         </div>
       </PaperBox>
     </div>

@@ -4,22 +4,30 @@ import { List } from 'material-ui/List';
 import PaperBox from '../PaperBox';
 import EpisodesListItem from './ListItem';
 import customPropTypes from '../../prop-types';
+import theme from '../../theme';
+
+const styles = {
+  wrapper: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
+};
 
 const writeDescription = description => (
   /* eslint-disable react/no-array-index-key */
   description
     .split('\n')
     .map((paragraph, index) => (
-      <p key={index} className="description justified-text">{paragraph}</p>
+      <p key={index} style={theme.justifiedText}>{paragraph}</p>
     ))
 );
 
 const EpisodesList = ({ episodeType, day, month, description, episodes }) => (
-  <div className="flex justify-center">
+  <div style={styles.wrapper}>
     <PaperBox>
       <div>
-        <h1 className="centered-text">{episodeType}</h1>
-        <h2 className="centered-text">{`${month} ${day}`}</h2>
+        <h1 style={theme.h1}>{episodeType}</h1>
+        <h2 style={theme.h2}>{`${month} ${day}`}</h2>
         {writeDescription(description)}
 
         <List>

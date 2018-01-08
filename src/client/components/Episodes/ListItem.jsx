@@ -5,6 +5,19 @@ import Divider from 'material-ui/Divider';
 import Avatar from 'material-ui/Avatar';
 import { blue900, transparent } from 'material-ui/styles/colors';
 import customPropTypes from '../../prop-types';
+import theme from '../../theme';
+
+const styles = {
+  keywords: {
+    fontWeight: 'bold',
+    marginTop: '0.75em',
+  },
+  keyword: {
+    ...theme.anchor,
+    fontStyle: 'italic',
+    marginRight: '1em',
+  },
+};
 
 function generateKeywordsText(kw) {
   if (!kw) {
@@ -13,20 +26,26 @@ function generateKeywordsText(kw) {
 
   const wikiUrl = 'http://wikipedia.org';
 
-  const keyWords = kw
+  const keywords = kw
     .map(({ href, title }) => (
-      <a key={`${href}${title}`} href={`${wikiUrl}/${href}`} target="_blank" rel="noopener noreferrer">
+      <a
+        key={title}
+        href={`${wikiUrl}${href}`}
+        style={styles.keyword}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         {title}
       </a>
     ));
 
-  return <p className="keywords">Keywords: {keyWords}</p>;
+  return <p style={styles.keywords}>Keywords: {keywords}</p>;
 }
 
 const EpisodeListItem = ({ _id, data, year, kw }) => {
   const leftAvatar = (
     <Avatar color={blue900} backgroundColor={transparent}>
-      <p className="centered-text">{year}</p>
+      <p style={theme.centeredText}>{year}</p>
     </Avatar>
   );
 

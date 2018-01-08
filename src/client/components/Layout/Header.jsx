@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import AppBar from 'material-ui/AppBar';
+import theme from '../../theme';
 
 const styles = {
   title: {
@@ -9,7 +10,7 @@ const styles = {
 };
 
 const Header = () => (
-  <Link to="/">
+  <Link to="/" style={theme.anchor}>
     <AppBar
       title="On This Day"
       titleStyle={styles.title}

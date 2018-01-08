@@ -5,7 +5,6 @@ import registerServiceWorker from './registerServiceWorker';
 import Router from './client/router';
 import '../node_modules/sweetalert/dist/sweetalert.css';
 import '../node_modules/font-awesome/css/font-awesome.min.css';
-import './client/styles/index.css';
 
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
