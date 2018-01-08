@@ -9,7 +9,8 @@ const AppRouter = () => (
   <Router history={createBrowserHistory()}>
     <Layout>
       <Route exact path="/" component={Landing} />
-      <Route path="/episodes\?day=(\d+)&month=(\d+)" component={Episodes} />
+      <Route exact path="/episodes?day=(\d+)&month=(\d+)" component={Episodes} />
+      <Route path="/episodes" component={Landing} />
     </Layout>
   </Router>
 );

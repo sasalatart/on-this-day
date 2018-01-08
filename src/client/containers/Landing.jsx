@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import moment from 'moment';
 import swal from 'sweetalert';
+import qs from 'qs';
 import jsonFetch from '../utils/fetch';
 import Landing from '../components/Landing';
 import {
-  possibleDaysForMonth,
+  getMonthName,
+  getMonthNumber,
+  allPossibleMonths,
   possibleMonthsForDay,
-  validateDay,
-  validateMonth,
-  translateMonth,
+  getDateErrors,
 } from '../utils/dates';
 
 const currentDay = `${moment().date()}`;
@@ -21,10 +23,7 @@ class LandingContainer extends Component {
     this.state = {
       currentDay,
       currentMonth,
-      possibleDays: possibleDaysForMonth(currentMonth),
       possibleMonths: possibleMonthsForDay(currentDay),
-      previousValidDay: currentDay,
-      previousValidMonth: currentMonth,
       errors: {
         day: undefined,
         month: undefined,
@@ -37,51 +36,45 @@ class LandingContainer extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleDayChange(event, day) {
-    if (validateDay(day, this.state.previousValidMonth)) {
-      const validMonth = validateMonth(day, this.state.currentMonth);
-      this.setState({
-        currentDay: day,
-        previousValidDay: day,
-        possibleMonths: possibleMonthsForDay(parseInt(day, 10)),
-        errors: {
-          day: undefined,
-          month: validMonth ? undefined : 'Invalid month.',
-        },
-      });
-    } else {
-      this.setState({
-        currentDay: day, errors: { ...this.state.errors, day: 'Invalid day.' },
-      });
+  componentDidMount() {
+    const { location: { search } } = this.props;
+    const { day, month } = qs.parse(search, { ignoreQueryPrefix: true });
+    const monthName = getMonthName(month);
+
+    const dateErrors = getDateErrors(day, month);
+    if (dateErrors.day || dateErrors.month) {
+      return;
     }
+
+    const event = new CustomEvent('Direct URL');
+    this.handleDayChange(event, day);
+    this.handleMonthChange(monthName);
+    setTimeout(() => this.handleSubmit(event), 0);
   }
 
-  handleMonthChange(month) {
-    if (validateMonth(this.state.previousValidDay, month)) {
-      const validDay = validateDay(this.state.currentDay, month);
-      this.setState({
-        currentMonth: month,
-        previousValidMonth: month,
-        possibleDays: possibleDaysForMonth(month),
-        errors: {
-          day: validDay ? undefined : 'Invalid day.',
-          month: undefined,
-        },
-      });
-    } else {
-      this.setState({
-        currentMonth: month, errors: { ...this.state.errors, month: 'Invalid month.' },
-      });
-    }
+  handleDayChange(event, day) {
+    const dateErrors = getDateErrors(day, getMonthNumber(this.state.currentMonth));
+    const newState = { currentDay: day, errors: dateErrors };
+
+    newState.possibleMonths = dateErrors.day
+      ? allPossibleMonths
+      : possibleMonthsForDay(parseInt(day, 10));
+
+    this.setState(newState);
+  }
+
+  handleMonthChange(monthName) {
+    const dateErrors = getDateErrors(this.state.currentDay, getMonthNumber(monthName));
+    const newState = { currentMonth: monthName, errors: dateErrors };
+    this.setState(newState);
   }
 
   handleSubmit(event) {
     event.preventDefault();
 
     this.setState({ loading: true });
-
-    const intMonth = translateMonth(this.state.currentMonth);
-    const route = `episodes?day=${this.state.currentDay}&month=${intMonth}`;
+    const month = getMonthNumber(this.state.currentMonth);
+    const route = `episodes?day=${this.state.currentDay}&month=${month}`;
     jsonFetch(`api/${route}`)
       .then((response) => {
         /* eslint-disable react/prop-types */
@@ -112,5 +105,11 @@ class LandingContainer extends Component {
     );
   }
 }
+
+LandingContainer.propTypes = {
+  location: PropTypes.shape({
+    search: PropTypes.string,
+  }).isRequired,
+};
 
 export default LandingContainer;
