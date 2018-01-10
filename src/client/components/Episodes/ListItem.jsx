@@ -26,10 +26,11 @@ function generateKeywordsText(kw) {
 
   const wikiUrl = 'http://wikipedia.org';
 
+  /* eslint-disable react/no-array-index-key */
   const keywords = kw
-    .map(({ href, title }) => (
+    .map(({ href, title }, index) => (
       <a
-        key={title}
+        key={index}
         href={`${wikiUrl}${href}`}
         style={styles.keyword}
         target="_blank"
