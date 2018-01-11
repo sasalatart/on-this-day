@@ -16,6 +16,10 @@ const episodeSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  isBCE: {
+    type: Boolean,
+    default: false,
+  },
   data: {
     type: String,
     required: true,
