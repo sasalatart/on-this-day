@@ -35,7 +35,7 @@
     "start-dev": "react-scripts start",
     "postinstall": "react-scripts build",
     "build": "react-scripts build",
-    "seed": "node server/db/seeds",
+    "seed": "node src/server/db/seeds",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "lint": "eslint ."
