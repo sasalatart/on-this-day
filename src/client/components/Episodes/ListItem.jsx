@@ -3,11 +3,26 @@ import PropTypes from 'prop-types';
 import { ListItem } from 'material-ui/List';
 import Divider from 'material-ui/Divider';
 import Avatar from 'material-ui/Avatar';
-import { blue900, transparent } from 'material-ui/styles/colors';
+import { blue900, red300, transparent } from 'material-ui/styles/colors';
 import customPropTypes from '../../prop-types';
 import theme from '../../theme';
 
 const styles = {
+  yearContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
+    backgroundColor: transparent,
+  },
+  year: {
+    margin: '5px',
+  },
+  bce: {
+    color: red300,
+    fontSize: '0.75em',
+    margin: '5px',
+  },
   keywords: {
     fontWeight: 'bold',
     marginTop: '0.75em',
@@ -43,10 +58,11 @@ function generateKeywordsText(kw) {
   return <p style={styles.keywords}>Keywords: {keywords}</p>;
 }
 
-const EpisodeListItem = ({ _id, data, year, kw }) => {
+const EpisodeListItem = ({ _id, data, year, isBCE, kw }) => {
   const leftAvatar = (
-    <Avatar color={blue900} backgroundColor={transparent}>
-      <p style={theme.centeredText}>{year}</p>
+    <Avatar color={blue900} style={styles.yearContainer}>
+      <p style={styles.year}>{year}</p>
+      {isBCE && <p style={styles.bce}>BCE</p>}
     </Avatar>
   );
 
@@ -67,6 +83,7 @@ EpisodeListItem.propTypes = {
   _id: PropTypes.string.isRequired,
   data: PropTypes.string.isRequired,
   year: PropTypes.string.isRequired,
+  isBCE: PropTypes.bool.isRequired,
   kw: customPropTypes.keywords,
 };
 
