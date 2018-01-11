@@ -71,7 +71,7 @@ const Landing = ({
             </a>
           </h2>
 
-          <form style={styles.form}>
+          <form onSubmit={onSubmit} style={styles.form}>
             <TextField
               floatingLabelText="Insert day"
               hintText="Example: 15"
@@ -97,6 +97,7 @@ const Landing = ({
               disabled={submitDisabled(loading, errors)}
               onTouchTap={onSubmit}
               style={styles.button}
+              type="submit"
             />
           </form>
         </div>
