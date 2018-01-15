@@ -1,4 +1,4 @@
-FROM node:7-onbuild
+FROM node:8-onbuild
 
 MAINTAINER Sebastian Salata R-T <SA.SalataRT@GMail.com>
 
