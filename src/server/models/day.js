@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const episodeSchema = require('./episode').schema;
+const toJSON = require('./toJSON');
 
 const daySchema = mongoose.Schema({
   day: {
@@ -21,6 +22,8 @@ const daySchema = mongoose.Schema({
   events: [episodeSchema],
   births: [episodeSchema],
   deaths: [episodeSchema],
+}, {
+  toJSON: { transform: toJSON },
 });
 
 function createSelector(type, short) {

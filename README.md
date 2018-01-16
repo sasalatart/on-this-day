@@ -35,65 +35,64 @@ Returns an array of JSON historical episodes, filtered by day, month and type.
 
 ```js
 {
-  "_id": "593c57b8fe84bd1ded1e9113",
+  "id": "593c57b8fe84bd1ded1e9113",
   "day": 17,
   "month": 6,
   "description": "June 17 is the 168th day of the year (169th in leap years) in the Gregorian calendar. There are 197 days remaining until the end of the year. This date is slightly more likely to fall on a Wednesday, Friday or Sunday (58 in 400 years each) than on Monday or Tuesday (57), and slightly less likely to occur on a Thursday or Saturday (56).",
-  "__v": 0,
   "deaths": [
     {
+      "id": "593c57b8fe84bd1ded1e9216",
       "year": "656",
       "data": "Uthman, Persian ruler (b. 577)",
-      "_id": "593c57b8fe84bd1ded1e9216",
       "kw": [
         {
+          "id": "593c57b8fe84bd1ded1e9218",
           "title": "656",
-          "href": "/wiki/656",
-          "_id": "593c57b8fe84bd1ded1e9218"
+          "href": "/wiki/656"
         },
         {
+          "id": "593c57b8fe84bd1ded1e9217",
           "title": "Uthman",
-          "href": "/wiki/Uthman",
-          "_id": "593c57b8fe84bd1ded1e9217"
+          "href": "/wiki/Uthman"
         }
       ]
     },
     {
+      "id": "593c57b8fe84bd1ded1e9213",
       "year": "676",
       "data": "Pope Adeodatus II",
-      "_id": "593c57b8fe84bd1ded1e9213",
       "kw": [
         {
+          "id": "593c57b8fe84bd1ded1e9215",
           "title": "676",
-          "href": "/wiki/676",
-          "_id": "593c57b8fe84bd1ded1e9215"
+          "href": "/wiki/676"
         },
         {
+          "id": "593c57b8fe84bd1ded1e9214",
           "title": "Pope Adeodatus II",
-          "href": "/wiki/Pope_Adeodatus_II",
-          "_id": "593c57b8fe84bd1ded1e9214"
+          "href": "/wiki/Pope_Adeodatus_II"
         }
       ]
     },
     {
+      "id": "593c57b8fe84bd1ded1e920f",
       "year": "850",
       "data": "Tachibana no Kachiko, Japanese wife of Emperor Saga (b. 786)",
-      "_id": "593c57b8fe84bd1ded1e920f",
       "kw": [
         {
+          "id": "593c57b8fe84bd1ded1e9212",
           "title": "850",
-          "href": "/wiki/850",
-          "_id": "593c57b8fe84bd1ded1e9212"
+          "href": "/wiki/850"
         },
         {
+          "id": "593c57b8fe84bd1ded1e9211",
           "title": "Tachibana no Kachiko",
-          "href": "/wiki/Tachibana_no_Kachiko",
-          "_id": "593c57b8fe84bd1ded1e9211"
+          "href": "/wiki/Tachibana_no_Kachiko"
         },
         {
+          "id": "593c57b8fe84bd1ded1e9210",
           "title": "Emperor Saga",
-          "href": "/wiki/Emperor_Saga",
-          "_id": "593c57b8fe84bd1ded1e9210"
+          "href": "/wiki/Emperor_Saga"
         }
       ]
     }, {
