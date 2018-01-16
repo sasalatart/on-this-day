@@ -35,7 +35,6 @@
   "scripts": {
     "start": "node src/server",
     "start-dev": "react-scripts start",
-    "postinstall": "react-scripts build",
     "build": "react-scripts build",
     "seed": "node src/server/db/seeds",
     "test": "react-scripts test --env=jsdom",
