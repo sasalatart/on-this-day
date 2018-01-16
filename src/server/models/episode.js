@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const toJSON = require('./toJSON');
 
 const keyWord = mongoose.Schema({
   title: {
@@ -9,6 +10,8 @@ const keyWord = mongoose.Schema({
     type: String,
     required: true,
   },
+}, {
+  toJSON: { transform: toJSON },
 });
 
 const episodeSchema = mongoose.Schema({
@@ -25,6 +28,8 @@ const episodeSchema = mongoose.Schema({
     required: true,
   },
   kw: [keyWord],
+}, {
+  toJSON: { transform: toJSON },
 });
 
 module.exports = mongoose.model('Episode', episodeSchema);

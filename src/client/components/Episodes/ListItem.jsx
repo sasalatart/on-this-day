@@ -58,7 +58,7 @@ function generateKeywordsText(kw) {
   return <p style={styles.keywords}>Keywords: {keywords}</p>;
 }
 
-const EpisodeListItem = ({ _id, data, year, isBCE, kw }) => {
+const EpisodeListItem = ({ id, data, year, isBCE, kw }) => {
   const leftAvatar = (
     <Avatar color={blue900} style={styles.yearContainer}>
       <p style={styles.year}>{year}</p>
@@ -67,7 +67,7 @@ const EpisodeListItem = ({ _id, data, year, isBCE, kw }) => {
   );
 
   return (
-    <div key={_id}>
+    <div key={id}>
       <Divider />
       <ListItem
         leftAvatar={leftAvatar}
@@ -80,7 +80,7 @@ const EpisodeListItem = ({ _id, data, year, isBCE, kw }) => {
 };
 
 EpisodeListItem.propTypes = {
-  _id: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
   data: PropTypes.string.isRequired,
   year: PropTypes.string.isRequired,
   isBCE: PropTypes.bool.isRequired,
