@@ -135,8 +135,8 @@ If the `short` query string is supplied, no keywords (`kw`) will be returned in 
 
 ```sh
 # Pull and run the application and mongodb
-$ docker run -d --name=mongo_db mongo:3.0.15
-$ docker run -d --name=onthisday -p 80:9000 --link=mongo_db:mongo_db sasalatart/on-this-day
+$ docker run -d --name=mongo mongo:3.0.15
+$ docker run -d --name=onthisday -p 80:9000 --link=mongo:mongo sasalatart/on-this-day
 
 # Setup the database
 $ docker exec onthisday npm run seed
