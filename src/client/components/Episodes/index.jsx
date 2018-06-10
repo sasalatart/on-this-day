@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import FontIcon from 'material-ui/FontIcon';
@@ -6,60 +6,63 @@ import EpisodesList from './List';
 import customPropTypes from '../../prop-types';
 import theme from '../../theme';
 
-export const tabs = {
+const TABS = {
   events: 0,
   births: 1,
   deaths: 2,
 };
 
-const Episodes = (props) => {
-  const {
-    location: {
-      query: {
-        day,
-        month,
-      },
-      data: {
-        description,
-        events,
-        births,
-        deaths,
-      },
-    },
-    currentTab,
-    onTabChange,
-  } = props;
+class Episodes extends Component {
+  constructor(props) {
+    super(props);
 
-  const eventsIcon = <FontIcon className="fa fa-calendar" />;
-  const birthsIcon = <FontIcon className="fa fa-birthday-cake" />;
-  const deathsIcon = <FontIcon className="fa fa-times" />;
+    this.state = { currentTab: TABS.events };
 
-  const createEpisodesList = (type, episodes) => (
-    <EpisodesList
-      episodeType={type}
-      day={day}
-      month={month}
-      description={description}
-      episodes={episodes}
-    />
-  );
+    this.handleTabChange = this.handleTabChange.bind(this);
+  }
 
-  return (
-    <div style={theme.height100}>
-      <Tabs onChange={onTabChange} value={currentTab}>
-        <Tab label="Events" value={tabs.events} icon={eventsIcon}>
-          {createEpisodesList('Events', events)}
-        </Tab>
-        <Tab label="Births" value={tabs.births} icon={birthsIcon}>
-          {createEpisodesList('Births', births)}
-        </Tab>
-        <Tab label="Deaths" value={tabs.deaths} icon={deathsIcon}>
-          {createEpisodesList('Deaths', deaths)}
-        </Tab>
-      </Tabs>
-    </div>
-  );
-};
+  handleTabChange(tab) {
+    this.setState({ currentTab: tab });
+  }
+
+  renderEpisodesList(type, episodes) {
+    const { query: { day, month }, data: { description } } = this.props.location;
+
+    return (
+      <EpisodesList
+        episodeType={type}
+        day={day}
+        month={month}
+        description={description}
+        episodes={episodes}
+      />
+    );
+  }
+
+  render() {
+    const { events, births, deaths } = this.props.location.data;
+
+    const eventsIcon = <FontIcon className="fa fa-calendar" />;
+    const birthsIcon = <FontIcon className="fa fa-birthday-cake" />;
+    const deathsIcon = <FontIcon className="fa fa-times" />;
+
+    return (
+      <div style={theme.height100}>
+        <Tabs onChange={this.handleTabChange} value={this.state.currentTab}>
+          <Tab label="Events" value={TABS.events} icon={eventsIcon}>
+            {this.renderEpisodesList('Events', events)}
+          </Tab>
+          <Tab label="Births" value={TABS.births} icon={birthsIcon}>
+            {this.renderEpisodesList('Births', births)}
+          </Tab>
+          <Tab label="Deaths" value={TABS.deaths} icon={deathsIcon}>
+            {this.renderEpisodesList('Deaths', deaths)}
+          </Tab>
+        </Tabs>
+      </div>
+    );
+  }
+}
 
 Episodes.propTypes = {
   location: PropTypes.shape({
@@ -74,8 +77,6 @@ Episodes.propTypes = {
       deaths: customPropTypes.episodes.isRequired,
     }).isRequired,
   }).isRequired,
-  currentTab: PropTypes.number.isRequired,
-  onTabChange: PropTypes.func.isRequired,
 };
 
 export default Episodes;

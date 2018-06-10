@@ -93,14 +93,10 @@ class LandingContainer extends Component {
   render() {
     return (
       <Landing
-        currentDay={this.state.currentDay}
-        currentMonth={this.state.currentMonth}
-        possibleMonths={this.state.possibleMonths}
-        errors={this.state.errors}
+        {...this.state}
         onDayChange={this.handleDayChange}
         onMonthChange={this.handleMonthChange}
         onSubmit={this.handleSubmit}
-        loading={this.state.loading}
       />
     );
   }
