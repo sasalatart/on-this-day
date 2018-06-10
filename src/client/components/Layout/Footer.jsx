@@ -12,6 +12,13 @@ const styles = {
     height: '48px',
     padding: '5px 0',
   },
+  repositoryWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  repositoryText: {
+    marginLeft: '5px',
+  },
 };
 
 const Footer = () => (
@@ -23,14 +30,14 @@ const Footer = () => (
     <p>
       <a
         href="https://github.com/sasalatart/on-this-day"
-        style={theme.anchor}
+        style={{ ...theme.anchor, ...styles.repositoryWrapper }}
         target="_blank"
         rel="noopener noreferrer"
       >
         <span className="icon">
           <FontIcon className="fa fa-github" />
         </span>
-        <span>Project Repository</span>
+        <span style={styles.repositoryText}>Project Repository</span>
       </a>
     </p>
   </footer>
