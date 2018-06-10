@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { List } from 'material-ui/List';
-import PaperBox from '../PaperBox';
+import PaperBox from '../Layout/PaperBox';
 import EpisodesListItem from './ListItem';
 import customPropTypes from '../../prop-types';
 import theme from '../../theme';
@@ -22,21 +22,29 @@ const writeDescription = description => (
     ))
 );
 
-const EpisodesList = ({ episodeType, day, month, description, episodes }) => (
-  <div style={styles.wrapper}>
-    <PaperBox>
-      <div>
-        <h1 style={theme.h1}>{episodeType}</h1>
-        <h2 style={theme.h2}>{`${month} ${day}`}</h2>
-        {writeDescription(description)}
+function EpisodesList({
+  episodeType,
+  day,
+  month,
+  description,
+  episodes,
+}) {
+  return (
+    <div style={styles.wrapper}>
+      <PaperBox>
+        <div>
+          <h1 style={theme.h1}>{episodeType}</h1>
+          <h2 style={theme.h2}>{`${month} ${day}`}</h2>
+          {writeDescription(description)}
 
-        <List>
-          {episodes.map(EpisodesListItem)}
-        </List>
-      </div>
-    </PaperBox>
-  </div>
-);
+          <List>
+            {episodes.map(EpisodesListItem)}
+          </List>
+        </div>
+      </PaperBox>
+    </div>
+  );
+}
 
 EpisodesList.propTypes = {
   episodeType: PropTypes.string.isRequired,
