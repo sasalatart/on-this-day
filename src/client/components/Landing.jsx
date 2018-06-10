@@ -4,7 +4,7 @@ import TextField from 'material-ui/TextField';
 import AutoComplete from 'material-ui/AutoComplete';
 import RaisedButton from 'material-ui/RaisedButton';
 import FontIcon from 'material-ui/FontIcon';
-import PaperBox from './PaperBox';
+import PaperBox from './Layout/PaperBox';
 import Footer from './Layout/Footer';
 import theme from '../theme';
 
@@ -31,20 +31,7 @@ const styles = {
   },
 };
 
-const properSubmitButtonIcon = (loading) => {
-  const className = loading ? 'fa fa-spin fa-spinner' : 'fa fa-search';
-  return <FontIcon className={className} />;
-};
-
-const properSubmitButtonLabel = loading => (
-  loading ? 'Searching' : 'Search'
-);
-
-const submitDisabled = (loading, errors) => (
-  loading || !!(errors.day || errors.month)
-);
-
-const Landing = ({
+function Landing({
   currentDay,
   currentMonth,
   possibleMonths,
@@ -53,69 +40,76 @@ const Landing = ({
   onMonthChange,
   onSubmit,
   loading,
-}) => (
-  <div style={styles.landing}>
-    <div style={styles.wrapper}>
-      <PaperBox>
-        <div>
-          <h1 style={theme.h1}>Search For Historical Episodes</h1>
+}) {
+  const submitIcon = <FontIcon className={loading ? 'fa fa-spin fa-spinner' : 'fa fa-search'} />;
 
-          <h2 style={theme.h2}>
-            <a
-              href="http://www.wikipedia.org"
-              style={theme.anchor}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Source: Wikipedia
-            </a>
-          </h2>
+  return (
+    <div style={styles.landing}>
+      <div style={styles.wrapper}>
+        <PaperBox>
+          <div>
+            <h1 style={theme.h1}>Search For Historical Episodes</h1>
 
-          <form onSubmit={onSubmit} style={styles.form}>
-            <TextField
-              floatingLabelText="Insert day"
-              hintText="Example: 15"
-              errorText={errors.day}
-              onChange={onDayChange}
-              value={currentDay}
-            />
+            <h2 style={theme.h2}>
+              <a
+                href="http://www.wikipedia.org"
+                style={theme.anchor}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Source: Wikipedia
+              </a>
+            </h2>
 
-            <AutoComplete
-              floatingLabelText="Insert month"
-              hintText="Example: April"
-              errorText={errors.month}
-              dataSource={possibleMonths}
-              filter={AutoComplete.caseInsensitiveFilter}
-              onUpdateInput={onMonthChange}
-              searchText={currentMonth}
-            />
+            <form onSubmit={onSubmit} style={styles.form}>
+              <TextField
+                floatingLabelText="Insert day"
+                hintText="Example: 15"
+                errorText={errors.day}
+                onChange={onDayChange}
+                value={currentDay}
+              />
 
-            <RaisedButton
-              label={properSubmitButtonLabel(loading)}
-              icon={properSubmitButtonIcon(loading)}
-              primary
-              disabled={submitDisabled(loading, errors)}
-              onClick={onSubmit}
-              style={styles.button}
-              type="submit"
-            />
-          </form>
-        </div>
-      </PaperBox>
+              <AutoComplete
+                floatingLabelText="Insert month"
+                hintText="Example: April"
+                errorText={errors.month}
+                dataSource={possibleMonths}
+                filter={AutoComplete.caseInsensitiveFilter}
+                onUpdateInput={onMonthChange}
+                searchText={currentMonth}
+              />
+
+              <RaisedButton
+                type="submit"
+                primary
+                label={loading ? 'Searching' : 'Search'}
+                icon={submitIcon}
+                onClick={onSubmit}
+                disabled={loading || !!(errors.day || errors.month)}
+                style={styles.button}
+              />
+            </form>
+          </div>
+        </PaperBox>
+      </div>
+      <Footer />
     </div>
-    <Footer />
-  </div>
-);
+  );
+}
 
 Landing.propTypes = {
   currentDay: PropTypes.string.isRequired,
   currentMonth: PropTypes.string.isRequired,
   possibleMonths: PropTypes.arrayOf(PropTypes.string).isRequired,
-  errors: PropTypes.shape({ day: PropTypes.string, month: PropTypes.string }).isRequired,
+  loading: PropTypes.bool.isRequired,
+  errors: PropTypes.shape({
+    day: PropTypes.string,
+    month: PropTypes.string,
+  }).isRequired,
   onDayChange: PropTypes.func.isRequired,
   onMonthChange: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
-  loading: PropTypes.bool.isRequired,
 };
 
 export default Landing;

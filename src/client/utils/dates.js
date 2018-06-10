@@ -52,11 +52,11 @@ const validateMonth = (currentDay, monthName) => (
 export const getDateErrors = (day, month) => {
   const errors = {};
 
-  if (!day || isNaN(day) || +day < 1 || +day > 31) {
+  if (!day || Number.isNaN(day) || +day < 1 || +day > 31) {
     errors.day = 'Invalid Day';
   }
 
-  if (!month || isNaN(month) || +month < 1 || +month > 12) {
+  if (!month || Number.isNaN(month) || +month < 1 || +month > 12) {
     errors.month = 'Invalid Month';
   }
 

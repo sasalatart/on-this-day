@@ -7,7 +7,12 @@ const Day = require('../../models/day');
 
 console.log('Seeding data...');
 
-const PROGRESS_OPTIONS = { total: 365, width: 50, incomplete: '.', head: '>' };
+const PROGRESS_OPTIONS = {
+  total: 365,
+  width: 50,
+  incomplete: '.',
+  head: '>',
+};
 
 function createDay(date) {
   const [monthName, day] = date.split('-');

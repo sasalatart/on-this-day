@@ -9,14 +9,16 @@ const styles = {
   },
 };
 
-const Header = () => (
-  <Link to="/" style={theme.anchor}>
-    <AppBar
-      title="On This Day"
-      titleStyle={styles.title}
-      showMenuIconButton={false}
-    />
-  </Link>
-);
+function Header() {
+  return (
+    <Link to="/" href="/" style={theme.anchor}>
+      <AppBar
+        title="On This Day"
+        titleStyle={styles.title}
+        showMenuIconButton={false}
+      />
+    </Link>
+  );
+}
 
 export default Header;

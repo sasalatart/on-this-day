@@ -12,16 +12,25 @@ const TABS = {
   deaths: 2,
 };
 
-class Episodes extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = { currentTab: TABS.events };
-
-    this.handleTabChange = this.handleTabChange.bind(this);
+export default class Episodes extends Component {
+  static propTypes = {
+    location: PropTypes.shape({
+      query: PropTypes.shape({
+        day: PropTypes.string.isRequired,
+        month: PropTypes.string.isRequired,
+      }),
+      data: PropTypes.shape({
+        description: PropTypes.string.isRequired,
+        events: customPropTypes.episodes.isRequired,
+        births: customPropTypes.episodes.isRequired,
+        deaths: customPropTypes.episodes.isRequired,
+      }).isRequired,
+    }).isRequired,
   }
 
-  handleTabChange(tab) {
+  state = { currentTab: TABS.events };
+
+  handleTabChange = (tab) => {
     this.setState({ currentTab: tab });
   }
 
@@ -63,20 +72,3 @@ class Episodes extends Component {
     );
   }
 }
-
-Episodes.propTypes = {
-  location: PropTypes.shape({
-    query: PropTypes.shape({
-      day: PropTypes.string.isRequired,
-      month: PropTypes.string.isRequired,
-    }),
-    data: PropTypes.shape({
-      description: PropTypes.string.isRequired,
-      events: customPropTypes.episodes.isRequired,
-      births: customPropTypes.episodes.isRequired,
-      deaths: customPropTypes.episodes.isRequired,
-    }).isRequired,
-  }).isRequired,
-};
-
-export default Episodes;

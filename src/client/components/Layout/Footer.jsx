@@ -12,35 +12,35 @@ const styles = {
     height: '48px',
     padding: '5px 0',
   },
-  repositoryWrapper: {
+  repoWrapper: {
+    ...theme.anchor,
     display: 'flex',
     alignItems: 'center',
   },
-  repositoryText: {
+  repoText: {
     marginLeft: '5px',
   },
 };
 
-const Footer = () => (
-  <footer style={styles.footer}>
-    <p>Sebastián Salata R-T</p>
+const REPO_URL = 'https://github.com/sasalatart/on-this-day';
 
-    <p>2017</p>
+function Footer() {
+  return (
+    <footer style={styles.footer}>
+      <p>Sebastián Salata R-T</p>
 
-    <p>
-      <a
-        href="https://github.com/sasalatart/on-this-day"
-        style={{ ...theme.anchor, ...styles.repositoryWrapper }}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <span className="icon">
-          <FontIcon className="fa fa-github" />
-        </span>
-        <span style={styles.repositoryText}>Project Repository</span>
-      </a>
-    </p>
-  </footer>
-);
+      <p>2017</p>
+
+      <p>
+        <a href={REPO_URL} style={styles.repoWrapper} target="_blank" rel="noopener noreferrer">
+          <span className="icon">
+            <FontIcon className="fa fa-github" />
+          </span>
+          <span style={styles.repoText}>Project Repository</span>
+        </a>
+      </p>
+    </footer>
+  );
+}
 
 export default Footer;

@@ -14,11 +14,13 @@ const style = {
   overflowY: 'auto',
 };
 
-const PaperBox = props => (
-  <Paper style={style} zDepth={5} >
-    {props.children}
-  </Paper>
-);
+function PaperBox({ children }) {
+  return (
+    <Paper style={style} zDepth={5} >
+      {children}
+    </Paper>
+  );
+}
 
 PaperBox.propTypes = {
   children: PropTypes.element.isRequired,

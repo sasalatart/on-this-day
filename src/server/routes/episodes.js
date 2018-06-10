@@ -4,7 +4,12 @@ const Day = require('../models/day');
 const { createSelector } = require('../models/day');
 
 router.get('/', checkValidRequest, async (req, res, next) => {
-  const { day: intDay, month: intMonth, type, short } = req.query;
+  const {
+    day: intDay,
+    month: intMonth,
+    type,
+    short,
+  } = req.query;
 
   try {
     const day = await Day.findOne({ day: intDay, month: intMonth }, createSelector(type, short));

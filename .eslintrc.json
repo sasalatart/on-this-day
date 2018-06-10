@@ -1,11 +1,24 @@
 {
-    "extends": "airbnb",
-    "plugins": [
-        "react",
-        "jsx-a11y",
-        "import"
-    ],
-    "globals": {
-        "CustomEvent": true
-    }
+  "parser": "babel-eslint",
+  "extends": [
+    "airbnb",
+    "plugin:jest/recommended"
+  ],
+  "plugins": [
+    "react",
+    "jsx-a11y",
+    "import",
+    "jest"
+  ],
+  "env": {
+    "browser": true,
+    "jest/globals": true
+  },
+  "rules": {
+    "strict": 0,
+    "react/no-typos": 0
+  },
+  "globals": {
+    "CustomEvent": true
+  }
 }

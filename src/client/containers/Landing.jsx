@@ -16,25 +16,23 @@ import {
 const currentDay = `${moment().date()}`;
 const currentMonth = moment().startOf('month').format('MMMM');
 
-class LandingContainer extends Component {
-  constructor(props) {
-    super(props);
+export default class LandingContainer extends Component {
+  static propTypes = {
+    location: PropTypes.shape({
+      search: PropTypes.string,
+    }).isRequired,
+  };
 
-    this.state = {
-      currentDay,
-      currentMonth,
-      possibleMonths: possibleMonthsForDay(currentDay),
-      errors: {
-        day: undefined,
-        month: undefined,
-      },
-      loading: false,
-    };
-
-    this.handleDayChange = this.handleDayChange.bind(this);
-    this.handleMonthChange = this.handleMonthChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+  state = {
+    currentDay,
+    currentMonth,
+    possibleMonths: possibleMonthsForDay(currentDay),
+    errors: {
+      day: undefined,
+      month: undefined,
+    },
+    loading: false,
+  };
 
   componentDidMount() {
     const { location: { search } } = this.props;
@@ -52,7 +50,7 @@ class LandingContainer extends Component {
     setTimeout(() => this.handleSubmit(event), 0);
   }
 
-  handleDayChange(event, day) {
+  handleDayChange = (event, day) => {
     const dateErrors = getDateErrors(day, getMonthNumber(this.state.currentMonth));
     const newState = { currentDay: day, errors: dateErrors };
 
@@ -63,13 +61,13 @@ class LandingContainer extends Component {
     this.setState(newState);
   }
 
-  handleMonthChange(monthName) {
+  handleMonthChange = (monthName) => {
     const dateErrors = getDateErrors(this.state.currentDay, getMonthNumber(monthName));
     const newState = { currentMonth: monthName, errors: dateErrors };
     this.setState(newState);
   }
 
-  handleSubmit(event) {
+  handleSubmit = (event) => {
     event.preventDefault();
 
     this.setState({ loading: true });
@@ -101,11 +99,3 @@ class LandingContainer extends Component {
     );
   }
 }
-
-LandingContainer.propTypes = {
-  location: PropTypes.shape({
-    search: PropTypes.string,
-  }).isRequired,
-};
-
-export default LandingContainer;

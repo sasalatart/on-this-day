@@ -34,19 +34,19 @@ const styles = {
   },
 };
 
+const WIKI_URL = 'http://wikipedia.org';
+
 function generateKeywordsText(kw) {
   if (!kw) {
     return undefined;
   }
-
-  const wikiUrl = 'http://wikipedia.org';
 
   /* eslint-disable react/no-array-index-key */
   const keywords = kw
     .map(({ href, title }, index) => (
       <a
         key={index}
-        href={`${wikiUrl}${href}`}
+        href={`${WIKI_URL}${href}`}
         style={styles.keyword}
         target="_blank"
         rel="noopener noreferrer"
@@ -58,7 +58,13 @@ function generateKeywordsText(kw) {
   return <p style={styles.keywords}>Keywords: {keywords}</p>;
 }
 
-const EpisodeListItem = ({ id, data, year, isBCE, kw }) => {
+function EpisodeListItem({
+  id,
+  data,
+  year,
+  isBCE,
+  kw,
+}) {
   const leftAvatar = (
     <Avatar color={blue900} style={styles.yearContainer}>
       <p style={styles.year}>{year}</p>
@@ -77,7 +83,7 @@ const EpisodeListItem = ({ id, data, year, isBCE, kw }) => {
       />
     </div>
   );
-};
+}
 
 EpisodeListItem.propTypes = {
   id: PropTypes.string.isRequired,

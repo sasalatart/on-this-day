@@ -9,14 +9,16 @@ const styles = {
   },
 };
 
-const Layout = ({ children }) => (
-  <MuiThemeProvider>
-    <div style={styles.appContainer}>
-      <Header />
-      {children}
-    </div>
-  </MuiThemeProvider>
-);
+function Layout({ children }) {
+  return (
+    <MuiThemeProvider>
+      <div style={styles.appContainer}>
+        <Header />
+        {children}
+      </div>
+    </MuiThemeProvider>
+  );
+}
 
 Layout.propTypes = {
   children: PropTypes.arrayOf(PropTypes.element).isRequired,
