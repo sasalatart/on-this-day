@@ -95,7 +95,7 @@ const Landing = ({
               icon={properSubmitButtonIcon(loading)}
               primary
               disabled={submitDisabled(loading, errors)}
-              onTouchTap={onSubmit}
+              onClick={onSubmit}
               style={styles.button}
               type="submit"
             />
