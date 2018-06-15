@@ -8,8 +8,10 @@ const keyword = PropTypes.shape({
 const keywords = PropTypes.arrayOf(keyword);
 
 const episode = PropTypes.shape({
+  id: PropTypes.string.isRequired,
   data: PropTypes.string.isRequired,
   year: PropTypes.string.isRequired,
+  isBCE: PropTypes.bool.isRequired,
   kw: keywords,
 });
 

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Tabs, Tab } from 'material-ui/Tabs';
-import FontIcon from 'material-ui/FontIcon';
-import EpisodesList from './List';
+import EpisodesTimeLine from './TimeLine';
+import { EPISODE_TYPES, EPISODE_ICONS } from './TimeLine/Item';
 import customPropTypes from '../../prop-types';
 import theme from '../../theme';
 
@@ -38,8 +38,8 @@ export default class Episodes extends Component {
     const { query: { day, month }, data: { description } } = this.props.location;
 
     return (
-      <EpisodesList
-        episodeType={type}
+      <EpisodesTimeLine
+        episodesType={type}
         day={day}
         month={month}
         description={description}
@@ -51,21 +51,17 @@ export default class Episodes extends Component {
   render() {
     const { events, births, deaths } = this.props.location.data;
 
-    const eventsIcon = <FontIcon className="fa fa-calendar" />;
-    const birthsIcon = <FontIcon className="fa fa-birthday-cake" />;
-    const deathsIcon = <FontIcon className="fa fa-times" />;
-
     return (
       <div style={theme.height100}>
         <Tabs onChange={this.handleTabChange} value={this.state.currentTab}>
-          <Tab label="Events" value={TABS.events} icon={eventsIcon}>
-            {this.renderEpisodesList('Events', events)}
+          <Tab label={EPISODE_TYPES.events} value={TABS.events} icon={EPISODE_ICONS.Events}>
+            {this.renderEpisodesList(EPISODE_TYPES.events, events)}
           </Tab>
-          <Tab label="Births" value={TABS.births} icon={birthsIcon}>
-            {this.renderEpisodesList('Births', births)}
+          <Tab label={EPISODE_TYPES.births} value={TABS.births} icon={EPISODE_ICONS.Births}>
+            {this.renderEpisodesList(EPISODE_TYPES.births, births)}
           </Tab>
-          <Tab label="Deaths" value={TABS.deaths} icon={deathsIcon}>
-            {this.renderEpisodesList('Deaths', deaths)}
+          <Tab label={EPISODE_TYPES.deaths} value={TABS.deaths} icon={EPISODE_ICONS.Deaths}>
+            {this.renderEpisodesList(EPISODE_TYPES.deaths, deaths)}
           </Tab>
         </Tabs>
       </div>
