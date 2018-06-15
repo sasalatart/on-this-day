@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import 'react-vertical-timeline-component/style.min.css';
 import registerServiceWorker from './registerServiceWorker';
 import Router from './client/router';
 import '../node_modules/sweetalert/dist/sweetalert.css';
