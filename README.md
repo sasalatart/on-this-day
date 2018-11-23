@@ -135,10 +135,13 @@ If the `short` query string is supplied, no keywords (`kw`) will be returned in 
 
 ```sh
 # Start database and app server via docker-compose
-$ docker-compose up
+$ docker-compose up -d
 
 # Setup the database
 $ docker exec on_this_day npm run seed
+
+# Stop docker containers:
+$ docker-compose stop
 ```
 
 Now the app should be available on port 9000:  `curl http://127.0.0.1:9000`
