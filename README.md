@@ -134,12 +134,11 @@ If the `short` query string is supplied, no keywords (`kw`) will be returned in 
 #### Docker
 
 ```sh
-# Pull and run the application and mongodb
-$ docker run -d --name=mongo mongo:3.0.15
-$ docker run -d --name=onthisday -p 80:9000 --link=mongo:mongo sasalatart/on-this-day
+# Start database and app server via docker-compose
+$ docker-compose up -d
 
 # Setup the database
-$ docker exec onthisday npm run seed
+$ docker exec on_this_day npm run seed
 ```
 
 The server's machine should now be redirecting its port 80 to the container's port 9000.
