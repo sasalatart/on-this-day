@@ -131,15 +131,47 @@ If the `short` query string is supplied, no keywords (`kw`) will be returned in 
 5. run `nodemon src/server` (turns on the backend server)
 6. run `yarn run start-dev` (turns on the frontend development server)
 
-#### Docker
+#### Docker for production deployment
 
 ```sh
-# Pull and run the application and mongodb
-$ docker run -d --name=mongo mongo:3.0.15
-$ docker run -d --name=onthisday -p 80:9000 --link=mongo:mongo sasalatart/on-this-day
+# Start database and app server via docker-compose
+$ docker-compose up -d
 
 # Setup the database
-$ docker exec onthisday npm run seed
+$ docker exec on_this_day npm run seed
+
+# Stop docker containers:
+$ docker-compose stop
 ```
 
-The server's machine should now be redirecting its port 80 to the container's port 9000.
+Now the app should be available on port 9000:  `curl http://127.0.0.1:9000`
+
+The app can be mapped to a different port in `docker-compose.yml` file
+
+#### Starting docker on system-startup
+
+We'll use systemd to launch docker-compose in detached mode, let's create service file in `/etc/systemd/system/onthisday.service` with contents:
+
+```sh
+[Unit]
+Description=Docker Compose Application Service for on_this_day
+Requires=docker.service
+After=docker.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+WorkingDirectory=/change/this/to/project/directory
+ExecStart=/usr/local/bin/docker-compose up -d
+ExecStop=/usr/local/bin/docker-compose down
+TimeoutStartSec=0
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Be sure to change the WorkingDirectory to where you cloned this repository.
+
+Now let's enable the service: `systemctl enable onthisday`
+
+Restart the machine to make sure it will bring up the containers on system startup
