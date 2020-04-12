@@ -1,0 +1,27 @@
+{
+  "name": "@on-this-day/scraper",
+  "version": "1.0.0",
+  "main": "build/index.js",
+  "author": "Sebastián Salata R-T <sa.salatart@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "lint": "eslint src --ext .ts",
+    "build": "yarn clean && yarn compile",
+    "clean": "rm -rf ./build",
+    "compile": "tsc --build",
+    "start": "node build",
+    "start:dev": "ts-node src"
+  },
+  "dependencies": {
+    "@on-this-day/shared": "^1.0.0",
+    "cheerio": "^1.0.0-rc.3",
+    "jsonfile": "^6.0.1",
+    "request-promise": "^4.2.5"
+  },
+  "devDependencies": {
+    "@types/cheerio": "^0.22.17",
+    "@types/jsonfile": "^5.0.0",
+    "@types/request-promise": "^4.1.46"
+  }
+}

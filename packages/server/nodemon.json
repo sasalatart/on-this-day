@@ -1,0 +1,5 @@
+{
+  "watch": ["src"],
+  "exec": "yarn codegen && ts-node src",
+  "ext": "ts,graphql"
+}

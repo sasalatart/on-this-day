@@ -1,19 +1,39 @@
-FROM node:8-alpine
+FROM node:12.13.1-alpine3.10 AS builder
 
-LABEL maintainer="Sebastian Salata R-T <SA.SalataRT@GMail.com>"
+WORKDIR /build
 
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
+COPY package.json yarn.lock .yarnclean tsconfig.json ./
+COPY packages packages
+RUN yarn install --frozen-lockfile
+RUN yarn build
 
-COPY package.json /usr/src/app/
-COPY yarn.lock /usr/src/app/
-RUN yarn install
+###
+
+FROM node:12.13.1-alpine3.10
+
+LABEL maintainer="Sebastian Salata R-T <sa.salatart@gmail.com>"
 
 ENV NODE_ENV=production
 
-COPY . /usr/src/app
-RUN yarn build
+WORKDIR /usr/src/app
 
-EXPOSE 9000
+COPY package.json yarn.lock ./
+
+COPY --from=builder /build/packages/shared/build packages/shared/build
+COPY --from=builder /build/packages/shared/package.json packages/shared/package.json
+
+COPY --from=builder /build/packages/scraper/build packages/scraper/build
+COPY --from=builder /build/packages/scraper/package.json packages/scraper/package.json
+
+COPY --from=builder /build/packages/server/build packages/server/build
+COPY --from=builder /build/packages/server/package.json packages/server/package.json
+
+COPY --from=builder /build/packages/client/build packages/client/build
+COPY --from=builder /build/packages/client/package.json packages/client/package.json
+
+COPY --from=builder /build/packages/eslint-config/package.json packages/eslint-config/
+COPY --from=builder /build/packages/eslint-config/index.js packages/eslint-config/
+
+RUN yarn install --production
 
 CMD ["yarn", "start"]

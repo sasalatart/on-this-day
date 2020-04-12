@@ -1,19 +1,18 @@
-version: '3'
+version: "3"
 
 services:
   mongo:
+    image: mongo:4.2.2
     container_name: mongo
-    image: mongo:3.2.21
     ports:
       - 27017:27017
 
   app:
+    build: .
     container_name: on_this_day
     environment:
-    - DB_HOST=mongo
-    build: .
+      - MONGODB_HOST=mongo
     ports:
       - 9000:9000
     depends_on:
       - mongo
-

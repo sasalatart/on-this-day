@@ -1,0 +1,45 @@
+{
+  "name": "@on-this-day/server",
+  "version": "1.0.0",
+  "main": "build/index.js",
+  "author": "Sebastián Salata R-T <sa.salatart@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "lint": "eslint src --ext .ts",
+    "build": "yarn clean && yarn compile",
+    "clean": "rm -rf ./build",
+    "compile": "yarn codegen && tsc --build && yarn copy:graphql && yarn copy:seeds",
+    "copy:graphql": "cp src/type-defs/*.graphql build/type-defs",
+    "copy:seeds": "cp src/db/seeds/data.json build/db/seeds/data.json",
+    "start": "yarn seed && node build",
+    "seed": "node build/db/seeds",
+    "console": "node --experimental-repl-await build/console.js",
+    "dev:start": "yarn dev:seed && nodemon",
+    "dev:seed": "ts-node src/db/seeds",
+    "dev:console": "yarn compile && yarn console",
+    "codegen": "graphql-codegen --config codegen.yml"
+  },
+  "dependencies": {
+    "@on-this-day/shared": "^1.0.0",
+    "apollo-server-express": "^2.12.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "graphql-import": "^1.0.2",
+    "graphql-tools": "^4.0.7",
+    "i18next": "^19.4.1",
+    "mongoose": "^5.9.6"
+  },
+  "devDependencies": {
+    "@graphql-codegen/add": "^1.13.2",
+    "@graphql-codegen/cli": "^1.13.2",
+    "@graphql-codegen/introspection": "^1.13.2",
+    "@graphql-codegen/typescript": "1.13.2",
+    "@graphql-codegen/typescript-resolvers": "1.13.2",
+    "@types/cors": "^2.8.6",
+    "@types/express": "^4.17.6",
+    "@types/i18next": "^13.0.0",
+    "@types/mongoose": "^5.7.7",
+    "nodemon": "^2.0.2"
+  }
+}

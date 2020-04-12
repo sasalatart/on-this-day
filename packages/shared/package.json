@@ -1,0 +1,27 @@
+{
+  "name": "@on-this-day/shared",
+  "version": "1.0.0",
+  "main": "build/index.js",
+  "typings": "build/index.d.ts",
+  "author": "Sebastián Salata R-T <sa.salatart@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "files": [
+    "build"
+  ],
+  "scripts": {
+    "lint": "eslint src --ext .js,.ts",
+    "build": "yarn clean && yarn compile",
+    "clean": "rm -rf ./build",
+    "compile": "tsc --build",
+    "compile:watch": "yarn compile --watch"
+  },
+  "dependencies": {
+    "progress": "^2.0.3",
+    "yup": "^0.28.3"
+  },
+  "devDependencies": {
+    "@types/progress": "^2.0.3",
+    "@types/yup": "^0.26.35"
+  }
+}

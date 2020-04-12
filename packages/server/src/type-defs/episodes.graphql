@@ -1,0 +1,21 @@
+enum EpisodeKind {
+  events
+  births
+  deaths
+}
+
+type Episode {
+  id: ObjectId!
+  yearDateId: ObjectId! @IDFrom(from: "yearDate")
+  kind: EpisodeKind!
+  year: Int!
+  month: Int!
+  day: Int!
+  description: String!
+  keywords: [Keyword]!
+}
+
+type Keyword {
+  title: String!
+  href: String!
+}

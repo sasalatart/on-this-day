@@ -1,177 +1,157 @@
 # On This Day
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![Code Climate](https://codeclimate.com/github/sasalatart/on-this-day/badges/gpa.svg)](https://codeclimate.com/github/sasalatart/on-this-day)
-[![Docker Automated build](https://img.shields.io/docker/automated/jrottenberg/ffmpeg.svg)](sasalatart/on-this-day)
-[![](https://images.microbadger.com/badges/version/sasalatart/on-this-day.svg)](https://microbadger.com/images/sasalatart/on-this-day)
-[![](https://images.microbadger.com/badges/image/sasalatart/on-this-day.svg)](https://microbadger.com/images/sasalatart/on-this-day)
+[![License: MIT][mit]](https://opensource.org/licenses/MIT)
+[![code style: prettier][prettier]](https://github.com/prettier/prettier)
 
 ## About
 
-Application built with [Express](https://expressjs.com/) and [React](https://facebook.github.io/react/) that returns events, births and deaths that occurred during a specific day of history. This information has been retrieved from Wikipedia using a scraper.
+_On This Day_ is an app that serves and displays events, births and deaths that occurred during the
+queried day of history, scraped from [Wikipedia](https://www.wikipedia.org/).
 
-## API Usage
+The app was built as a GraphQL monorepo via yarn workspaces using the following technologies:
 
-#### Episodes
+1. [Node.js v.12.13.1](https://nodejs.org/en/)
+2. [TypeScript](https://www.typescriptlang.org/)
+3. [Apollo Server](https://www.apollographql.com/docs/apollo-server/)
+4. [Apollo Client](https://www.apollographql.com/docs/react/)
+5. [Mongoose](https://mongoosejs.com/)
+6. [React](https://facebook.github.io/react/)
 
-Returns an array of JSON historical episodes, filtered by day, month and type.
+Custom packages included in the monorepo are:
 
-- **URL:** `api/episodes?type=<type>&day=<day>&month=<month>`
+- `server`: Backend GraphQL logic
+- `client`: Frontend GraphQL + React app
+- `scraper`: Scraps seed data from Wikipedia
+- `shared`: Shared code for all packages, such as validations
+- `eslint-config`: Base eslint config for the whole project
 
-- **Method:** `GET`
+## Queries
 
-- **URL Query Params:**
+#### yearDate
 
-| Parameter | Required | Possible Values                       | Default Value |
-|-----------|----------|---------------------------------------|---------------|
-| type      | no       | "all", "events", "births" or "deaths" | "all"         |
-| day       | yes      | Any integer between 1 and 31.         | -             |
-| month     | yes      | Any integer between 1 and 12.         | -             |
-| short     | no       | true, false                           | false         |
+Returns an array of historical episodes, filtered by day and month.
 
-- **Example Success Response:**
-  - **Code:** 200
-  - **Example Content:**
+- **args:**
 
-```js
-{
-  "id": "593c57b8fe84bd1ded1e9113",
-  "day": 17,
-  "month": 6,
-  "description": "June 17 is the 168th day of the year (169th in leap years) in the Gregorian calendar. There are 197 days remaining until the end of the year. This date is slightly more likely to fall on a Wednesday, Friday or Sunday (58 in 400 years each) than on Monday or Tuesday (57), and slightly less likely to occur on a Thursday or Saturday (56).",
-  "deaths": [
-    {
-      "id": "593c57b8fe84bd1ded1e9216",
-      "year": "656",
-      "data": "Uthman, Persian ruler (b. 577)",
-      "kw": [
-        {
-          "id": "593c57b8fe84bd1ded1e9218",
-          "title": "656",
-          "href": "/wiki/656"
-        },
-        {
-          "id": "593c57b8fe84bd1ded1e9217",
-          "title": "Uthman",
-          "href": "/wiki/Uthman"
+  - input:
+    - month (Int!): An integer between 1 and 12.
+    - day (Int!): An integer between 1 and 31.
+
+- **Example usage:**
+
+  ```graphql
+  {
+    yearDate(input: { day: 13, month: 10 }) {
+      day
+      month
+      description
+      events {
+        id
+        year
+        description
+        keywords {
+          title
+          href
         }
-      ]
-    },
-    {
-      "id": "593c57b8fe84bd1ded1e9213",
-      "year": "676",
-      "data": "Pope Adeodatus II",
-      "kw": [
-        {
-          "id": "593c57b8fe84bd1ded1e9215",
-          "title": "676",
-          "href": "/wiki/676"
-        },
-        {
-          "id": "593c57b8fe84bd1ded1e9214",
-          "title": "Pope Adeodatus II",
-          "href": "/wiki/Pope_Adeodatus_II"
-        }
-      ]
-    },
-    {
-      "id": "593c57b8fe84bd1ded1e920f",
-      "year": "850",
-      "data": "Tachibana no Kachiko, Japanese wife of Emperor Saga (b. 786)",
-      "kw": [
-        {
-          "id": "593c57b8fe84bd1ded1e9212",
-          "title": "850",
-          "href": "/wiki/850"
-        },
-        {
-          "id": "593c57b8fe84bd1ded1e9211",
-          "title": "Tachibana no Kachiko",
-          "href": "/wiki/Tachibana_no_Kachiko"
-        },
-        {
-          "id": "593c57b8fe84bd1ded1e9210",
-          "title": "Emperor Saga",
-          "href": "/wiki/Emperor_Saga"
-        }
-      ]
-    }, {
-      ...
+      }
     }
-  ]
-}
-```
-
-**Note:** The keywords' link (href) is relative to Wikipedia's domain. For example `/wiki/Emperor_Saga` turns to be `https://wikipedia.org/wiki/Emperor_Saga`.
-
-- **Sample Call:**
-  ```javascript
-  $.ajax({
-    url: "api/episodes?type=deaths&day=17&month=6",
-    dataType: "json",
-    type : "GET",
-    success : function(response) {
-      console.log(response);
-    }
-  });
+  }
   ```
 
-#### About Short Mode
+- **Example response:**
 
-If the `short` query string is supplied, no keywords (`kw`) will be returned in the response.
+  ```js
+  {
+    "day": 13,
+    "month": 10,
+    "description": "October 13 is the 286th day of the year (287th in leap years) in the Gregorian calendar. 79 days remain until the end of the year.",
+    "events": [
+      {
+        "id": '5e8e7aa06ae7679b783cff22',
+        "year": 54,
+        "description": 'Roman emperor Claudius dies from poisoning under mysterious circumstances.',
+        "keywords": [
+          {
+            "title": 'AD 54',
+            "href": '/wiki/AD_54',
+          },
+          {
+            "title": 'Claudius',
+            "href": '/wiki/Claudius',
+          },
+        ],
+      },
+      {
+        "id": '5e8e7aa06ae7679b783cff25',
+        "year": 409,
+        "description": 'Vandals and Alans cross the Pyrenees and appear in Hispania.',
+        "keywords": [
+          {
+            "title": '409',
+            "href": '/wiki/409',
+          },
+          {
+            "title": 'Vandals',
+            "href": '/wiki/Vandals',
+          },
+          {
+            "title": 'Alans',
+            "href": '/wiki/Alans',
+          },
+          {
+            "title": 'Hispania',
+            "href": '/wiki/Hispania',
+          },
+        ],
+      },
+      ...
+    ]
+  }
+  ```
+
+  **Note:** The keywords' link (href) is relative to Wikipedia's domain. For example, `/wiki/Vandals`
+  turns to be `https://wikipedia.org/wiki/Vandals`.
+
+You may check the whole schema by visiting <http://localhost:9000/graphql/playground> after running
+the server.
 
 ## Setup
 
 #### Development
 
-1. Clone and cd into this repository
-2. run `yarn install`
-3. Export the environment variables `DB_HOST` and `DB_PORT` (27017 by default), or alternatively `MONGODB_URI`.
-4. Turn on your local mongodb server if that is the case.
-5. run `nodemon src/server` (turns on the backend server)
-6. run `yarn run start-dev` (turns on the frontend development server)
+1. Run `yarn install`
+2. Make sure that you have a local (or cloud-based) mongodb server up and running.
+3. Export the mongodb env variables:
 
-#### Docker for production deployment
+   - `MONGODB_HOST` and `MONGODB_PORT` (localhost and 27017 by default), or alternatively
+   - `MONGODB_URI`
+
+4. Seed built-in data to the database by running `yarn seed:dev`
+5. Run `yarn dev`, which will [concurrently][concurrently] turn on the GraphQL API, the React App
+   and watch for changes in all packages.
+
+Other additional `yarn` scripts that might be helpful:
+
+- `yarn lint`: runs eslint through the whole monorepo.
+- `yarn build`: builds GraphQL schemas into TypeScript, and then builds TS code into its JS version.
+- `yarn scrap:dev`: runs the Wikipedia scraper.
+- `yarn seed:dev --force`: runs the seeds again, but this time wiping the database clean.
+- `yarn console:dev`: opens a console to interact with the backend.
+- `yarn db`: creates and runs a local mongodb container via Docker (requires starting Docker).
+
+#### Running via Docker
 
 ```sh
-# Start database and app server via docker-compose
+# Start database and app server via docker-compose.
+# You might have to wait for a moment while the backend seeds the database.
 $ docker-compose up -d
-
-# Setup the database
-$ docker exec on_this_day npm run seed
 
 # Stop docker containers:
 $ docker-compose stop
 ```
 
-Now the app should be available on port 9000:  `curl http://127.0.0.1:9000`
+Now the app should be available on port 9000.
 
-The app can be mapped to a different port in `docker-compose.yml` file
-
-#### Starting docker on system-startup
-
-We'll use systemd to launch docker-compose in detached mode, let's create service file in `/etc/systemd/system/onthisday.service` with contents:
-
-```sh
-[Unit]
-Description=Docker Compose Application Service for on_this_day
-Requires=docker.service
-After=docker.service
-
-[Service]
-Type=oneshot
-RemainAfterExit=yes
-WorkingDirectory=/change/this/to/project/directory
-ExecStart=/usr/local/bin/docker-compose up -d
-ExecStop=/usr/local/bin/docker-compose down
-TimeoutStartSec=0
-
-[Install]
-WantedBy=multi-user.target
-```
-
-Be sure to change the WorkingDirectory to where you cloned this repository.
-
-Now let's enable the service: `systemctl enable onthisday`
-
-Restart the machine to make sure it will bring up the containers on system startup
+[mit]: https://img.shields.io/badge/License-MIT-blue.svg
+[prettier]: https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square
+[concurrently]: https://github.com/kimmobrunfeldt/concurrently

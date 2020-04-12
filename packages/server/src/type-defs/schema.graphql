@@ -1,0 +1,9 @@
+# import YearDate, YearDateQueryInput from 'year-date.graphql'
+
+scalar ObjectId
+
+directive @IDFrom(from: String!) on FIELD_DEFINITION
+
+type Query {
+  yearDate(input: YearDateQueryInput!): YearDate!
+}

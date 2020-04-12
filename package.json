@@ -1,46 +1,44 @@
 {
-  "name": "on-this-day",
-  "version": "0.1.0",
-  "author": "Sebastián Salata R-T <SA.SalataRT@GMail.com>",
-  "repository": "https://github.com/sasalatart/on-this-day",
+  "repository": "git@github.com:sasalatart/on-this-day.git",
+  "author": "Sebastián Salata R-T <sa.salatart@gmail.com>",
   "license": "MIT",
-  "dependencies": {
-    "bluebird": "^3.5.0",
-    "express": "^4.15.3",
-    "font-awesome": "^4.7.0",
-    "history": "^4.6.1",
-    "lodash": "^4.17.4",
-    "material-ui": "^0.20.1",
-    "moment": "^2.18.1",
-    "mongoose": "^4.10.5",
-    "morgan": "^1.8.2",
-    "progress": "^2.0.0",
-    "prop-types": "15.6.0",
-    "qs": "^6.5.1",
-    "react": "16.3.2",
-    "react-dom": "16.3.2",
-    "react-router-dom": "^4.3.1",
-    "react-scripts": "1.1.4",
-    "react-vertical-timeline-component": "^2.1.2",
-    "sweetalert": "^1.1.3"
+  "private": true,
+  "engines": {
+    "node": "12.13.1"
+  },
+  "workspaces": [
+    "packages/shared",
+    "packages/server",
+    "packages/*"
+  ],
+  "scripts": {
+    "lint": "yarn workspaces run lint",
+    "build": "yarn workspaces run build",
+    "start": "yarn workspace @on-this-day/server start",
+    "scrap": "yarn workspace @on-this-day/scraper start",
+    "scrap:dev": "yarn workspace @on-this-day/scraper dev:start",
+    "seed": "yarn workspace @on-this-day/server seed",
+    "seed:dev": "yarn workspace @on-this-day/server dev:seed",
+    "console": "yarn workspace @on-this-day/server console",
+    "console:dev": "yarn workspace @on-this-day/server dev:console",
+    "dev": "concurrently \"yarn:dev:*\"",
+    "dev:server": "yarn workspace @on-this-day/server dev:start",
+    "dev:client": "yarn workspace @on-this-day/client start",
+    "dev:watch:shared": "yarn workspace @on-this-day/shared compile:watch",
+    "db": "docker run -p 27017:27017 -v mongodbdata:/data/db mongo:4.2.0"
   },
   "devDependencies": {
-    "eslint": "4.17.0",
-    "eslint-config-airbnb": "16.1.0",
-    "eslint-plugin-import": "2.8.0",
-    "eslint-plugin-jest": "21.7.0",
-    "eslint-plugin-jsx-a11y": "6.0.3",
-    "eslint-plugin-react": "7.6.1",
-    "nodemon": "^1.11.0"
+    "@on-this-day/eslint-config": "1.0.0",
+    "@types/bluebird": "^3.5.30",
+    "@types/lodash": "^4.14.149",
+    "@types/node": "^12.0.0",
+    "concurrently": "^5.1.0",
+    "prettier": "^2.0.1",
+    "ts-node": "^8.8.2",
+    "typescript": "~3.8.3"
   },
-  "proxy": "http://localhost:9000",
-  "scripts": {
-    "start": "node src/server",
-    "start-dev": "react-scripts start",
-    "build": "react-scripts build",
-    "seed": "node src/server/db/seeds",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-    "lint": "eslint --ext js,jsx ."
+  "dependencies": {
+    "bluebird": "^3.7.2",
+    "lodash": "^4.17.15"
   }
 }

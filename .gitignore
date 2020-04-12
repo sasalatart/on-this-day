@@ -1,7 +1,12 @@
+**/build
+**/node_modules
+
+*.tsbuildinfo
+packages/client/src/graphql/types
+packages/server/src/type-defs/types.ts
+packages/server/src/type-defs/introspection.json
 
 # Created by https://www.gitignore.io/api/osx,node,linux,windows
-
-build
 
 ### Node ###
 

@@ -1,0 +1,20 @@
+{
+  "name": "@on-this-day/eslint-config",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Sebastián Salata R-T <sa.salatart@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "lint": "exit 0;",
+    "build": "exit 0;"
+  },
+  "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^2.24.0",
+    "@typescript-eslint/parser": "^2.24.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.1",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-prettier": "^3.1.2"
+  }
+}

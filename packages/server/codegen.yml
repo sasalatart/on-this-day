@@ -1,0 +1,16 @@
+overwrite: true
+schema: 'src/type-defs/schema.graphql'
+documents: null
+generates:
+  src/type-defs/types.ts:
+    plugins:
+      - 'typescript'
+      - 'typescript-resolvers'
+      - add:
+          content:
+            - /* eslint-disable */
+  src/type-defs/introspection.json:
+    plugins:
+      - introspection
+    config:
+      minify: true
