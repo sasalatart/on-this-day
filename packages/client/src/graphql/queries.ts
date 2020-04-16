@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import { gql } from 'apollo-boost';
 import { EPISODE_FRAGMENT } from './fragments';
 
 export const YEAR_DATE_QUERY = gql`

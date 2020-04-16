@@ -10,6 +10,7 @@ export enum EpisodeKinds {
 }
 
 export interface YearDate {
+  id: string;
   description: string;
   day: number;
   month: number;

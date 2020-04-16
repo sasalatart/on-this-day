@@ -13,7 +13,6 @@
     "apollo-boost": "^0.4.7",
     "date-fns": "^2.11.1",
     "formik": "^2.1.4",
-    "graphql-tag": "^2.10.3",
     "i18next": "^19.3.4",
     "i18next-browser-languagedetector": "^4.0.2",
     "react": "^16.13.1",

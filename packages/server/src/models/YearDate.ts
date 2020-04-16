@@ -1,5 +1,10 @@
 import mongoose, { Schema } from 'mongoose';
+import { daysByMonthNumber } from '@on-this-day/shared';
 import { YearDateDocument } from './types';
+
+function validateDayOfMonth(this: YearDateDocument, value: number): boolean {
+  return value <= daysByMonthNumber[this.month];
+}
 
 const episodeRef = {
   type: Schema.Types.ObjectId,
@@ -7,17 +12,21 @@ const episodeRef = {
 };
 
 const yearDateSchema = new Schema({
-  day: {
-    type: Number,
-    required: true,
-    min: 1,
-    max: 31,
-  },
   month: {
     type: Number,
-    required: true,
     min: 1,
     max: 12,
+    required: true,
+  },
+  day: {
+    type: Number,
+    min: 1,
+    max: 31,
+    validate: {
+      validator: validateDayOfMonth,
+      message: 'errors.invalidDayForMonth',
+    },
+    required: true,
   },
   description: {
     type: String,
