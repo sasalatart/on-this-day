@@ -10,12 +10,10 @@ queried day of history, scraped from [Wikipedia](https://www.wikipedia.org/).
 
 The app was built as a GraphQL monorepo via yarn workspaces using the following technologies:
 
-1. [Node.js v.12.13.1](https://nodejs.org/en/)
-2. [TypeScript](https://www.typescriptlang.org/)
-3. [Apollo Server](https://www.apollographql.com/docs/apollo-server/)
-4. [Apollo Client](https://www.apollographql.com/docs/react/)
-5. [Mongoose](https://mongoosejs.com/)
-6. [React](https://facebook.github.io/react/)
+1. [TypeScript](https://www.typescriptlang.org/)
+2. [Apollo Server](https://www.apollographql.com/docs/apollo-server/)
+3. [Apollo Client](https://www.apollographql.com/docs/react/)
+4. [React](https://facebook.github.io/react/)
 
 Custom packages included in the monorepo are:
 
@@ -139,6 +137,9 @@ Other additional `yarn` scripts that might be helpful:
 - `yarn console:dev`: opens a console to interact with the backend.
 - `yarn db`: creates and runs a local mongodb container via Docker (requires starting Docker).
 
+If you are going to start coding before running `yarn dev`, you must run `yarn build` so that all
+internal packages are properly imported between themselves.
+
 #### Running via Docker
 
 ```sh
@@ -155,3 +156,10 @@ Now the app should be available on port 9000.
 [mit]: https://img.shields.io/badge/License-MIT-blue.svg
 [prettier]: https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square
 [concurrently]: https://github.com/kimmobrunfeldt/concurrently
+
+## Testing
+
+```sh
+# Run backend tests
+$ yarn test:backend
+```

@@ -6,14 +6,20 @@
   "engines": {
     "node": "12.13.1"
   },
-  "workspaces": [
-    "packages/shared",
-    "packages/server",
-    "packages/*"
-  ],
+  "workspaces": {
+    "packages": [
+      "packages/shared",
+      "packages/server",
+      "packages/*"
+    ],
+    "nohoist": [
+      "**/jest"
+    ]
+  },
   "scripts": {
     "lint": "yarn workspaces run lint",
     "build": "yarn workspaces run build",
+    "build:shared": "yarn workspace @on-this-day/shared build",
     "start": "yarn workspace @on-this-day/server start",
     "scrap": "yarn workspace @on-this-day/scraper start",
     "scrap:dev": "yarn workspace @on-this-day/scraper dev:start",
@@ -25,7 +31,8 @@
     "dev:server": "yarn workspace @on-this-day/server dev:start",
     "dev:client": "yarn workspace @on-this-day/client start",
     "dev:watch:shared": "yarn workspace @on-this-day/shared compile:watch",
-    "db": "docker run -p 27017:27017 -v mongodbdata:/data/db mongo:4.2.0"
+    "db": "docker run -p 27017:27017 -v mongodbdata:/data/db mongo:4.2.0",
+    "test:backend": "yarn build:shared && yarn workspace @on-this-day/server yarn test"
   },
   "devDependencies": {
     "@on-this-day/eslint-config": "1.0.0",

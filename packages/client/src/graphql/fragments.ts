@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import { gql } from 'apollo-boost';
 
 export const EPISODE_FRAGMENT = gql`
   fragment EpisodeFragment on Episode {

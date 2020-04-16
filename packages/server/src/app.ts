@@ -10,15 +10,16 @@ import models from './models';
 import resolvers from './resolvers';
 import scalars from './scalars';
 import typeDefs from './type-defs';
-import { Context } from './types';
 
-export const gqlServer = new ApolloServer({
+export const baseServerConfig = {
   typeDefs,
   resolvers: _.merge(resolvers, scalars),
   schemaDirectives,
-  context(): Context {
-    return { models, t: i18n.t.bind(i18n) };
-  },
+  context: { models, t: i18n.t.bind(i18n) },
+};
+
+export const gqlServer = new ApolloServer({
+  ...baseServerConfig,
   playground: true,
   introspection: true,
 });
