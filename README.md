@@ -58,52 +58,56 @@ Returns an array of historical episodes, filtered by day and month.
 
 - **Example response:**
 
-  ```js
+  ```json
   {
-    "day": 13,
-    "month": 10,
-    "description": "October 13 is the 286th day of the year (287th in leap years) in the Gregorian calendar. 79 days remain until the end of the year.",
-    "events": [
-      {
-        "id": '5e8e7aa06ae7679b783cff22',
-        "year": 54,
-        "description": 'Roman emperor Claudius dies from poisoning under mysterious circumstances.',
-        "keywords": [
+    "data": {
+      "yearDate": {
+        "day": 13,
+        "month": 10,
+        "description": "October 13 is the 286th day of the year (287th in leap years) in the Gregorian calendar. 79 days remain until the end of the year.",
+        "events": [
           {
-            "title": 'AD 54',
-            "href": '/wiki/AD_54',
+            "id": "5e8e7aa06ae7679b783cff22",
+            "year": 54,
+            "description": "Roman emperor Claudius dies from poisoning under mysterious circumstances.",
+            "keywords": [
+              {
+                "title": "AD 54",
+                "href": "/wiki/AD_54",
+              },
+              {
+                "title": "Claudius",
+                "href": "/wiki/Claudius",
+              },
+            ],
           },
           {
-            "title": 'Claudius',
-            "href": '/wiki/Claudius',
+            "id": "5e8e7aa06ae7679b783cff25",
+            "year": 409,
+            "description": "Vandals and Alans cross the Pyrenees and appear in Hispania.",
+            "keywords": [
+              {
+                "title": "409",
+                "href": "/wiki/409",
+              },
+              {
+                "title": "Vandals",
+                "href": "/wiki/Vandals",
+              },
+              {
+                "title": "Alans",
+                "href": "/wiki/Alans",
+              },
+              {
+                "title": "Hispania",
+                "href": "/wiki/Hispania",
+              },
+            ],
           },
-        ],
-      },
-      {
-        "id": '5e8e7aa06ae7679b783cff25',
-        "year": 409,
-        "description": 'Vandals and Alans cross the Pyrenees and appear in Hispania.',
-        "keywords": [
-          {
-            "title": '409',
-            "href": '/wiki/409',
-          },
-          {
-            "title": 'Vandals',
-            "href": '/wiki/Vandals',
-          },
-          {
-            "title": 'Alans',
-            "href": '/wiki/Alans',
-          },
-          {
-            "title": 'Hispania',
-            "href": '/wiki/Hispania',
-          },
-        ],
-      },
-      ...
-    ]
+          ...
+        ]
+      }
+    }
   }
   ```
 
