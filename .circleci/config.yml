@@ -80,7 +80,7 @@ jobs:
           command: ./scripts/wait-for-it.sh 27017
       - run:
           name: Turn on app
-          command: BROWSER=none yarn dev
+          command: BROWSER=none SLIM=true yarn dev
           background: true
       - run:
           name: Wait for backend to be ready
