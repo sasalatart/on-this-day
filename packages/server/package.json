@@ -12,7 +12,7 @@
     "compile": "yarn codegen && tsc --build && yarn copy:graphql && yarn copy:seeds",
     "copy:graphql": "cp src/type-defs/*.graphql build/type-defs",
     "copy:seeds": "cp src/db/seeds/data.json build/db/seeds/data.json",
-    "test": "yarn codegen && NODE_ENV=test jest src --runInBand",
+    "test": "NODE_ENV=test jest src --runInBand",
     "start": "yarn seed && node build",
     "seed": "node build/db/seeds",
     "console": "node --experimental-repl-await build/console.js",

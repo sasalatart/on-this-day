@@ -38,8 +38,8 @@
   },
   "scripts": {
     "lint": "eslint src --ext .js,.jsx,.ts,.tsx",
-    "build": "yarn codegen && react-scripts build",
-    "start": "yarn codegen && react-scripts start",
+    "build": "react-scripts build",
+    "start": "react-scripts start",
     "test": "react-scripts test",
     "cypress:open": "cypress open",
     "cypress:headless": "cypress run --headless",

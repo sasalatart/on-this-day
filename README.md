@@ -162,7 +162,7 @@ Now the app should be available on port 9000.
 Unit & integration backend tests were written with [Jest][jest].
 
 E2E tests were written with [Cypress][cypress], and need the backend and frontend to be up and
-running in order to work.
+running in order to work (`yarn:dev` can accomplish this in one command, assuming db is running).
 
 ```sh
 # Run backend tests
