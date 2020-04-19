@@ -19,8 +19,8 @@ describe('Routing', () => {
 
   describe('/episodes?day=<day>&month=<month>', () => {
     it('renders the episodes timeline', () => {
-      cy.visit('/episodes?day=15&month=4');
-      cy.get('#timeline-subtitle').should('contain.text', 'April 15');
+      cy.visit('/episodes?day=15&month=1');
+      cy.get('#timeline-subtitle').should('contain.text', 'January 15');
     });
 
     context('when clicking on the App Bar title', () => {
