@@ -40,7 +40,7 @@ export default function DateSelectForm({
           ))}
         </Input>
 
-        <SubmitButton icon="search" color="primary">
+        <SubmitButton id="submit-search" icon="search" color="primary">
           {t('dateSelect.search')}
         </SubmitButton>
       </Fields>

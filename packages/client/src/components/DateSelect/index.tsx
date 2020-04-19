@@ -31,7 +31,12 @@ export default function DateSelect(): JSX.Element {
   return (
     <Container>
       <PaperBox>
-        <Typography variant="h3" align="center" gutterBottom>
+        <Typography
+          id="date-select-title"
+          variant="h3"
+          align="center"
+          gutterBottom
+        >
           {t('dateSelect.instructions')}
         </Typography>
 

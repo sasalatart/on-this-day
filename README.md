@@ -157,13 +157,26 @@ $ docker-compose stop
 
 Now the app should be available on port 9000.
 
-[mit]: https://img.shields.io/badge/License-MIT-blue.svg
-[prettier]: https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square
-[concurrently]: https://github.com/kimmobrunfeldt/concurrently
-
 ## Testing
+
+Unit & integration backend tests were written with [Jest][jest].
+
+E2E tests were written with [Cypress][cypress], and need the backend and frontend to be up and
+running in order to work.
 
 ```sh
 # Run backend tests
 $ yarn test:backend
+
+# Open cypress (interactive)
+$ yarn test:e2e:open
+
+# Run headless e2e tests (non-interactive alternative)
+$ yarn test:e2e
 ```
+
+[mit]: https://img.shields.io/badge/License-MIT-blue.svg
+[prettier]: https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square
+[concurrently]: https://github.com/kimmobrunfeldt/concurrently
+[jest]: https://jestjs.io/
+[cypress]: https://www.cypress.io/
