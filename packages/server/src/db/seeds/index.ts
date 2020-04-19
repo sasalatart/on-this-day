@@ -8,6 +8,7 @@ import {
   ScrapedEpisode,
   ScrapedYearDate,
   EpisodeKinds,
+  months,
 } from '@on-this-day/shared';
 import connectDB, { chunkedOperations } from '../../db';
 import models, { EpisodeDocument, YearDateDocument } from '../../models';
@@ -74,16 +75,35 @@ async function createYearDate(
   return yearDate.save();
 }
 
-async function createYear(): Promise<void> {
-  const progressBar = buildProgressBar();
-  for (const formattedDate of Object.keys(data)) {
+function getDatesToInclude(): {
+  formattedDates: string[];
+  progressBar: ProgressBar;
+} {
+  const singleMonth = process.env.SLIM
+    ? months.find(({ name }) => name === 'January')
+    : undefined;
+
+  const progressBar = singleMonth
+    ? buildProgressBar({ total: singleMonth.days })
+    : buildProgressBar();
+
+  const formattedDates = singleMonth
+    ? Object.keys(data).filter((date) => date.includes(singleMonth.name))
+    : Object.keys(data);
+
+  return { formattedDates, progressBar };
+}
+
+async function createYearDates(): Promise<void> {
+  const { formattedDates, progressBar } = getDatesToInclude();
+  for (const formattedDate of formattedDates) {
     await createYearDate(formattedDate);
     progressBar.tick();
   }
 }
 
-function handleExit(code = 0): never {
-  mongoose.connection.close();
+async function handleExit(code = 0): Promise<never> {
+  await mongoose.connection.close();
   process.exit(code);
 }
 
@@ -94,7 +114,7 @@ async function seed(): Promise<void> {
 
     if (yearDates > 0) {
       console.log('✅ Database is already populated. Will not run seed.');
-      handleExit(0);
+      await handleExit(0);
     }
 
     console.log('⏳ It seems the database is empty. Continuing with seed...');
@@ -102,14 +122,17 @@ async function seed(): Promise<void> {
 
   console.log('⏳ Seeding data...');
   try {
-    await mongoose.connection.db.dropDatabase();
-    await createYear();
+    await Promise.all([
+      models.YearDate.deleteMany({}),
+      models.Episode.deleteMany({}),
+    ]);
+    await createYearDates();
   } catch (error) {
     console.error(`🛑 Error: ${error}`);
-    handleExit(1);
+    await handleExit(1);
   }
 
-  handleExit();
+  await handleExit();
 }
 
 connectDB().then(seed);
