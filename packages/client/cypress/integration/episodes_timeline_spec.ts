@@ -66,7 +66,7 @@ describe('Episodes Timeline', () => {
 
   context('When URL has a valid date', () => {
     const day = 15;
-    const month = 4;
+    const month = 1;
 
     before(() => {
       cy.visit(`/episodes?day=${day}&month=${month}`);
