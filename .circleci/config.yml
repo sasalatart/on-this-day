@@ -65,6 +65,13 @@ jobs:
       - node_bootstrap
       - run: yarn prettier:check
 
+  build_app:
+    description: Create GraphQL types and transpile TS to JS
+    executor: node_executor
+    steps:
+      - node_bootstrap
+      - run: yarn build
+
   test_backend:
     description: Run backend tests
     executor: node_executor
@@ -94,13 +101,6 @@ jobs:
           name: Wait for frontend to be ready
           command: ./scripts/wait-for-it.sh 3000
       - run: yarn test:e2e
-
-  build_app:
-    description: Create GraphQL types and transpile TS to JS
-    executor: node_executor
-    steps:
-      - node_bootstrap
-      - run: yarn build
 
   build_docker:
     description: Build Docker image
@@ -133,6 +133,7 @@ workflows:
             - build_app
       - build_docker:
           requires:
+            - test_backend
             - test_e2e
           filters:
             branches:
@@ -140,10 +141,11 @@ workflows:
                 - master
       - docker/publish:
           requires:
+            - test_backend
             - test_e2e
           filters:
             branches:
               only: master
-          image: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
+          image: $DOCKER_LOGIN/$CIRCLE_PROJECT_REPONAME
           tag: latest
           use-docker-credentials-store: true
