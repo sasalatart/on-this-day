@@ -79,14 +79,7 @@ jobs:
       - node_bootstrap
       - run:
           name: Install Cypress dependencies
-          command: sudo apt-get install -y |
-            libgtk2.0-0 \
-            libnotify-dev \
-            libgconf-2-4 \
-            libnss3 \
-            libxss1 \
-            libasound2 \
-            xvfb
+          command: sudo apt-get install -y libgtk2.0-0 libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 xvfb
       - run:
           name: Wait for database to be ready
           command: ./scripts/wait-for-it.sh 27017
@@ -122,22 +115,23 @@ workflows:
   commit:
     jobs:
       - bootstrap
-      - lint:
-          requires:
-            - bootstrap
-      - prettier_check:
-          requires:
-            - bootstrap
-      - build_app:
-          requires:
-            - lint
-            - prettier_check
-      - test_backend:
-          requires:
-            - build_app
+      # - lint:
+      #     requires:
+      #       - bootstrap
+      # - prettier_check:
+      #     requires:
+      #       - bootstrap
+      # - build_app:
+      #     requires:
+      #       - lint
+      #       - prettier_check
+      # - test_backend:
+      #     requires:
+      #       - build_app
       - test_e2e:
           requires:
-            - test_backend
+            # - build_app
+            - bootstrap
       - build_docker:
           requires:
             - test_e2e
