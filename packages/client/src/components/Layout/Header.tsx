@@ -19,7 +19,9 @@ export default function Header(): JSX.Element {
     <AppBar position="static">
       <Toolbar>
         <Title variant="h6">
-          <Link to="/">On This Day</Link>
+          <Link id="brand" to="/">
+            On This Day
+          </Link>
         </Title>
         <Button
           color="inherit"

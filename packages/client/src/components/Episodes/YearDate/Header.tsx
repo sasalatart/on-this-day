@@ -38,16 +38,24 @@ export default function TimelineHeader({
 
   return (
     <PaperBox>
-      <Typography variant="h2" align="center">
+      <Typography id="timeline-title" variant="h2" align="center">
         {t(`episodes.${episodesKind}`)}
       </Typography>
-      <Typography variant="h3" align="center" gutterBottom>
+
+      <Typography
+        id="timeline-subtitle"
+        variant="h3"
+        align="center"
+        gutterBottom
+      >
         {format(new Date(1992, month - 1, day), 'MMMM d')}
       </Typography>
 
       <ExpansionPanel>
         <ExpansionPanelSummary>
-          <Typography variant="h4">{t('description')}</Typography>
+          <Typography id="timeline-description" variant="h4">
+            {t('description')}
+          </Typography>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
           <DescriptionContainer>{writtenDescription}</DescriptionContainer>

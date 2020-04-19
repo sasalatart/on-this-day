@@ -73,6 +73,7 @@ export default function YearDateView({
             return (
               <Tab
                 key={kind}
+                data-kind={kind}
                 label={t(`episodes.${kind}`)}
                 value={kind}
                 icon={<FontAwesomeIcon icon={icons[kind]} />}

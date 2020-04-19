@@ -6,6 +6,8 @@ packages/client/src/graphql/types
 packages/server/src/type-defs/types.ts
 packages/server/src/type-defs/introspection.json
 
+test-results.xml
+
 # Created by https://www.gitignore.io/api/osx,node,linux,windows
 
 ### Node ###

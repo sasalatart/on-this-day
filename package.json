@@ -13,6 +13,10 @@
       "packages/*"
     ],
     "nohoist": [
+      "**/@types/jest",
+      "**/@types/mocha",
+      "**/@types/cypress",
+      "**/cypress",
       "**/jest"
     ]
   },
@@ -32,7 +36,9 @@
     "dev:client": "yarn workspace @on-this-day/client start",
     "dev:watch:shared": "yarn workspace @on-this-day/shared compile:watch",
     "db": "docker run -p 27017:27017 -v mongodbdata:/data/db mongo:4.2.0",
-    "test:backend": "yarn build:shared && yarn workspace @on-this-day/server yarn test"
+    "test:backend": "yarn build:shared && yarn workspace @on-this-day/server yarn test",
+    "test:e2e": "yarn workspace @on-this-day/client cypress:headless",
+    "test:e2e:open": "yarn workspace @on-this-day/client cypress:open"
   },
   "devDependencies": {
     "@on-this-day/eslint-config": "1.0.0",
