@@ -7,10 +7,10 @@ aliases:
   - &node-docker-image circleci/node:12.13.1
   - &mongo-docker-image circleci/mongo:4.2.2-ram
   - &working-directory ~/repo
-  - &node-cache-key node-v1-{{ checksum "package.json" }}
+  - &node-cache-key node-v2-{{ checksum "package.json" }}
   - &node-cache-restore-keys
-    - node-v1-{{ checksum "package.json" }}
-    - node-v1-
+    - node-v2-{{ checksum "package.json" }}
+    - node-v2-
 
 executors:
   node_executor:
@@ -43,6 +43,11 @@ jobs:
           key: *node-cache-key
           paths:
             - node_modules
+            - packages/client/node_modules
+            - packages/eslint-config/node_modules
+            - packages/scraper/node_modules
+            - packages/server/node_modules
+            - packages/shared/node_modules
 
   lint:
     description: Run linter
