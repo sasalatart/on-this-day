@@ -115,23 +115,22 @@ workflows:
   commit:
     jobs:
       - bootstrap
-      # - lint:
-      #     requires:
-      #       - bootstrap
-      # - prettier_check:
-      #     requires:
-      #       - bootstrap
-      # - build_app:
-      #     requires:
-      #       - lint
-      #       - prettier_check
-      # - test_backend:
-      #     requires:
-      #       - build_app
+      - lint:
+          requires:
+            - bootstrap
+      - prettier_check:
+          requires:
+            - bootstrap
+      - build_app:
+          requires:
+            - lint
+            - prettier_check
+      - test_backend:
+          requires:
+            - build_app
       - test_e2e:
           requires:
-            # - build_app
-            - bootstrap
+            - build_app
       - build_docker:
           requires:
             - test_e2e

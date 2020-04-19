@@ -73,7 +73,7 @@ describe('Episodes Timeline', () => {
     });
 
     it('specifies the selected date', () => {
-      cy.get('#timeline-subtitle').should('have.text', 'April 15');
+      cy.get('#timeline-subtitle').should('have.text', 'January 15');
     });
 
     describe('description', () => {
