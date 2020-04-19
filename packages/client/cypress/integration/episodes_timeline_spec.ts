@@ -66,14 +66,14 @@ describe('Episodes Timeline', () => {
 
   context('When URL has a valid date', () => {
     const day = 15;
-    const month = 4;
+    const month = 1;
 
     before(() => {
       cy.visit(`/episodes?day=${day}&month=${month}`);
     });
 
     it('specifies the selected date', () => {
-      cy.get('#timeline-subtitle').should('have.text', 'April 15');
+      cy.get('#timeline-subtitle').should('have.text', 'January 15');
     });
 
     describe('description', () => {

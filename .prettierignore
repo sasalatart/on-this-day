@@ -1,0 +1,6 @@
+**/build
+**/node_modules
+
+packages/client/src/graphql/types
+packages/server/src/type-defs/types.ts
+packages/server/src/type-defs/introspection.json

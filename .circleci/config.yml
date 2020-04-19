@@ -1,0 +1,151 @@
+version: 2.1
+
+orbs:
+  docker: circleci/docker@1.0.1
+
+aliases:
+  - &node-docker-image circleci/node:12.13.1
+  - &mongo-docker-image circleci/mongo:4.2.2-ram
+  - &working-directory ~/repo
+  - &node-cache-key node-v1-{{ checksum "yarn.lock" }}
+  - &node-cache-restore-keys
+    - node-v1-{{ checksum "yarn.lock" }}
+    - node-v1-
+
+executors:
+  node_executor:
+    working_directory: *working-directory
+    docker:
+      - image: *node-docker-image
+
+  app_executor:
+    working_directory: *working-directory
+    docker:
+      - image: *node-docker-image
+      - image: *mongo-docker-image
+
+commands:
+  node_bootstrap:
+    description: Checkout code and restore node cache
+    steps:
+      - checkout
+      - restore_cache:
+          keys: *node-cache-restore-keys
+
+jobs:
+  bootstrap:
+    description: Install node modules
+    executor: node_executor
+    steps:
+      - node_bootstrap
+      - run: yarn install --frozen-lockfile
+      - run: yarn compile:shared
+      - save_cache:
+          key: *node-cache-key
+          paths:
+            - node_modules
+            - packages/client/node_modules
+            - packages/eslint-config/node_modules
+            - packages/scraper/node_modules
+            - packages/server/node_modules
+            - packages/shared/node_modules
+            - ~/.cache
+
+  lint:
+    description: Run linter
+    executor: node_executor
+    steps:
+      - node_bootstrap
+      - run: yarn lint
+
+  prettier_check:
+    description: Check if code follows Prettier specs
+    executor: node_executor
+    steps:
+      - node_bootstrap
+      - run: yarn prettier:check
+
+  build_app:
+    description: Create GraphQL types and transpile TS to JS
+    executor: node_executor
+    steps:
+      - node_bootstrap
+      - run: yarn build
+
+  test_backend:
+    description: Run backend tests
+    executor: node_executor
+    steps:
+      - node_bootstrap
+      - run: yarn test:backend
+
+  test_e2e:
+    description: Run e2e tests
+    executor: app_executor
+    steps:
+      - node_bootstrap
+      - run:
+          name: Install Cypress dependencies
+          command: sudo apt-get install -y libgtk2.0-0 libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 xvfb
+      - run:
+          name: Wait for database to be ready
+          command: ./scripts/wait-for-it.sh 27017
+      - run:
+          name: Turn on app
+          command: BROWSER=none SLIM=true yarn dev
+          background: true
+      - run:
+          name: Wait for backend to be ready
+          command: ./scripts/wait-for-it.sh 9000
+      - run:
+          name: Wait for frontend to be ready
+          command: ./scripts/wait-for-it.sh 3000
+      - run: yarn test:e2e
+
+  build_docker:
+    description: Build Docker image
+    executor: docker/machine
+    steps:
+      - checkout
+      - docker/build:
+          image: $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
+
+workflows:
+  version: 2
+  commit:
+    jobs:
+      - bootstrap
+      - lint:
+          requires:
+            - bootstrap
+      - prettier_check:
+          requires:
+            - bootstrap
+      - build_app:
+          requires:
+            - lint
+            - prettier_check
+      - test_backend:
+          requires:
+            - build_app
+      - test_e2e:
+          requires:
+            - build_app
+      - build_docker:
+          requires:
+            - test_backend
+            - test_e2e
+          filters:
+            branches:
+              ignore:
+                - master
+      - docker/publish:
+          requires:
+            - test_backend
+            - test_e2e
+          filters:
+            branches:
+              only: master
+          image: $DOCKER_LOGIN/$CIRCLE_PROJECT_REPONAME
+          tag: latest
+          use-docker-credentials-store: true
