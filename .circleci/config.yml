@@ -39,6 +39,7 @@ jobs:
     steps:
       - node_bootstrap
       - run: yarn install --frozen-lockfile
+      - run: build:shared
       - save_cache:
           key: *node-cache-key
           paths:
@@ -48,6 +49,7 @@ jobs:
             - packages/scraper/node_modules
             - packages/server/node_modules
             - packages/shared/node_modules
+            - /home/circleci/.cache/Cypress
 
   lint:
     description: Run linter
