@@ -79,7 +79,7 @@ jobs:
       - node_bootstrap
       - run:
           name: Install Cypress dependencies
-          command: apt-get install -y |
+          command: sudo apt-get install -y |
             libgtk2.0-0 \
             libnotify-dev \
             libgconf-2-4 \
