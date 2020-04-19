@@ -7,10 +7,10 @@ aliases:
   - &node-docker-image circleci/node:12.13.1
   - &mongo-docker-image circleci/mongo:4.2.2-ram
   - &working-directory ~/repo
-  - &node-cache-key node-v3-{{ checksum "package.json" }}
+  - &node-cache-key node-v4-{{ checksum "package.json" }}
   - &node-cache-restore-keys
-    - node-v3-{{ checksum "package.json" }}
-    - node-v3-
+    - node-v4-{{ checksum "package.json" }}
+    - node-v4-
 
 executors:
   node_executor:
@@ -49,7 +49,7 @@ jobs:
             - packages/scraper/node_modules
             - packages/server/node_modules
             - packages/shared/node_modules
-            - /home/circleci/.cache/Cypress
+            - ~/.cache
 
   lint:
     description: Run linter
