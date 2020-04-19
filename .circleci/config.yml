@@ -7,10 +7,10 @@ aliases:
   - &node-docker-image circleci/node:12.13.1
   - &mongo-docker-image circleci/mongo:4.2.2-ram
   - &working-directory ~/repo
-  - &node-cache-key node-v4-{{ checksum "yarn.lock" }}
+  - &node-cache-key node-v1-{{ checksum "yarn.lock" }}
   - &node-cache-restore-keys
-    - node-v4-{{ checksum "yarn.lock" }}
-    - node-v4-
+    - node-v1-{{ checksum "yarn.lock" }}
+    - node-v1-
 
 executors:
   node_executor:
