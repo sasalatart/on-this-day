@@ -22,6 +22,7 @@
   },
   "scripts": {
     "lint": "yarn workspaces run lint",
+    "prettier:check": "yarn prettier --check packages/**/*.ts",
     "build": "yarn workspaces run build",
     "build:shared": "yarn workspace @on-this-day/shared build",
     "start": "yarn workspace @on-this-day/server start",
