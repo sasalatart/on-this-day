@@ -7,10 +7,10 @@ aliases:
   - &node-docker-image circleci/node:12.13.1
   - &mongo-docker-image circleci/mongo:4.2.2-ram
   - &working-directory ~/repo
-  - &node-cache-key node-v2-{{ checksum "package.json" }}
+  - &node-cache-key node-v3-{{ checksum "package.json" }}
   - &node-cache-restore-keys
-    - node-v2-{{ checksum "package.json" }}
-    - node-v2-
+    - node-v3-{{ checksum "package.json" }}
+    - node-v3-
 
 executors:
   node_executor:
