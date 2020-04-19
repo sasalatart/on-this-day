@@ -1,8 +1,8 @@
 import ProgressBar from 'progress';
 
-export default function buildProgressBar(): ProgressBar {
+export default function buildProgressBar({ total = 366 } = {}): ProgressBar {
   return new ProgressBar('[:bar] :percent', {
-    total: 366,
+    total,
     width: 50,
     incomplete: '.',
     head: '>',
