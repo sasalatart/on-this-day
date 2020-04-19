@@ -39,7 +39,7 @@ jobs:
     steps:
       - node_bootstrap
       - run: yarn install --frozen-lockfile
-      - run: build:shared
+      - run: yarn build:shared
       - save_cache:
           key: *node-cache-key
           paths:
