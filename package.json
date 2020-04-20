@@ -38,9 +38,10 @@
     "dev:server": "yarn workspace @on-this-day/server dev:start",
     "dev:client": "yarn workspace @on-this-day/client start",
     "dev:shared": "yarn workspace @on-this-day/shared compile:watch",
-    "db": "docker run -p 27017:27017 -v mongodbdata:/data/db mongo:4.2.0",
+    "db": "docker run --rm -p 27017:27017 -v mongodbdata:/data/db mongo:4.2.0",
     "test:backend": "yarn compile:dev && yarn workspace @on-this-day/server yarn test",
-    "test:e2e": "TERM=xterm yarn compile:dev && yarn workspace @on-this-day/client cypress:headless",
+    "test:e2e": "yarn compile:dev && yarn test:e2e:ci",
+    "test:e2e:ci": "yarn workspace @on-this-day/client cypress:headless",
     "test:e2e:open": "yarn compile:dev && yarn workspace @on-this-day/client cypress:open"
   },
   "devDependencies": {
