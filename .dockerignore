@@ -1,4 +1,5 @@
 **/build
+**/cypress
 **/node_modules
 
 packages/client/src/graphql/types

@@ -17,22 +17,19 @@ ENV NODE_ENV=production
 
 WORKDIR /usr/src/app
 
-COPY package.json yarn.lock ./
+COPY package.json yarn.lock .yarnclean README.md ./
+
+COPY --from=builder /build/packages/eslint-config/package.json packages/eslint-config/
+COPY --from=builder /build/packages/eslint-config/index.js packages/eslint-config/
 
 COPY --from=builder /build/packages/shared/build packages/shared/build
 COPY --from=builder /build/packages/shared/package.json packages/shared/package.json
-
-COPY --from=builder /build/packages/scraper/build packages/scraper/build
-COPY --from=builder /build/packages/scraper/package.json packages/scraper/package.json
 
 COPY --from=builder /build/packages/server/build packages/server/build
 COPY --from=builder /build/packages/server/package.json packages/server/package.json
 
 COPY --from=builder /build/packages/client/build packages/client/build
 COPY --from=builder /build/packages/client/package.json packages/client/package.json
-
-COPY --from=builder /build/packages/eslint-config/package.json packages/eslint-config/
-COPY --from=builder /build/packages/eslint-config/index.js packages/eslint-config/
 
 RUN yarn install --production
 
