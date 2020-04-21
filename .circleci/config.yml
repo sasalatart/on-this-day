@@ -57,6 +57,22 @@ jobs:
       - checkout_and_cache
       - run: yarn lint
 
+  commitlint:
+    description: Lint commit messages according to Conventional Commits
+    executor: node_executor
+    steps:
+      - checkout
+      - run:
+          name: Install
+          command: |
+            sudo npm install -g @commitlint/{config-conventional,cli}
+            echo "module.exports = {extends: ['@commitlint/config-conventional']}" > commitlint.config.js
+      - run:
+          name: commitlint
+          command: |
+            FROM_SHA="$(git log origin/master..$CIRCLE_SHA1 --oneline | tail -1 | awk '{print $1}')"
+            commitlint --from $FROM_SHA --to $CIRCLE_SHA1
+
   prettier_check:
     description: Check if code follows Prettier specs
     executor: node_executor
@@ -111,6 +127,9 @@ workflows:
   commit:
     jobs:
       - bootstrap
+      - commitlint:
+          requires:
+            - bootstrap
       - lint:
           requires:
             - bootstrap
@@ -119,6 +138,7 @@ workflows:
             - bootstrap
       - build_app:
           requires:
+            - commitlint
             - lint
             - prettier_check
       - test_backend:
