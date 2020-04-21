@@ -51,7 +51,7 @@ jobs:
             - ~/.cache/Cypress
 
   lint:
-    description: Run linter
+    description: Lint code & markdown
     executor: node_executor
     steps:
       - checkout_and_cache
