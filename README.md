@@ -1,7 +1,8 @@
 # On This Day
 
-[![License: MIT][mit]](https://opensource.org/licenses/MIT)
-[![code style: prettier][prettier]](https://github.com/prettier/prettier)
+[![License: MIT][mit-badge]](https://opensource.org/licenses/MIT)
+[![CircleCI][circleci-badge]](https://circleci.com/gh/sasalatart/on-this-day)
+[![code style: prettier][prettier-badge]](https://github.com/prettier/prettier)
 
 ## About
 
@@ -179,8 +180,9 @@ $ yarn test:e2e:open
 $ yarn test:e2e
 ```
 
-[mit]: https://img.shields.io/badge/License-MIT-blue.svg
-[prettier]: https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square
+[mit-badge]: https://img.shields.io/badge/License-MIT-blue.svg
+[circleci-badge]: https://circleci.com/gh/sasalatart/on-this-day.svg?style=svg
+[prettier-badge]: https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square
 [concurrently]: https://github.com/kimmobrunfeldt/concurrently
 [jest]: https://jestjs.io/
 [cypress]: https://www.cypress.io/
