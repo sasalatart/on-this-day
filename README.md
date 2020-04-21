@@ -25,7 +25,7 @@ Custom packages included in the monorepo are:
 
 ## Queries
 
-#### yearDate
+### yearDate
 
 Returns an array of historical episodes, filtered by day and month.
 
@@ -64,7 +64,7 @@ Returns an array of historical episodes, filtered by day and month.
       "yearDate": {
         "day": 13,
         "month": 10,
-        "description": "October 13 is the 286th day of the year (287th in leap years) in the Gregorian calendar. 79 days remain until the end of the year.",
+        "description": "October 13 is the 286th day of the year (287th in leap years) in the [...]",
         "events": [
           {
             "id": "5e8e7aa06ae7679b783cff22",
@@ -119,7 +119,7 @@ the server.
 
 ## Setup
 
-#### Development
+### Development
 
 1. Run `yarn install`
 2. Make sure that you have a local (or cloud-based) mongodb server up and running.
@@ -144,7 +144,7 @@ Other additional `yarn` scripts that might be helpful:
 If you are going to start coding before running `yarn dev`, you must run `yarn build` so that all
 internal packages are properly imported between themselves.
 
-#### Running via Docker
+### Running via Docker
 
 ```sh
 # Start database and app server via docker-compose.
