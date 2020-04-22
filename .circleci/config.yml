@@ -2,6 +2,7 @@ version: 2.1
 
 orbs:
   docker: circleci/docker@1.0.1
+  heroku: circleci/heroku@1.0.1
 
 aliases:
   - &node-docker-image circleci/node:12.13.1
@@ -114,13 +115,62 @@ jobs:
           background: true
           environment:
             NODE_ENV: production
-            PORT: '3000'
-            SLIM: 'true'
-            TERM: 'xterm'
+            PORT: "3000"
+            SLIM: "true"
+            TERM: xterm
       - run:
           name: Wait for app to be ready
           command: ./scripts/wait-for-it.sh 3000
       - run: yarn test:e2e:ci
+
+  build_docker:
+    description: Build the Docker image
+    executor: docker/machine
+    parameters:
+      image_name:
+        type: string
+        default: $DOCKER_LOGIN/$CIRCLE_PROJECT_REPONAME
+    steps:
+      - checkout
+      - docker/build:
+          image: <<parameters.image_name>>
+      - run:
+          name: Save Docker image
+          command: docker save -o docker-image.tar <<parameters.image_name>>:$CIRCLE_SHA1
+      - persist_to_workspace:
+          root: .
+          paths:
+            - docker-image.tar
+
+  heroku_deploy:
+    description: Deploy the app to Heroku via Container Registry, and then publish via DockerHub
+    executor: docker/machine
+    parameters:
+      image_name:
+        type: string
+        default: $DOCKER_LOGIN/$CIRCLE_PROJECT_REPONAME
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - docker/check:
+          use-docker-credentials-store: true
+      - run:
+          name: Load and tag the built image
+          command: |
+            docker load -i docker-image.tar
+            docker tag <<parameters.image_name>>:$CIRCLE_SHA1 <<parameters.image_name>>:latest
+            docker tag <<parameters.image_name>>:$CIRCLE_SHA1 registry.heroku.com/$HEROKU_APP_NAME/web:latest
+      - heroku/install
+      - run:
+          name: Deploy to Heroku
+          command: |
+            heroku container:login
+            docker push registry.heroku.com/$HEROKU_APP_NAME/web:latest
+            heroku container:release web -a $HEROKU_APP_NAME
+      - docker/push:
+          image: <<parameters.image_name>>
+          tag: latest
 
 workflows:
   version: 2
@@ -147,13 +197,17 @@ workflows:
       - test_e2e:
           requires:
             - build_app
-      - docker/publish:
+      - build_docker:
           requires:
             - test_backend
             - test_e2e
           filters:
             branches:
               only: master
-          image: $DOCKER_LOGIN/$CIRCLE_PROJECT_REPONAME
-          tag: latest
-          use-docker-credentials-store: true
+      - approve_heroku_deploy:
+          type: approval
+          requires:
+            - build_docker
+      - heroku_deploy:
+          requires:
+            - approve_heroku_deploy
