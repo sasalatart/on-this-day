@@ -180,6 +180,9 @@ workflows:
       - commitlint:
           requires:
             - bootstrap
+          filters:
+            branches:
+              ignore: master
       - lint:
           requires:
             - bootstrap
