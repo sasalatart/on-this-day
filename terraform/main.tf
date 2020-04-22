@@ -1,3 +1,13 @@
+terraform {
+  backend "remote" {
+    organization = "on-this-day"
+
+    workspaces {
+      name = "on-this-day"
+    }
+  }
+}
+
 provider "heroku" {
   email   = var.heroku_email
   api_key = var.heroku_api_key
