@@ -8,6 +8,12 @@ packages/server/src/type-defs/introspection.json
 
 test-results.xml
 
+# Terraform
+.terraform
+terraform.tfvars
+terraform.tfstate
+terraform.tfstate.backup
+
 # Created by https://www.gitignore.io/api/osx,node,linux,windows
 
 ### Node ###
