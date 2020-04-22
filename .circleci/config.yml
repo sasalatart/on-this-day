@@ -143,7 +143,7 @@ jobs:
             - docker-image.tar
 
   heroku_deploy:
-    description: Deploy the app to Heroku via Container Registry, and then publish via Dockerhub
+    description: Deploy the app to Heroku via Container Registry, and then publish via DockerHub
     executor: docker/machine
     parameters:
       image_name:
@@ -156,7 +156,7 @@ jobs:
       - docker/check:
           use-docker-credentials-store: true
       - run:
-          name: Load and tag built image
+          name: Load and tag the built image
           command: |
             docker load -i docker-image.tar
             docker tag <<parameters.image_name>>:$CIRCLE_SHA1 <<parameters.image_name>>:latest
