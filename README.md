@@ -186,3 +186,9 @@ $ yarn test:e2e
 [concurrently]: https://github.com/kimmobrunfeldt/concurrently
 [jest]: https://jestjs.io/
 [cypress]: https://www.cypress.io/
+
+## License
+
+Copyright (c) 2017, Sebastián Salata Ruiz-Tagle
+
+_On This Day_ is [MIT licensed](./LICENSE).
