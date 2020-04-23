@@ -78,7 +78,7 @@ describe('Date Select', () => {
 
   context('when a valid combination is selected', () => {
     const day = '15';
-    const month = '4';
+    const month = '1';
 
     beforeEach(() => {
       selectDate(day, month);
