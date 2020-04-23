@@ -7,6 +7,7 @@ orbs:
 aliases:
   - &node-docker-image circleci/node:12.13.1
   - &mongo-docker-image circleci/mongo:4.2.2-ram
+  - &terraform-docker-image hashicorp/terraform:light
   - &working-directory ~/repo
   - &deps-cache-key deps-v1-{{ checksum "yarn.lock" }}
   - &deps-cache-restore-keys
@@ -24,6 +25,11 @@ executors:
     docker:
       - image: *node-docker-image
       - image: *mongo-docker-image
+
+  tf_executor:
+    working_directory: *working-directory
+    docker:
+      - image: *terraform-docker-image
 
 commands:
   checkout_and_cache:
@@ -81,6 +87,17 @@ jobs:
       - checkout
       - run: docker run --rm -i hadolint/hadolint < Dockerfile
 
+  lint_terraform:
+    description: Lint Terraform files (validation is done via Terraform Cloud)
+    executor: tf_executor
+    steps:
+      - checkout
+      - run:
+          name: Lint .tf files
+          command: |
+            cd terraform
+            terraform fmt -check -diff -recursive
+
   prettier_check:
     description: Check if code follows Prettier specs
     executor: node_executor
@@ -122,8 +139,8 @@ jobs:
           background: true
           environment:
             NODE_ENV: production
-            PORT: "3000"
-            SLIM: "true"
+            PORT: '3000'
+            SLIM: 'true'
             TERM: xterm
       - run:
           name: Wait for app to be ready
@@ -194,6 +211,9 @@ workflows:
       - lint_docker:
           requires:
             - bootstrap
+      - lint_terraform:
+          requires:
+            - bootstrap
       - prettier_check:
           requires:
             - bootstrap
@@ -201,6 +221,7 @@ workflows:
           requires:
             - lint
             - lint_docker
+            - lint_terraform
             - prettier_check
       - test_backend:
           requires:
