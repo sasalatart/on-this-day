@@ -73,12 +73,19 @@ jobs:
             FROM_SHA="$(git log origin/master..$CIRCLE_SHA1 --oneline | tail -1 | awk '{print $1}')"
             commitlint --from $FROM_SHA --to $CIRCLE_SHA1
 
-  lint:
-    description: Lint JS & markdown
+  lint_ts:
+    description: Lint JS & TS
     executor: node_executor
     steps:
       - checkout_and_cache
       - run: yarn lint
+
+  lint_md:
+    description: Lint markdown
+    executor: node_executor
+    steps:
+      - checkout_and_cache
+      - run: yarn lint:markdown
 
   lint_docker:
     description: Lint Dockerfile
@@ -105,7 +112,7 @@ jobs:
       - checkout_and_cache
       - run: yarn prettier:check
 
-  build_app:
+  codegen_and_transpile:
     description: Create GraphQL types and transpile TS to JS
     executor: node_executor
     steps:
@@ -205,7 +212,10 @@ workflows:
           filters:
             branches:
               ignore: master
-      - lint:
+      - lint_ts:
+          requires:
+            - bootstrap
+      - lint_md:
           requires:
             - bootstrap
       - lint_docker:
@@ -217,18 +227,19 @@ workflows:
       - prettier_check:
           requires:
             - bootstrap
-      - build_app:
+      - codegen_and_transpile:
           requires:
-            - lint
+            - lint_ts
+            - lint_md
             - lint_docker
             - lint_terraform
             - prettier_check
       - test_backend:
           requires:
-            - build_app
+            - codegen_and_transpile
       - test_e2e:
           requires:
-            - build_app
+            - codegen_and_transpile
       - build_docker:
           requires:
             - test_backend

@@ -21,7 +21,7 @@
     ]
   },
   "scripts": {
-    "lint": "yarn workspaces run lint && yarn lint:markdown",
+    "lint": "yarn workspaces run lint",
     "lint:markdown": "yarn markdownlint README.md",
     "lint:docker": "docker run --rm -i hadolint/hadolint < Dockerfile",
     "prettier:check": "yarn prettier --check packages/**/*.ts",
