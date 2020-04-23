@@ -79,7 +79,7 @@ jobs:
     executor: docker/machine
     steps:
       - checkout
-      - run: yarn lint:docker
+      - run: docker run --rm -i hadolint/hadolint < Dockerfile
 
   prettier_check:
     description: Check if code follows Prettier specs
