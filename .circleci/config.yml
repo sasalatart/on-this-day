@@ -51,13 +51,6 @@ jobs:
             - packages/shared/node_modules
             - ~/.cache/Cypress
 
-  lint:
-    description: Lint code & markdown
-    executor: node_executor
-    steps:
-      - checkout_and_cache
-      - run: yarn lint
-
   commitlint:
     description: Lint commit messages according to Conventional Commits
     executor: node_executor
@@ -73,6 +66,20 @@ jobs:
           command: |
             FROM_SHA="$(git log origin/master..$CIRCLE_SHA1 --oneline | tail -1 | awk '{print $1}')"
             commitlint --from $FROM_SHA --to $CIRCLE_SHA1
+
+  lint:
+    description: Lint JS & markdown
+    executor: node_executor
+    steps:
+      - checkout_and_cache
+      - run: yarn lint
+
+  lint_docker:
+    description: Lint Dockerfile
+    executor: docker/machine
+    steps:
+      - checkout
+      - run: yarn lint:docker
 
   prettier_check:
     description: Check if code follows Prettier specs
@@ -178,12 +185,13 @@ workflows:
     jobs:
       - bootstrap
       - commitlint:
-          requires:
-            - bootstrap
           filters:
             branches:
               ignore: master
       - lint:
+          requires:
+            - bootstrap
+      - lint_docker:
           requires:
             - bootstrap
       - prettier_check:
@@ -191,8 +199,8 @@ workflows:
             - bootstrap
       - build_app:
           requires:
-            - commitlint
             - lint
+            - lint_docker
             - prettier_check
       - test_backend:
           requires:
