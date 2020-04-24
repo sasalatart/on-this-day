@@ -1,8 +1,4 @@
-# On This Day
-
-[![License: MIT][mit-badge]](https://opensource.org/licenses/MIT)
-[![CircleCI][circleci-badge]](https://circleci.com/gh/sasalatart/on-this-day)
-[![code style: prettier][prettier-badge]](https://github.com/prettier/prettier)
+# On This Day &middot; [![][mit-bdg]][mit] [![][build-bdg]][build] [![][prettier-bdg]][prettier]
 
 ## About
 
@@ -199,9 +195,12 @@ Copyright (c) 2017, Sebastián Salata Ruiz-Tagle
 
 _On This Day_ is [MIT licensed](./LICENSE).
 
-[mit-badge]: https://img.shields.io/badge/License-MIT-blue.svg
-[circleci-badge]: https://circleci.com/gh/sasalatart/on-this-day.svg?style=svg
-[prettier-badge]: https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square
+[mit]: https://opensource.org/licenses/MIT
+[mit-bdg]: https://img.shields.io/badge/License-MIT-blue.svg
+[build]: https://circleci.com/gh/sasalatart/on-this-day
+[build-bdg]: https://circleci.com/gh/sasalatart/on-this-day.svg?style=svg
+[prettier]: https://github.com/prettier/prettier
+[prettier-bdg]: https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square
 [concurrently]: https://github.com/kimmobrunfeldt/concurrently
 [jest]: https://jestjs.io/
 [cypress]: https://www.cypress.io/
