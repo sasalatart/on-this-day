@@ -180,6 +180,19 @@ $ yarn test:e2e:open
 $ yarn test:e2e
 ```
 
+## Credits
+
+This project used many open-source projects, most of them have already been mentioned in this
+document, but others still remain unmentioned:
+
+- [Wikipedia][wikipedia] and the content-creators that have provided the historical episodes served
+  and displayed by this app, and which are [licensed][cc-share-alike] as Creative Commons
+  Attribution-ShareAlike 3.0 Unported License.
+- [Material UI][material-ui] for their React components with which the `client` package of this
+  project was built.
+- [Stéphane Monnot][stephane-monnot] for their [react-vertical-timeline][react-vertical-timeline]
+  components to represent episodes in an ordered and nice manner.
+
 ## License
 
 Copyright (c) 2017, Sebastián Salata Ruiz-Tagle
@@ -192,3 +205,8 @@ _On This Day_ is [MIT licensed](./LICENSE).
 [concurrently]: https://github.com/kimmobrunfeldt/concurrently
 [jest]: https://jestjs.io/
 [cypress]: https://www.cypress.io/
+[wikipedia]: https://www.wikipedia.org/
+[cc-share-alike]: https://creativecommons.org/licenses/by-sa/3.0/
+[material-ui]: https://material-ui.com/
+[stephane-monnot]: https://github.com/stephane-monnot
+[react-vertical-timeline]: https://github.com/stephane-monnot/react-vertical-timeline
