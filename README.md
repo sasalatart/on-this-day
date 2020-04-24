@@ -1,4 +1,4 @@
-# On This Day &middot; [![][mit-bdg]][mit] [![][build-bdg]][build] [![][prettier-bdg]][prettier]
+# On This Day &middot; [![m][mit-bdg]][mit] [![b][build-bdg]][build] [![p][prettier-bdg]][prettier]
 
 ## About
 
