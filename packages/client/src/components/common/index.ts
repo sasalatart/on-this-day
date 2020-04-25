@@ -7,6 +7,8 @@ export { default as PaperBox } from './PaperBox';
 export { default as Spinner } from './Spinner';
 export { default as SubmitButton } from './SubmitButton';
 
+export type { InputProps } from './Input';
+
 export type StyledTheme = {
   theme: Theme;
 };

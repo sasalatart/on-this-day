@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useField } from 'formik';
 import { TextField, TextFieldProps } from '@material-ui/core';
 
-type InputProps = {
+export type InputProps = {
   name: string;
   component?: ComponentType<TextFieldProps>;
 } & TextFieldProps;
