@@ -1,7 +1,6 @@
 import React from 'react';
 import { useFormikContext } from 'formik';
-import { Button, ButtonProps, IconButtonProps } from '@material-ui/core';
-import { useTheme } from '@material-ui/core/styles';
+import { Button, ButtonProps } from '@material-ui/core';
 import {
   FontAwesomeIcon,
   FontAwesomeIconProps,
@@ -10,48 +9,30 @@ import {
 type Icon = FontAwesomeIconProps['icon'];
 
 type SubmitButtonProps = {
-  children: JSX.Element;
-  icon?: Icon;
-} & (ButtonProps & IconButtonProps);
-
-function renderIcon(
-  isSubmitting: boolean,
-  color: string,
-  icon?: Icon,
-): JSX.Element | null {
-  const iconProps = {
-    color,
-    spin: isSubmitting,
-  };
-
-  if (isSubmitting) {
-    return <FontAwesomeIcon icon="spinner" {...iconProps} />;
-  }
-
-  if (!icon) return null;
-
-  return <FontAwesomeIcon icon={icon} {...iconProps} />;
-}
+  icon: Icon;
+  'aria-label': string;
+} & ButtonProps;
 
 export default function SubmitButton({
-  children,
   icon,
   variant = 'contained',
   ...rest
 }: SubmitButtonProps): JSX.Element {
   const { isSubmitting, isValid } = useFormikContext();
-  const theme = useTheme();
 
   return (
     <Button
-      variant={variant}
       disabled={isSubmitting || !isValid}
       size="small"
       type="submit"
+      variant={variant}
       {...rest}
     >
-      {renderIcon(isSubmitting, theme.palette.primary.contrastText, icon)}
-      {children}
+      {isSubmitting ? (
+        <FontAwesomeIcon icon="spinner" spin />
+      ) : (
+        <FontAwesomeIcon icon={icon} />
+      )}
     </Button>
   );
 }
