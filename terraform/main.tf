@@ -20,7 +20,7 @@ resource "random_id" "app_salt" {
 }
 
 resource "heroku_app" "app" {
-  name   = "on-this-day-${random_id.app_salt.dec}"
+  name   = "onthisday-${random_id.app_salt.dec}"
   region = "us"
 }
 
