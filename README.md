@@ -187,7 +187,6 @@ account, and set the following variables:
 
 - `heroku_email`
 - `heroku_api_key` (sensitive!)
-- `heroku_app_name` (make sure it is unique!)
 
 After setting the variables, go to your console, ensure you have downloaded and installed Terraform,
 and then execute the following:
