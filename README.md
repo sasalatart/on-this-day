@@ -176,6 +176,51 @@ $ yarn test:e2e:open
 $ yarn test:e2e
 ```
 
+## Terraform
+
+This project uses [Terraform Cloud][terraform] for setting up its infrastructure. At the moment it
+consists of a very simple (but not optimal) free [Heroku][heroku] setup, just to keep this project
+within free-tiers.
+
+To get started with this project's Terraform setup, make sure you have created a Terraform Cloud
+account, and set the following variables:
+
+- `heroku_email`
+- `heroku_api_key` (sensitive!)
+- `heroku_app_name` (make sure it is unique!)
+
+After setting the variables, go to your console, ensure you have downloaded and installed Terraform,
+and then execute the following:
+
+```sh
+# Login to Terraform Cloud
+$ terraform login
+
+# Terraform configuration files have been placed in the terraform dir, so we cd into it
+$ cd terraform
+
+# Initialize Terraform (download modules, load state, etc.)
+$ terraform init
+
+# Generate an execution plan for Terraform
+$ terraform plan
+
+# Build/change infrastructure
+$ terraform apply
+```
+
+This should set up the basic Heroku app together with a free mongodb addon.
+
+Although the previous instructions explain how to set up the infrastructure via the CLI, **I advise
+using Terraform Cloud's GitHub integration**:
+
+1. Every time a new Pull Request is created, Terraform Cloud will run `terraform plan` automatically
+   and let GitHub know if there would be any changes to the infrastructure as a result of applying
+   the changes submitted.
+2. If you agree with those changes, then you may apply them via Terraform Cloud's UI.
+
+**This setup does not deploy the app itself. You can read more about this in Heroku's docs.**
+
 ## Credits
 
 This project used many open-source projects, most of them have already been mentioned in this
@@ -204,6 +249,8 @@ _On This Day_ is [MIT licensed](./LICENSE).
 [concurrently]: https://github.com/kimmobrunfeldt/concurrently
 [jest]: https://jestjs.io/
 [cypress]: https://www.cypress.io/
+[terraform]: https://www.terraform.io/
+[heroku]: https://www.heroku.com/
 [wikipedia]: https://www.wikipedia.org/
 [cc-share-alike]: https://creativecommons.org/licenses/by-sa/3.0/
 [material-ui]: https://material-ui.com/
