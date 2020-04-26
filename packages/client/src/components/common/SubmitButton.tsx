@@ -1,5 +1,6 @@
 import React from 'react';
 import { useFormikContext } from 'formik';
+import styled from 'styled-components';
 import { Button, ButtonProps } from '@material-ui/core';
 import {
   FontAwesomeIcon,
@@ -9,11 +10,16 @@ import {
 type Icon = FontAwesomeIconProps['icon'];
 
 type SubmitButtonProps = {
+  children: JSX.Element;
   icon: Icon;
-  'aria-label': string;
 } & ButtonProps;
 
+const ChildrenContainer = styled.span`
+  margin-left: 5px;
+`;
+
 export default function SubmitButton({
+  children,
   icon,
   variant = 'contained',
   ...rest
@@ -23,7 +29,6 @@ export default function SubmitButton({
   return (
     <Button
       disabled={isSubmitting || !isValid}
-      size="small"
       type="submit"
       variant={variant}
       {...rest}
@@ -33,6 +38,7 @@ export default function SubmitButton({
       ) : (
         <FontAwesomeIcon icon={icon} />
       )}
+      <ChildrenContainer>{children}</ChildrenContainer>
     </Button>
   );
 }

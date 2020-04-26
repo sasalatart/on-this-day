@@ -9,9 +9,10 @@ const Paper = styled(MUIPaper)`
     max-width: 100%;
     height: auto;
     min-width: 50%;
-    padding: 25px;
-    margin: 25px 5px;
+    padding: 15px;
+    margin: 25px 10px;
     ${theme.breakpoints.up('sm')} {
+      padding: 25px;
       margin: 25px;
     }
   `}
