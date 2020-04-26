@@ -15,13 +15,12 @@ provider "heroku" {
   api_key = var.heroku_api_key
 }
 
-resource "random_id" "app_name" {
+resource "random_id" "app_salt" {
   byte_length = 4
-  prefix      = "on-this-day"
 }
 
 resource "heroku_app" "app" {
-  name   = random_id.app_name.b64_url
+  name   = "onthisday-${random_id.app_salt.dec}"
   region = "us"
 }
 
