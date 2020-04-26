@@ -67,12 +67,9 @@ export default function DateSelectForm({
           </FieldInput>
         </Fields>
 
-        <Submit
-          id="submit-search"
-          icon="search"
-          aria-label={t('dateSelect.search')}
-          color="primary"
-        />
+        <Submit id="submit-search" icon="search" color="primary">
+          {t('dateSelect.search')}
+        </Submit>
       </Container>
     </Formik>
   );

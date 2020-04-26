@@ -10,7 +10,7 @@ const Paper = styled(MUIPaper)`
     height: auto;
     min-width: 50%;
     padding: 15px;
-    margin: 25px 5px;
+    margin: 25px 10px;
     ${theme.breakpoints.up('sm')} {
       padding: 25px;
       margin: 25px;
