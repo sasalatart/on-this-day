@@ -1,18 +1,20 @@
 version: "3"
 
 services:
-  mongo:
+  mongodb:
     image: mongo:4.2.2
-    container_name: mongo
+    container_name: mongodb
     ports:
       - 27017:27017
+    volumes:
+      - ./mongodb:/data/db
 
   app:
     build: .
-    container_name: on_this_day
+    container_name: onthisday
     environment:
-      - MONGODB_HOST=mongo
+      - MONGODB_HOST=mongodb
     ports:
       - 9000:9000
     depends_on:
-      - mongo
+      - mongodb
