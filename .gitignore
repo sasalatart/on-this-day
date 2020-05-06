@@ -8,6 +8,9 @@ packages/server/src/type-defs/introspection.json
 
 test-results.xml
 
+# Docker volumes
+mongodb
+
 # Terraform
 .terraform
 terraform.tfvars
