@@ -128,7 +128,8 @@ jobs:
     executor: node_executor
     steps:
       - checkout_and_cache
-      - run: yarn test:backend
+      - run: yarn test:scraper
+      - run: yarn test:server
 
   test_e2e:
     description: Run e2e tests

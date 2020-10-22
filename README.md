@@ -16,7 +16,7 @@ Custom packages included in the monorepo are:
 
 - `server`: Backend GraphQL logic
 - `client`: Frontend GraphQL + React app
-- `scraper`: Scraps seed data from Wikipedia
+- `scraper`: Scrapes data from Wikipedia
 - `shared`: Shared code for all packages, such as validations
 - `eslint-config`: Base eslint config for the whole project
 
@@ -133,7 +133,7 @@ Other additional `yarn` scripts that might be helpful:
 
 - `yarn lint`: runs eslint through the whole monorepo.
 - `yarn build`: builds GraphQL schemas into TypeScript, and then builds TS code into its JS version.
-- `yarn scrap:dev`: runs the Wikipedia scraper.
+- `yarn scrape:dev`: runs the Wikipedia scraper.
 - `yarn seed:dev --force`: runs the seeds again, but this time wiping the database clean.
 - `yarn console:dev`: opens a console to interact with the backend.
 - `yarn db`: creates and runs a local mongodb container via Docker (requires starting Docker).
@@ -166,8 +166,11 @@ a database running).
 seeds used for E2E tests only contain January data instead of the whole year.
 
 ```sh
-# Run backend tests
-$ yarn test:backend
+# Run scraper tests
+$ yarn test:scraper
+
+# Run server tests
+$ yarn test:server
 
 # Open cypress (interactive)
 $ yarn test:e2e:open
