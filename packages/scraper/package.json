@@ -11,7 +11,7 @@
     "clean": "rm -rf ./build",
     "compile": "tsc --build",
     "start": "node build",
-    "start:dev": "ts-node src"
+    "dev:start": "ts-node src"
   },
   "dependencies": {
     "@on-this-day/shared": "^1.0.0",
