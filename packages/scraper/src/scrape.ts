@@ -1,5 +1,12 @@
 import cheerio from 'cheerio';
-import { Keyword, ScrapedEpisode, ScrapedYearDate } from '@on-this-day/shared';
+import request from 'request-promise';
+import {
+  Keyword,
+  MonthName,
+  monthsByName,
+  ScrapedEpisode,
+  ScrapedYearDate,
+} from '@on-this-day/shared';
 
 enum EpisodeKindsTagIDs {
   EVENTS = 'Events',
@@ -86,7 +93,7 @@ function scrapEpisodes(
   return episodes;
 }
 
-export default function scrape(htmlBody: string): ScrapedYearDate {
+function scrape(htmlBody: string): ScrapedYearDate {
   const $ = cheerio.load(htmlBody);
 
   return {
@@ -95,4 +102,20 @@ export default function scrape(htmlBody: string): ScrapedYearDate {
     births: scrapEpisodes($, EpisodeKindsTagIDs.BIRTHS),
     deaths: scrapEpisodes($, EpisodeKindsTagIDs.DEATHS),
   };
+}
+
+export default async function scrapeYearDate(
+  monthName: MonthName,
+  dayOfMonth: number,
+  delay: number,
+): Promise<ScrapedYearDate> {
+  if (dayOfMonth < 1 || dayOfMonth > monthsByName[monthName].days) {
+    throw new Error(`Day ${dayOfMonth} is not valid for month ${monthName}`);
+  }
+
+  const html = await request(
+    `https://en.wikipedia.org/wiki/${monthName}_${dayOfMonth}`,
+  );
+  await new Promise((resolve) => setTimeout(resolve, delay));
+  return scrape(html);
 }

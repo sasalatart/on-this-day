@@ -11,4 +11,6 @@ export const OUTPUT_FILE_DIR = path.join(
   'data.json',
 );
 
-export const DELAY_BETWEEN_REQUESTS = 250;
+export const REQUEST_DELAY = 125;
+
+export const REQUEST_CONCURRENCY = 10;

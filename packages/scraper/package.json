@@ -10,6 +10,7 @@
     "build": "yarn clean && yarn compile",
     "clean": "rm -rf ./build",
     "compile": "tsc --build",
+    "test": "NODE_ENV=test jest src",
     "start": "node build",
     "dev:start": "ts-node src"
   },
@@ -21,7 +22,10 @@
   },
   "devDependencies": {
     "@types/cheerio": "^0.22.17",
+    "@types/jest": "^26.0.15",
     "@types/jsonfile": "^5.0.0",
-    "@types/request-promise": "^4.1.46"
+    "@types/request-promise": "^4.1.46",
+    "jest": "^26.6.0",
+    "ts-jest": "^26.4.1"
   }
 }
