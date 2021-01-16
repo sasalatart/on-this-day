@@ -51,6 +51,11 @@ commands:
           environment:
             DOCKERIZE_VERSION: v0.3.0
 
+  mv_dockerfile:
+    description: Move Dockerfile so that it may be found by the orb
+    steps:
+      - run: mv docker/Dockerfile Dockerfile
+
   wait_for:
     description: Waits for a port to be ready and listening
     parameters:
@@ -179,6 +184,7 @@ jobs:
         default: $DOCKER_LOGIN/$CIRCLE_PROJECT_REPONAME
     steps:
       - checkout
+      - mv_dockerfile
       - docker/build:
           image: <<parameters.image_name>>
       - run:
@@ -200,7 +206,7 @@ jobs:
       - checkout
       - attach_workspace:
           at: .
-      - run: cp docker/Dockerfile Dockerfile
+      - mv_dockerfile
       - docker/check:
           use-docker-credentials-store: true
       - run:
