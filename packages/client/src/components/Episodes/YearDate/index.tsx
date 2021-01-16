@@ -4,9 +4,12 @@ import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { Paper, Tabs, Tab } from '@material-ui/core';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { EpisodeKinds, YearDate } from '@on-this-day/shared';
-import { icons } from '../../../config';
+import {
+  Cake as CakeIcon,
+  Close as CloseIcon,
+  Star as StarIcon,
+} from '@material-ui/icons';
 import { yearDateVariables } from '../../../graphql/types/yearDate';
 import { YEAR_DATE_QUERY } from '../../../graphql/queries';
 import routes from '../../../routes';
@@ -51,7 +54,7 @@ export default function YearDateView({
   }, [error, replace]);
 
   const handleTabChange = useCallback(
-    (e: ChangeEvent<{}>, value: EpisodeKinds) => setCurrentTab(value),
+    (_e: ChangeEvent<{}>, value: EpisodeKinds) => setCurrentTab(value),
     [],
   );
 
@@ -70,13 +73,14 @@ export default function YearDateView({
       <TabsContainer square>
         <Tabs onChange={handleTabChange} value={currentTab} variant="fullWidth">
           {Object.values(EpisodeKinds).map((kind) => {
+            const Icon = TAB_ICONS[kind];
             return (
               <Tab
                 key={kind}
                 data-kind={kind}
                 label={t(`episodes.${kind}`)}
                 value={kind}
-                icon={<FontAwesomeIcon icon={icons[kind]} />}
+                icon={<Icon />}
               />
             );
           })}
@@ -87,3 +91,9 @@ export default function YearDateView({
     </>
   );
 }
+
+const TAB_ICONS: Record<EpisodeKinds, React.FC> = {
+  births: CakeIcon,
+  deaths: CloseIcon,
+  events: StarIcon,
+};

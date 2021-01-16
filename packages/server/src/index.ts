@@ -1,10 +1,10 @@
 import app, { gqlServer } from './app';
 import connectDB from './db';
-import { port } from './config';
+import { PORT } from './config';
 
 connectDB().then(() => {
-  app.listen({ port }, () => {
-    console.log(`🚀 Server ready at port ${port}`);
+  app.listen({ port: PORT }, () => {
+    console.log(`🚀 Server ready at port ${PORT}`);
     console.log(`🚀 GraphQL endpoints at ${gqlServer.graphqlPath}`);
   });
 });

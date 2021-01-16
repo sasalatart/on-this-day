@@ -6,7 +6,7 @@ import { QueryYearDateArgs } from '../type-defs';
 import { Context } from '../types';
 
 async function yearDate(
-  root: null,
+  _root: null,
   args: QueryYearDateArgs,
   ctx: Context,
 ): Promise<YearDateDocument | null> {
@@ -22,7 +22,7 @@ async function yearDate(
 function episodesResolverFactory(kind: EpisodeKinds) {
   return async function episodes(
     root: YearDateDocument,
-    args: object,
+    _args: object,
     ctx: Context,
   ): Promise<EpisodeDocument[]> {
     return ctx.models.Episode.find({ _id: { $in: root[kind] } }).sort({

@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { AppBar, Button, Toolbar, Typography } from '@material-ui/core';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { icons, REPO_URL } from '../../config';
+import { GitHub as GitHubIcon } from '@material-ui/icons';
+import { REPO_URL } from '../../config';
 import { Link, StyledTheme } from '../common';
 
 const Title = styled(Typography)`
@@ -25,7 +25,7 @@ export default function Header(): JSX.Element {
         </Title>
         <Button
           color="inherit"
-          startIcon={<FontAwesomeIcon icon={icons.github} color="white" />}
+          startIcon={<GitHubIcon htmlColor="white" />}
           href={REPO_URL}
           target="_blank"
           rel="noopener noreferrer"

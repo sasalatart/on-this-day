@@ -118,49 +118,24 @@ the server.
 
 ### Development
 
-1. Run `yarn install`
-2. Make sure that you have a local (or cloud-based) mongodb server up and running.
-3. Export the mongodb env variables:
-
-   - `MONGODB_HOST` and `MONGODB_PORT` (localhost and 27017 by default), or alternatively
-   - `MONGODB_URI`
-
-4. Seed built-in data to the database by running `yarn seed:dev`
-5. Run `yarn dev`, which will [concurrently][concurrently] turn on the GraphQL API, the React App
-   and watch for changes in all packages.
+1. Run `yarn install` and `yarn build`
+2. Make sure you have [docker][docker] installed and running.
+3. Run `yarn dev:up`, which will run [docker-compose][docker-compose] to turn on the database,
+   server, client and watch for file changes. You might need to wait for a moment the first time you
+   run this, as the database needs to be seeded completely.
 
 Other additional `yarn` scripts that might be helpful:
 
 - `yarn lint`: runs eslint through the whole monorepo.
 - `yarn build`: builds GraphQL schemas into TypeScript, and then builds TS code into its JS version.
-- `yarn scrape:dev`: runs the Wikipedia scraper.
-- `yarn seed:dev --force`: runs the seeds again, but this time wiping the database clean.
-- `yarn console:dev`: opens a console to interact with the backend.
-- `yarn db`: creates and runs a local mongodb container via Docker (requires starting Docker).
-
-If you are going to start coding before running `yarn dev`, you must run `yarn build` so that all
-internal packages are properly imported between themselves.
-
-### Running via Docker
-
-```sh
-# Start database and app server via docker-compose.
-# You might have to wait for a moment while the backend seeds the database.
-$ docker-compose up -d
-
-# Stop docker containers:
-$ docker-compose stop
-```
-
-Now the app should be available on port 9000.
+- `dev:scraper:up`: similar to `yarn dev:up`, but instead runs the scraper.
 
 ## Testing
 
 Unit & integration backend tests were written with [Jest][jest].
 
 E2E tests were written with [Cypress][cypress], and need the backend and frontend to be up and
-running in order to work (`yarn:dev` can accomplish this in one command, assuming there is already
-a database running).
+running in order to work (`yarn:test:up` can accomplish this in one command).
 
 **Important:** Only use January dates when adding new E2E tests. In order to make the CI faster, the
 seeds used for E2E tests only contain January data instead of the whole year.
@@ -246,9 +221,10 @@ _On This Day_ is [MIT licensed](./LICENSE).
 [mit-bdg]: https://img.shields.io/badge/License-MIT-blue.svg
 [build]: https://circleci.com/gh/sasalatart/on-this-day
 [build-bdg]: https://circleci.com/gh/sasalatart/on-this-day.svg?style=svg
+[docker]: https://www.docker.com/
+[docker-compose]: https://docs.docker.com/compose/
 [prettier]: https://github.com/prettier/prettier
 [prettier-bdg]: https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square
-[concurrently]: https://github.com/kimmobrunfeldt/concurrently
 [jest]: https://jestjs.io/
 [cypress]: https://www.cypress.io/
 [terraform]: https://www.terraform.io/
