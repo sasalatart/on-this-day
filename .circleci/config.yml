@@ -77,7 +77,7 @@ jobs:
             - packages/shared/node_modules
             - ~/.cache/Cypress
 
-  commitlint:
+  lint_commit:
     description: Lint commit messages according to Conventional Commits
     executor: node_executor
     steps:
@@ -105,7 +105,7 @@ jobs:
     executor: node_executor
     steps:
       - checkout_and_cache
-      - run: yarn lint:markdown
+      - run: yarn lint:md
 
   lint_docker:
     description: Lint Dockerfile
@@ -115,7 +115,7 @@ jobs:
       - docker/dockerlint:
           dockerfile: docker/Dockerfile
 
-  lint_terraform:
+  lint_tf:
     description: Lint Terraform files (validation is done via Terraform Cloud)
     executor: tf_executor
     steps:
@@ -125,13 +125,6 @@ jobs:
           command: |
             cd terraform
             terraform fmt -check -diff -recursive
-
-  prettier_check:
-    description: Check if code follows Prettier specs
-    executor: node_executor
-    steps:
-      - checkout_and_cache
-      - run: yarn prettier:check
 
   codegen_and_transpile:
     description: Create GraphQL types and transpile TS to JS
@@ -232,7 +225,7 @@ workflows:
   commit:
     jobs:
       - bootstrap
-      - commitlint:
+      - lint_commit:
           filters:
             branches:
               ignore: master
@@ -245,10 +238,7 @@ workflows:
       - lint_docker:
           requires:
             - bootstrap
-      - lint_terraform:
-          requires:
-            - bootstrap
-      - prettier_check:
+      - lint_tf:
           requires:
             - bootstrap
       - codegen_and_transpile:
@@ -256,8 +246,7 @@ workflows:
             - lint_ts
             - lint_md
             - lint_docker
-            - lint_terraform
-            - prettier_check
+            - lint_tf
       - test_backend:
           requires:
             - codegen_and_transpile
