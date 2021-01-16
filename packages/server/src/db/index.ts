@@ -1,12 +1,12 @@
 import mongoose from 'mongoose';
 import _ from 'lodash';
-import { dbURI } from '../config';
+import { MONGO_URL } from '../config';
 import '../models';
 
 mongoose.Promise = Promise;
 
 export default function connectDB(): Promise<typeof mongoose> {
-  return mongoose.connect(dbURI, {
+  return mongoose.connect(MONGO_URL, {
     useCreateIndex: true,
     useNewUrlParser: true,
     useUnifiedTopology: true,

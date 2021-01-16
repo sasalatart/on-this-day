@@ -11,16 +11,18 @@
   ],
   "scripts": {
     "lint": "eslint src --ext .js,.ts",
-    "build": "yarn clean && yarn compile",
     "clean": "rm -rf ./build",
-    "compile": "tsc --build",
+    "build": "yarn clean && yarn compile",
+    "compile": "tsc",
     "compile:watch": "yarn compile --watch"
   },
   "dependencies": {
+    "lodash": "^4.17.20",
     "progress": "^2.0.3",
     "yup": "^0.28.3"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.167",
     "@types/progress": "^2.0.3",
     "@types/yup": "^0.26.35"
   }

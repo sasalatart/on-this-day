@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  scraper:
+    container_name: scraper
+    build:
+      context: ../
+      dockerfile: ./packages/scraper/docker/Dockerfile.dev
+    volumes:
+      - ../:/home/app
+    depends_on:
+      - shared
+
+  shared:
+    container_name: shared
+    build:
+      context: ../
+      dockerfile: ./packages/shared/docker/Dockerfile.dev
+    volumes:
+      - ../:/home/app

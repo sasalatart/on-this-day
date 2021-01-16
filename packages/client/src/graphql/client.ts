@@ -1,5 +1,6 @@
 import ApolloClient, { InMemoryCache } from 'apollo-boost';
 import swal from 'sweetalert2';
+import { SERVER_URL } from '../config';
 import i18n from '../i18n';
 
 const cache = new InMemoryCache();
@@ -32,7 +33,7 @@ function handleNetworkError({ message }: { message: string }): void {
 }
 
 export default new ApolloClient({
-  uri: 'graphql',
+  uri: SERVER_URL + '/graphql',
   onError({ graphQLErrors, networkError }): void {
     if (graphQLErrors) {
       console.error('graphQLErrors: ', graphQLErrors);

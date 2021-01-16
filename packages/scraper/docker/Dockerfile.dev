@@ -1,0 +1,5 @@
+FROM node:12.16-alpine3.11
+
+WORKDIR /home/app/packages/scraper
+
+ENTRYPOINT ["yarn", "dev:start"]
