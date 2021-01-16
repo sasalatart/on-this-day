@@ -168,6 +168,7 @@ jobs:
           command: yarn start
           background: true
           environment:
+            MONGO_URL: mongodb://localhost:27017/on-this-day
             NODE_ENV: production
             PORT: '3000'
             SLIM: 'true'
