@@ -1,3 +1,5 @@
+<!-- markdownlint-configure-file { "MD013": { "line_length": 100 } } -->
+
 # On This Day &middot; [![m][mit-bdg]][mit] [![b][build-bdg]][build] [![p][prettier-bdg]][prettier]
 
 ## About
