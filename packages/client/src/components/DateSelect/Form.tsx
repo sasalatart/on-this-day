@@ -50,7 +50,7 @@ export default function DateSelectForm({
       onSubmit={handleSubmit}
       validationSchema={validationsSchemas.dayOfMonth}
     >
-      {({ isSubmitting, isValid }) => (
+      {({ isSubmitting, isValid }): JSX.Element => (
         <Container>
           <Fields>
             <FieldInput
