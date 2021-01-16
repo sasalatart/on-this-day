@@ -54,7 +54,7 @@ export default function YearDateView({
   }, [error, replace]);
 
   const handleTabChange = useCallback(
-    (e: ChangeEvent<{}>, value: EpisodeKinds) => setCurrentTab(value),
+    (_e: ChangeEvent<{}>, value: EpisodeKinds) => setCurrentTab(value),
     [],
   );
 

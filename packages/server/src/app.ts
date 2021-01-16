@@ -31,7 +31,7 @@ app.use(express.static(CLIENT_DIR));
 
 gqlServer.applyMiddleware({ app });
 
-app.get('*', (req, res) => {
+app.get('*', (_req, res) => {
   res.sendFile(path.resolve(CLIENT_DIR, 'index.html'));
 });
 

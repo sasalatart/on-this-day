@@ -18,11 +18,11 @@ const CITATION_REGEX = /\[citation needed\]|\[\d+\]/gi;
 
 function scrapDescription($: CheerioStatic): string {
   return $('#mw-content-text > div > p')
-    .filter((i: number, element: CheerioElement): boolean => {
+    .filter((_i: number, element: CheerioElement): boolean => {
       const text = $(element).text();
       return !!text && text.slice(-1) !== ':';
     })
-    .map((i: number, element: CheerioElement) => $(element).text())
+    .map((_i: number, element: CheerioElement) => $(element).text())
     .get()
     .join('\n')
     .replace(CITATION_REGEX, '');
@@ -44,7 +44,7 @@ function scrapEpisodes(
   episodeKind: EpisodeKindsTagIDs,
 ): ScrapedEpisode[] {
   const itemToEpisode = (
-    i: number,
+    _i: number,
     element: CheerioElement,
   ): ScrapedEpisode | undefined => {
     const elementNode = $(element);
@@ -54,7 +54,7 @@ function scrapEpisodes(
 
     const kw = elementNode
       .children('a')
-      .map((j, keyword) => scrapKeywords($, keyword))
+      .map((_j, keyword) => scrapKeywords($, keyword))
       .get() as [Keyword];
 
     if (Number.isNaN(+year) || !dataString) {
