@@ -1,19 +1,14 @@
 import path from 'path';
 
-const {
-  MONGO_URL, // from @shelf/jest-mongodb
-  MONGODB_HOST = 'localhost',
-  MONGODB_PORT = 27017,
-  MONGODB_URI,
-  NODE_ENV = 'development',
+export const {
+  MONGO_URL = 'mongodb://mongo:27017/on-this-day', // also provided by from @shelf/jest-mongodb
   PORT = 9000,
 } = process.env;
 
-export const dbURI =
-  (NODE_ENV === 'test'
-    ? MONGO_URL // from @shelf/jest-mongodb
-    : MONGODB_URI) || `mongodb://${MONGODB_HOST}:${MONGODB_PORT}/on-this-day`;
-
-export const port = PORT;
-
-export const clientDir = path.resolve(__dirname, '..', '..', 'client', 'build');
+export const CLIENT_DIR = path.resolve(
+  __dirname,
+  '..',
+  '..',
+  'client',
+  'build',
+);

@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Typography } from '@material-ui/core';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { icons, REPO_URL, USERNAME_URL } from '../../config';
+import { Box, Typography } from '@material-ui/core';
+import { GitHub as GitHubIcon } from '@material-ui/icons';
+import { REPO_URL, USERNAME_URL } from '../../config';
 import { Anchor, StyledTheme } from '../common';
 
 const Container = styled.footer`
@@ -22,10 +22,6 @@ const FooterText = styled(Typography)`
   `}
 `;
 
-const RepoText = styled(FooterText)`
-  margin-left: 5px;
-`;
-
 export default function Footer(): JSX.Element {
   return (
     <Container>
@@ -33,11 +29,14 @@ export default function Footer(): JSX.Element {
         <FooterText>@sasalatart</FooterText>
       </Anchor>
 
-      <FooterText>2017-2020</FooterText>
+      <FooterText>2017-2021</FooterText>
 
       <Anchor to={REPO_URL}>
-        <FontAwesomeIcon icon={icons.github} color="white" />
-        <RepoText display="inline">GitHub</RepoText>
+        <FooterText display="inline">
+          <Box display="flex" alignItems="center" gridGap={4}>
+            <GitHubIcon htmlColor="white" /> GitHub
+          </Box>
+        </FooterText>
       </Anchor>
     </Container>
   );

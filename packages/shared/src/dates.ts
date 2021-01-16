@@ -1,20 +1,10 @@
-import _ from 'lodash';
-
-export type MonthName =
-  | 'January'
-  | 'February'
-  | 'March'
-  | 'April'
-  | 'May'
-  | 'June'
-  | 'July'
-  | 'August'
-  | 'September'
-  | 'October'
-  | 'November'
-  | 'December';
+import keyBy from 'lodash/keyBy';
+import mapValues from 'lodash/mapValues';
+import times from 'lodash/times';
+import { MonthName } from './types';
 
 const now = new Date();
+
 export const today = {
   day: now.getDate(),
   month: now.getMonth() + 1,
@@ -54,12 +44,12 @@ export const months: { name: MonthName; number: number; days: number }[] = [
   days: daysByMonthNumber[`${number}`],
 }));
 
-export const monthsByName = _.keyBy(months, 'name');
+export const monthsByName = keyBy(months, 'name');
 
-export const monthNumbersByName = _.mapValues(monthsByName, 'number');
+export const monthNumbersByName = mapValues(monthsByName, 'number');
 
 export const datesOfYear = months
   .map(({ name, days }) =>
-    _.times(days, (i) => ({ monthName: name, day: i + 1 })),
+    times(days, (i) => ({ monthName: name, day: i + 1 })),
   )
   .flat();

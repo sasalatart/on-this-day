@@ -3,7 +3,7 @@ import { ApolloServer } from 'apollo-server-express';
 import express from 'express';
 import cors from 'cors';
 import _ from 'lodash';
-import { clientDir } from './config';
+import { CLIENT_DIR } from './config';
 import schemaDirectives from './directives';
 import i18n from './i18n';
 import models from './models';
@@ -27,12 +27,12 @@ export const gqlServer = new ApolloServer({
 const app = express();
 
 app.use(cors());
-app.use(express.static(clientDir));
+app.use(express.static(CLIENT_DIR));
 
 gqlServer.applyMiddleware({ app });
 
 app.get('*', (req, res) => {
-  res.sendFile(path.resolve(clientDir, 'index.html'));
+  res.sendFile(path.resolve(CLIENT_DIR, 'index.html'));
 });
 
 export default app;

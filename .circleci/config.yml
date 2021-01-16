@@ -39,6 +39,26 @@ commands:
       - restore_cache:
           keys: *deps-cache-restore-keys
 
+  install_dockerize:
+    description: Install Dockerize
+    steps:
+      - run:
+          name: Download and configure Dockerize
+          command: |
+            wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && \
+            sudo tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && \
+            rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
+          environment:
+            DOCKERIZE_VERSION: v0.3.0
+
+  wait_for:
+    description: Waits for a port to be ready and listening
+    parameters:
+      port:
+        type: integer
+    steps:
+      - run: dockerize -wait tcp://localhost:<< parameters.port >> -timeout 1m
+
 jobs:
   bootstrap:
     description: Install node modules
@@ -92,7 +112,8 @@ jobs:
     executor: docker/machine
     steps:
       - checkout
-      - run: docker run --rm -i hadolint/hadolint < Dockerfile
+      - docker/dockerlint:
+          dockerfile: docker/Dockerfile
 
   lint_terraform:
     description: Lint Terraform files (validation is done via Terraform Cloud)
@@ -136,6 +157,7 @@ jobs:
     executor: app_executor
     steps:
       - checkout_and_cache
+      - install_dockerize
       - attach_workspace:
           at: .
       - run:
@@ -150,9 +172,8 @@ jobs:
             PORT: '3000'
             SLIM: 'true'
             TERM: xterm
-      - run:
-          name: Wait for app to be ready
-          command: ./scripts/wait-for-it.sh 3000
+      - wait_for:
+          port: 3000
       - run: yarn test:e2e:ci
 
   build_docker:
@@ -185,6 +206,7 @@ jobs:
       - checkout
       - attach_workspace:
           at: .
+      - run: cp docker/Dockerfile Dockerfile
       - docker/check:
           use-docker-credentials-store: true
       - run:

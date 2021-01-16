@@ -1,4 +1,4 @@
-FROM node:12.13.1-alpine3.10 AS builder
+FROM node:12.16-alpine3.11 AS builder
 
 WORKDIR /build
 
@@ -9,7 +9,7 @@ RUN yarn build
 
 ###
 
-FROM node:12.13.1-alpine3.10
+FROM node:12.16-alpine3.11
 
 LABEL maintainer="Sebastian Salata R-T <sa.salatart@gmail.com>"
 
@@ -33,4 +33,5 @@ COPY --from=builder /build/packages/client/package.json packages/client/package.
 
 RUN yarn install --production
 
-CMD ["yarn", "start"]
+ENTRYPOINT ["yarn"]
+CMD ["start"]

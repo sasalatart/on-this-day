@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+  server:
+    container_name: server
+    build:
+      context: ../
+      dockerfile: ./packages/server/docker/Dockerfile.dev
+    ports:
+      - 9000:9000
+    volumes:
+      - ../:/home/app
+    depends_on:
+      - mongo
+      - shared
+
+  client:
+    container_name: client
+    build:
+      context: ../
+      dockerfile: ./packages/client/docker/Dockerfile.dev
+    ports:
+      - 3000:3000
+    volumes:
+      - ../:/home/app
+    depends_on:
+      - server
+      - shared
+    stdin_open: true
+
+  shared:
+    container_name: shared
+    build:
+      context: ../
+      dockerfile: ./packages/shared/docker/Dockerfile.dev
+    volumes:
+      - ../:/home/app

@@ -56,8 +56,8 @@ describe('scrapeYearDate', () => {
 
     it('scrapes descriptions', async () => {
       await setResult();
-      const expected = 'January 1 is the first day of the year';
-      expect(result.description.includes(expected)).toBeTruthy();
+      const expected = '1 January is the first day of the year';
+      expect(result.description).toContain(expected);
     });
 
     it('scrapes events', async () => {

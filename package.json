@@ -3,9 +3,6 @@
   "author": "Sebastián Salata R-T <sa.salatart@gmail.com>",
   "license": "MIT",
   "private": true,
-  "engines": {
-    "node": "12.13.1"
-  },
   "workspaces": {
     "packages": [
       "packages/shared",
@@ -25,41 +22,33 @@
     "lint:markdown": "yarn markdownlint README.md",
     "lint:docker": "docker run --rm -i hadolint/hadolint < Dockerfile",
     "prettier:check": "yarn prettier --check packages/**/*.ts",
+    "clean": "yarn workspaces run clean",
     "build": "yarn workspaces run build",
     "compile:dev": "concurrently \"yarn compile:shared\" \"yarn compile:codegen\"",
     "compile:shared": "yarn workspace @on-this-day/shared compile",
     "compile:codegen": "yarn workspace @on-this-day/server codegen && yarn workspace @on-this-day/client codegen",
     "start": "yarn workspace @on-this-day/server start",
-    "scrape": "yarn workspace @on-this-day/scraper start",
-    "scrape:dev": "yarn compile:shared && yarn workspace @on-this-day/scraper dev:start",
-    "seed": "yarn workspace @on-this-day/server seed",
-    "seed:dev": "yarn compile:shared && yarn workspace @on-this-day/server dev:seed",
     "console": "yarn workspace @on-this-day/server console",
-    "console:dev": "yarn compile:shared && yarn workspace @on-this-day/server dev:console",
-    "dev": "yarn compile:dev && concurrently \"yarn:dev:*\"",
-    "dev:server": "yarn workspace @on-this-day/server dev:start",
-    "dev:client": "yarn workspace @on-this-day/client start",
-    "dev:shared": "yarn workspace @on-this-day/shared compile:watch",
-    "db": "docker run --rm -p 27017:27017 -v mongodbdata:/data/db mongo:4.2.0",
-    "test:scraper": "yarn compile:dev && yarn workspace @on-this-day/scraper yarn test",
+    "compose": "docker-compose -f ./docker/docker-compose.app.yml -f ./docker/docker-compose.db-dev.yml",
+    "compose:scraper": "docker-compose -f ./docker/docker-compose.scraper.yml",
+    "compose:test": "docker-compose -f ./docker/docker-compose.app.yml -f ./docker/docker-compose.db-test.yml",
+    "dev:up": "yarn compose up",
+    "dev:destroy": "yarn compose rm",
+    "dev:scraper:up": "yarn compose:scraper up",
+    "dev:scraper:destroy": "yarn compose:scraper rm",
+    "test:scraper": "yarn compile:shared && yarn workspace @on-this-day/scraper yarn test",
     "test:server": "yarn compile:dev && yarn workspace @on-this-day/server yarn test",
-    "test:e2e": "yarn compile:dev && yarn test:e2e:ci",
-    "test:e2e:ci": "yarn workspace @on-this-day/client cypress:headless",
-    "test:e2e:open": "yarn compile:dev && yarn workspace @on-this-day/client cypress:open"
+    "test:up": "yarn compose:test up",
+    "test:destroy": "yarn compose:test rm",
+    "test:e2e": "yarn workspace @on-this-day/client cypress:headless",
+    "test:e2e:open": "yarn workspace @on-this-day/client cypress:open"
   },
   "devDependencies": {
     "@on-this-day/eslint-config": "1.0.0",
-    "@types/bluebird": "^3.5.30",
-    "@types/lodash": "^4.14.149",
     "@types/node": "^12.0.0",
     "concurrently": "^5.1.0",
     "markdownlint-cli": "^0.22.0",
     "prettier": "^2.0.1",
-    "ts-node": "^8.8.2",
-    "typescript": "~3.8.3"
-  },
-  "dependencies": {
-    "bluebird": "^3.7.2",
-    "lodash": "^4.17.19"
+    "typescript": "^4.1.3"
   }
 }

@@ -7,20 +7,22 @@
   "private": true,
   "scripts": {
     "lint": "eslint src --ext .ts",
-    "build": "yarn clean && yarn compile",
     "clean": "rm -rf ./build",
-    "compile": "tsc --build",
+    "build": "yarn clean && yarn compile",
+    "compile": "tsc",
     "test": "NODE_ENV=test jest src",
     "start": "node build",
-    "dev:start": "ts-node src"
+    "dev:start": "yarn build && yarn start"
   },
   "dependencies": {
     "@on-this-day/shared": "^1.0.0",
+    "bluebird": "^3.7.2",
     "cheerio": "^1.0.0-rc.3",
     "jsonfile": "^6.0.1",
     "request-promise": "^4.2.5"
   },
   "devDependencies": {
+    "@types/bluebird": "^3.5.33",
     "@types/cheerio": "^0.22.17",
     "@types/jest": "^26.0.15",
     "@types/jsonfile": "^5.0.0",
