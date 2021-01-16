@@ -175,7 +175,7 @@ jobs:
             TERM: xterm
       - wait_for:
           port: 3000
-      - run: yarn test:e2e:ci
+      - run: yarn test:e2e
 
   build_docker:
     description: Build the Docker image
