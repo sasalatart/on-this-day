@@ -38,5 +38,5 @@ function BaseFieldInput({
 }
 
 export const FieldInput = styled(BaseFieldInput)<Props>`
-  width: ${(props: Props): string => props?.width || 'default'};
+  width: ${(props: Props): string => props?.width || 'auto'};
 `;
