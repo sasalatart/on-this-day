@@ -2,13 +2,13 @@ import Bluebird from 'bluebird';
 import jsonfile from 'jsonfile';
 import {
   buildProgressBar,
-  datesOfYear,
+  DATES_OF_YEAR,
   ScrapedYearDate,
 } from '@on-this-day/shared';
 import { OUTPUT_FILE_DIR, REQUEST_DELAY, REQUEST_CONCURRENCY } from './config';
-import scrapeYearDate from './scrape';
+import { scrapeYearDate } from './scrape';
 
-export default async function scrapeYear(
+export async function scrapeYear(
   concurrency = REQUEST_CONCURRENCY,
 ): Promise<void> {
   console.log('⏳ Scraping...');
@@ -16,7 +16,7 @@ export default async function scrapeYear(
   const progressBar = buildProgressBar();
   const byDate: { [k: string]: ScrapedYearDate } = {};
   await Bluebird.map(
-    datesOfYear,
+    DATES_OF_YEAR,
     async ({ monthName, day }) => {
       byDate[day] = await scrapeYearDate(monthName, day, REQUEST_DELAY);
       progressBar.tick();

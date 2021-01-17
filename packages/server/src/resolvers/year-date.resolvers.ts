@@ -1,6 +1,6 @@
 import { UserInputError } from 'apollo-server-express';
-import _ from 'lodash';
-import { EpisodeKinds, validationsSchemas } from '@on-this-day/shared';
+import { mapValues } from 'lodash';
+import { EpisodeKind, dayOfMonthSchema } from '@on-this-day/shared';
 import { EpisodeDocument, YearDateDocument } from '../models';
 import { QueryYearDateArgs } from '../type-defs';
 import { Context } from '../types';
@@ -10,7 +10,7 @@ async function yearDate(
   args: QueryYearDateArgs,
   ctx: Context,
 ): Promise<YearDateDocument | null> {
-  await validationsSchemas.dayOfMonth.validate(args.input).catch((err) => {
+  await dayOfMonthSchema.validate(args.input).catch((err) => {
     throw new UserInputError(err.message);
   });
 
@@ -19,7 +19,7 @@ async function yearDate(
   );
 }
 
-function episodesResolverFactory(kind: EpisodeKinds) {
+function episodesResolverFactory(kind: EpisodeKind) {
   return async function episodes(
     root: YearDateDocument,
     _args: object,
@@ -35,5 +35,5 @@ module.exports = {
   Query: {
     yearDate,
   },
-  YearDate: _.mapValues(EpisodeKinds, episodesResolverFactory),
+  YearDate: mapValues(EpisodeKind, episodesResolverFactory),
 };

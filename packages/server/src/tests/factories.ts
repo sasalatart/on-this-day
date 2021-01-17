@@ -1,18 +1,10 @@
 import Bluebird from 'bluebird';
-import { Document, Types as MongooseTypes } from 'mongoose';
-import { Factory } from 'rosie';
+import { map, mapValues, times } from 'lodash';
+import { Types as MongooseTypes } from 'mongoose';
 import { nanoid } from 'nanoid';
-import _ from 'lodash';
-import { EpisodeKinds } from '@on-this-day/shared';
+import { Factory } from 'rosie';
+import { EpisodeKind } from '@on-this-day/shared';
 import models, { YearDateDocument, EpisodeDocument } from '../models';
-
-function idOfResource(
-  resource?: Document | MongooseTypes.ObjectId,
-): MongooseTypes.ObjectId | undefined {
-  if (!resource) return undefined;
-  if ('id' in resource) return resource.id;
-  return resource as MongooseTypes.ObjectId;
-}
 
 Factory.define('yearDate', models.YearDate)
   .attr('month', 1)
@@ -20,11 +12,11 @@ Factory.define('yearDate', models.YearDate)
   .attr('description', nanoid);
 
 Factory.define('episode', models.Episode)
-  .attr('yearDate', idOfResource)
+  .attr('yearDate', () => new MongooseTypes.ObjectId())
   .attr('year', 1)
   .attr('month', 1)
   .attr('day', 1)
-  .attr('kind', EpisodeKinds.events)
+  .attr('kind', EpisodeKind.events)
   .attr('description', nanoid);
 
 export async function createEpisode(
@@ -35,29 +27,27 @@ export async function createEpisode(
 
 export async function createYearDate(
   attrs?: Partial<YearDateDocument>,
-  numberOfEpisodesByKind = _.mapValues(EpisodeKinds, () => 0),
+  numberOfEpisodesByKind = mapValues(EpisodeKind, () => 0),
 ): Promise<{
   yearDate: YearDateDocument;
-  episodes: Record<EpisodeKinds, EpisodeDocument[]>;
+  episodes: Record<EpisodeKind, EpisodeDocument[]>;
 }> {
   const yearDate = await Factory.build('yearDate', attrs).save();
   const episodesByKind = await Bluebird.props(
-    _.mapValues(numberOfEpisodesByKind, (amount, kind) => {
+    mapValues(numberOfEpisodesByKind, (amount, kind) => {
       return Promise.all(
-        _.times(amount, () =>
+        times(amount, () =>
           createEpisode({
-            yearDate,
+            yearDate: yearDate._id,
             month: yearDate.month,
             day: yearDate.day,
-            kind: kind as EpisodeKinds,
+            kind: kind as EpisodeKind,
           }),
         ),
       );
     }),
   );
-  yearDate.set(
-    _.mapValues(episodesByKind, (episodes) => _.map(episodes, '_id')),
-  );
+  yearDate.set(mapValues(episodesByKind, (episodes) => map(episodes, '_id')));
   await yearDate.save();
   return { yearDate, episodes: episodesByKind };
 }

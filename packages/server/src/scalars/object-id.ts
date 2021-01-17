@@ -1,7 +1,7 @@
 import { GraphQLScalarType } from 'graphql';
 import { Types } from 'mongoose';
 
-export default new GraphQLScalarType({
+export const ObjectId = new GraphQLScalarType({
   name: 'ObjectId',
   description: "The 'ObjectId' scalar type represents a mongodb unique ID",
   serialize: (val: Types.ObjectId): string => {

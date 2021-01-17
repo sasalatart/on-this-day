@@ -1,11 +1,11 @@
 export const paths = {
   home: '/',
-  episodes: '/episodes',
+  yearDate: '/year-date',
 };
 
-export default {
+export const routes = {
   home: '/',
-  episodes: (day: number, month: number): string => {
-    return `/episodes?day=${day}&month=${month}`;
+  yearDate: (day: number, month: number): string => {
+    return `/year-date?day=${day}&month=${month}`;
   },
 };

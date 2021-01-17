@@ -12,7 +12,7 @@ export type MonthName =
   | 'November'
   | 'December';
 
-export enum EpisodeKinds {
+export enum EpisodeKind {
   events = 'events',
   births = 'births',
   deaths = 'deaths',
@@ -38,7 +38,7 @@ export interface Episode {
   year: number;
   month: number;
   day: number;
-  kind: EpisodeKinds;
+  kind: EpisodeKind;
   description: string;
   keywords: Keyword[];
 }

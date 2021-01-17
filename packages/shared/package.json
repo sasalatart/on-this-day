@@ -10,7 +10,7 @@
     "build"
   ],
   "scripts": {
-    "lint": "eslint src --ext .js,.ts",
+    "lint": "eslint src --ext .ts",
     "clean": "rm -rf ./build",
     "build": "yarn clean && yarn compile",
     "compile": "tsc",

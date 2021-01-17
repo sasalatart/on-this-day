@@ -1,5 +1,5 @@
-import models from './models';
 import i18n from './i18n';
+import models from './models';
 
 export type Context = {
   models: typeof models;

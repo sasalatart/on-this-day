@@ -1,6 +1,6 @@
 import app, { gqlServer } from './app';
-import connectDB from './db';
 import { PORT } from './config';
+import { connectDB } from './db';
 
 connectDB().then(() => {
   app.listen({ port: PORT }, () => {
