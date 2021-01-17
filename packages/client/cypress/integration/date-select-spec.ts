@@ -1,5 +1,5 @@
 /// <reference types="cypress" />
-import { months } from '@on-this-day/shared';
+import { MONTHS } from '@on-this-day/shared';
 
 function selectDate(day: string, month: string): void {
   cy.get('#month').click();
@@ -25,7 +25,7 @@ describe('Date Select', () => {
 
     cy.get('#day').should('have.value', day);
     cy.get('input[name="month"]').should('have.value', month);
-    cy.get('#month').should('have.text', months[now.getMonth()].name);
+    cy.get('#month').should('have.text', MONTHS[now.getMonth()].name);
   });
 
   it('starts with the submit button enabled', () => {

@@ -36,7 +36,7 @@
     "eslint-plugin-cypress": "^2.10.3"
   },
   "scripts": {
-    "lint": "eslint src --ext .js,.jsx,.ts,.tsx",
+    "lint": "eslint --ext .ts,.tsx src cypress",
     "clean": "rm -rf ./build",
     "build": "yarn clean && yarn compile",
     "compile": "yarn codegen && react-scripts build",
