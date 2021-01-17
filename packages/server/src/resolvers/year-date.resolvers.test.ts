@@ -50,13 +50,18 @@ describe('yearDates resolvers', () => {
     const input = { month: 4, day: 15 };
 
     beforeAll(async () => {
-      const episodesPerKindPerYearDate = mapValues(EpisodeKind, () => 2);
       [
         { yearDate: yearDateDocument },
         { yearDate: anotherYearDateDocument },
       ] = await Promise.all([
-        createYearDate(input, episodesPerKindPerYearDate),
-        createYearDate({ day: 1, month: 1 }, episodesPerKindPerYearDate),
+        createYearDate(
+          input,
+          mapValues(EpisodeKind, () => 2),
+        ),
+        createYearDate(
+          { day: 1, month: 1 },
+          mapValues(EpisodeKind, () => 2),
+        ),
       ]);
     });
 
@@ -90,7 +95,7 @@ describe('yearDates resolvers', () => {
       });
     });
 
-    it('returns all episodes sorted by ascending years', () => {
+    it('returns all episodes sorted by ascending year', () => {
       Object.values(EpisodeKind).forEach((episodeKind) => {
         expect(queryResponse[episodeKind]).toEqual(
           sortBy(queryResponse[episodeKind], 'year'),
