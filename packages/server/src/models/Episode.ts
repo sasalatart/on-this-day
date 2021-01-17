@@ -1,18 +1,7 @@
 import mongoose, { Schema } from 'mongoose';
-import { daysByMonthNumber, EpisodeKinds } from '@on-this-day/shared';
+import { DAYS_BY_MONTH_NUMBER, EpisodeKind } from '@on-this-day/shared';
 import { EpisodeDocument, YearDateDocument } from './types';
-import YearDate from './YearDate';
-
-function validateYearDateConsistency(
-  this: EpisodeDocument,
-  value: YearDateDocument['_id'],
-): Promise<boolean> {
-  return YearDate.exists({ _id: value, day: this.day, month: this.month });
-}
-
-function validateDayOfMonth(this: EpisodeDocument, value: number): boolean {
-  return value <= daysByMonthNumber[this.month];
-}
+import { YearDate } from './year-date';
 
 const keyWordSchema = new Schema(
   {
@@ -62,7 +51,7 @@ export const episodeSchema = new Schema({
   },
   kind: {
     type: String,
-    enum: Object.values(EpisodeKinds),
+    enum: Object.values(EpisodeKind),
     required: true,
     index: true,
   },
@@ -75,4 +64,18 @@ export const episodeSchema = new Schema({
 
 episodeSchema.index({ day: 1, month: 1 });
 
-export default mongoose.model<EpisodeDocument>('Episode', episodeSchema);
+function validateYearDateConsistency(
+  this: EpisodeDocument,
+  value: YearDateDocument['_id'],
+): Promise<boolean> {
+  return YearDate.exists({ _id: value, day: this.day, month: this.month });
+}
+
+function validateDayOfMonth(this: EpisodeDocument, value: number): boolean {
+  return value <= DAYS_BY_MONTH_NUMBER[this.month];
+}
+
+export const Episode = mongoose.model<EpisodeDocument>(
+  'Episode',
+  episodeSchema,
+);

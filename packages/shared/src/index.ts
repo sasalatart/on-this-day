@@ -1,5 +1,5 @@
 export * from './dates';
-export { default as locales } from './locales';
-export { default as buildProgressBar } from './progress';
+export * from './locales';
+export * from './progress';
+export * from './schemas';
 export * from './types';
-export { default as validationsSchemas } from './validations-schemas';

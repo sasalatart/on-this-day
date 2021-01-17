@@ -2,10 +2,10 @@ import React from 'react';
 import { Link as ReactLink } from 'react-router-dom';
 import styled from 'styled-components';
 
-type LinkProps = {
+interface LinkProps {
   children: JSX.Element | JSX.Element[] | string;
   to: string;
-};
+}
 
 export const Link = styled(ReactLink)`
   font-weight: bold;

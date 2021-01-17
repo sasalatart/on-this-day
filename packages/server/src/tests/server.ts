@@ -15,6 +15,5 @@ export default function createTestServer(
     mockEntireSchema: false,
     mocks: true,
   });
-
   return createTestClient(server);
 }

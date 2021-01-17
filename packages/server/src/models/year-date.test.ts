@@ -1,7 +1,7 @@
 import { MongoError } from 'mongodb';
 import { createYearDate } from '../tests/factories';
-import Episode from './Episode';
-import YearDate from './YearDate';
+import { Episode } from './episode';
+import { YearDate } from './year-date';
 
 describe('YearDate Model', () => {
   describe('attributes', () => {

@@ -4,13 +4,13 @@ import { ApolloProvider } from '@apollo/react-hooks';
 import { ThemeProvider as MUIThemeProvider } from '@material-ui/core/styles';
 import { ThemeProvider } from 'styled-components';
 import { theme } from '../config';
-import apolloClient from '../graphql/client';
+import { apolloClient } from '../graphql/client';
 import { paths } from '../routes';
-import DateSelect from './DateSelect';
-import Episodes from './Episodes';
-import Layout from './Layout';
+import { Layout } from './app-layout';
+import { DateSelect } from './date-select';
+import { YearDateEpisodes } from './year-date';
 
-export default function App(): JSX.Element {
+export function Root(): JSX.Element {
   return (
     <MUIThemeProvider theme={theme}>
       <ThemeProvider theme={theme}>
@@ -18,7 +18,7 @@ export default function App(): JSX.Element {
           <ApolloProvider client={apolloClient}>
             <Layout>
               <Switch>
-                <Route path={paths.episodes} component={Episodes} />
+                <Route path={paths.yearDate} component={YearDateEpisodes} />
                 <Route component={DateSelect} />
               </Switch>
             </Layout>

@@ -1,35 +1,31 @@
 import React, { useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import styled from 'styled-components';
-import { Typography } from '@material-ui/core';
-import { today } from '@on-this-day/shared';
+import { Box, Typography } from '@material-ui/core';
+import { TODAY } from '@on-this-day/shared';
 import { WIKI_URL } from '../../config';
-import routes from '../../routes';
-import { Anchor, Centered, PaperBox } from '../common';
-import Form from './Form';
+import { routes } from '../../routes';
+import { Anchor, PaperBox } from '../common';
+import { DateSelectForm } from './form';
 
-const Container = styled(Centered)`
-  height: 100%;
-`;
-
-const FormContainer = styled(Centered)`
-  margin-top: 25px;
-`;
-
-export default function DateSelect(): JSX.Element {
+export function DateSelect(): JSX.Element {
   const { t } = useTranslation();
   const { push } = useHistory();
 
   const handleSubmit = useCallback(
-    ({ day, month }: typeof today) => {
-      push(routes.episodes(day, month));
+    ({ day, month }: typeof TODAY) => {
+      push(routes.yearDate(day, month));
     },
     [push],
   );
 
   return (
-    <Container>
+    <Box
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      height="100%"
+    >
       <PaperBox>
         <Typography
           id="date-select-title"
@@ -44,10 +40,15 @@ export default function DateSelect(): JSX.Element {
           <Anchor to={WIKI_URL}>{t('dateSelect.source')}</Anchor>
         </Typography>
 
-        <FormContainer>
-          <Form handleSubmit={handleSubmit} />
-        </FormContainer>
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          marginTop="25px"
+        >
+          <DateSelectForm onSubmit={handleSubmit} />
+        </Box>
       </PaperBox>
-    </Container>
+    </Box>
   );
 }

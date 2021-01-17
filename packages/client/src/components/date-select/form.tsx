@@ -2,57 +2,29 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Formik, Form } from 'formik';
 import styled from 'styled-components';
-import { Button, MenuItem } from '@material-ui/core';
+import { Box, Button, MenuItem } from '@material-ui/core';
 import { Search as SearchIcon } from '@material-ui/icons';
-import { months, today, validationsSchemas } from '@on-this-day/shared';
+import { MONTHS, TODAY, dayOfMonthSchema } from '@on-this-day/shared';
 import { Input, InputProps, StyledTheme } from '../common';
 
-type DateSelectFormProps = {
-  handleSubmit: ({ day, month }: typeof today) => void | Promise<void>;
-};
+interface Props {
+  onSubmit: ({ day, month }: typeof TODAY) => void | Promise<void>;
+}
 
 type FieldInputProps = { width: string } & InputProps;
 
-const Container = styled(Form)`
-  ${({ theme }: StyledTheme): string => `
-    display: block;
-    ${theme.breakpoints.up('sm')} {
-      display: flex;
-      align-items: baseline;
-    }
-  `}
-`;
-
-const Fields = styled.div`
-  display: flex;
-  * {
-    margin: 5px;
-  }
-`;
-
-const FieldInput = styled(Input)<FieldInputProps>`
-  width: ${(props: FieldInputProps): string => props.width};
-`;
-
-const Submit = styled(Button)`
-  display: flex;
-  width: 100%;
-`;
-
-export default function DateSelectForm({
-  handleSubmit,
-}: DateSelectFormProps): JSX.Element {
+export function DateSelectForm({ onSubmit }: Props): JSX.Element {
   const { t } = useTranslation();
 
   return (
     <Formik
-      initialValues={today}
-      onSubmit={handleSubmit}
-      validationSchema={validationsSchemas.dayOfMonth}
+      initialValues={TODAY}
+      onSubmit={onSubmit}
+      validationSchema={dayOfMonthSchema}
     >
       {({ isSubmitting, isValid }): JSX.Element => (
         <Container>
-          <Fields>
+          <Box display="flex" padding="5px">
             <FieldInput
               name="day"
               label={t('dates.day')}
@@ -66,13 +38,13 @@ export default function DateSelectForm({
               width="9em"
               select
             >
-              {months.map((option: typeof months[0]) => (
+              {MONTHS.map((option) => (
                 <MenuItem key={option.number} value={option.number}>
                   {option.name}
                 </MenuItem>
               ))}
             </FieldInput>
-          </Fields>
+          </Box>
 
           <Submit
             id="submit-search"
@@ -89,3 +61,22 @@ export default function DateSelectForm({
     </Formik>
   );
 }
+
+const Container = styled(Form)`
+  ${({ theme }: StyledTheme): string => `
+    display: block;
+    ${theme.breakpoints.up('sm')} {
+      display: flex;
+      align-items: baseline;
+    }
+  `}
+`;
+
+const FieldInput = styled(Input)<FieldInputProps>`
+  width: ${(props: FieldInputProps): string => props.width};
+`;
+
+const Submit = styled(Button)`
+  display: flex;
+  width: 100%;
+`;

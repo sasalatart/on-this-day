@@ -1,31 +1,26 @@
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import styled from 'styled-components';
 import {
-  ExpansionPanel,
-  ExpansionPanelDetails,
-  ExpansionPanelSummary,
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Box,
   Typography,
 } from '@material-ui/core';
 import { format } from 'date-fns';
-import { EpisodeKinds, YearDate } from '@on-this-day/shared';
-import { PaperBox } from '../../common';
+import { EpisodeKind, YearDate } from '@on-this-day/shared';
+import { PaperBox } from '../common';
 
-const DescriptionContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-export type TimelineHeaderProps = {
-  episodesKind: EpisodeKinds;
+type Props = {
+  episodesKind: EpisodeKind;
 } & Pick<YearDate, 'day' | 'month' | 'description'>;
 
-export default function TimelineHeader({
+export function TimelineHeader({
   episodesKind,
   day,
   month,
   description,
-}: TimelineHeaderProps): JSX.Element {
+}: Props): JSX.Element {
   const { t } = useTranslation();
 
   const writtenDescription = useMemo(() => {
@@ -51,16 +46,18 @@ export default function TimelineHeader({
         {format(new Date(1992, month - 1, day), 'MMMM d')}
       </Typography>
 
-      <ExpansionPanel>
-        <ExpansionPanelSummary>
+      <Accordion>
+        <AccordionSummary>
           <Typography id="timeline-description" variant="h4">
             {t('description')}
           </Typography>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
-          <DescriptionContainer>{writtenDescription}</DescriptionContainer>
-        </ExpansionPanelDetails>
-      </ExpansionPanel>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Box display="flex" flexDirection="column">
+            {writtenDescription}
+          </Box>
+        </AccordionDetails>
+      </Accordion>
     </PaperBox>
   );
 }

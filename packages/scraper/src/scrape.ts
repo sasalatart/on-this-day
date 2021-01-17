@@ -3,12 +3,12 @@ import request from 'request-promise';
 import {
   Keyword,
   MonthName,
-  monthsByName,
+  MONTHS_BY_NAME,
   ScrapedEpisode,
   ScrapedYearDate,
 } from '@on-this-day/shared';
 
-enum EpisodeKindsTagIDs {
+enum EpisodeKindTagId {
   EVENTS = 'Events',
   BIRTHS = 'Births',
   DEATHS = 'Deaths',
@@ -41,7 +41,7 @@ function scrapKeywords(
 
 function scrapEpisodes(
   $: CheerioStatic,
-  episodeKind: EpisodeKindsTagIDs,
+  episodeKind: EpisodeKindTagId,
 ): ScrapedEpisode[] {
   const itemToEpisode = (
     _i: number,
@@ -98,18 +98,18 @@ function scrape(htmlBody: string): ScrapedYearDate {
 
   return {
     description: scrapDescription($),
-    events: scrapEpisodes($, EpisodeKindsTagIDs.EVENTS),
-    births: scrapEpisodes($, EpisodeKindsTagIDs.BIRTHS),
-    deaths: scrapEpisodes($, EpisodeKindsTagIDs.DEATHS),
+    events: scrapEpisodes($, EpisodeKindTagId.EVENTS),
+    births: scrapEpisodes($, EpisodeKindTagId.BIRTHS),
+    deaths: scrapEpisodes($, EpisodeKindTagId.DEATHS),
   };
 }
 
-export default async function scrapeYearDate(
+export async function scrapeYearDate(
   monthName: MonthName,
   dayOfMonth: number,
   delay: number,
 ): Promise<ScrapedYearDate> {
-  if (dayOfMonth < 1 || dayOfMonth > monthsByName[monthName].days) {
+  if (dayOfMonth < 1 || dayOfMonth > MONTHS_BY_NAME[monthName].days) {
     throw new Error(`Day ${dayOfMonth} is not valid for month ${monthName}`);
   }
 

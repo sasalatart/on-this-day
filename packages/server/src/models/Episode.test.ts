@@ -1,6 +1,6 @@
-import { EpisodeKinds } from '@on-this-day/shared';
+import { EpisodeKind } from '@on-this-day/shared';
 import { createYearDate } from '../tests/factories';
-import Episode from './Episode';
+import { Episode } from './episode';
 
 describe('Episode Model', () => {
   describe('attributes', () => {
@@ -67,7 +67,7 @@ describe('Episode Model', () => {
     describe('kind', () => {
       it('is required', () => expect('kind').toBeRequiredFor(Episode));
 
-      Object.values(EpisodeKinds).forEach((episodeKind) => {
+      Object.values(EpisodeKind).forEach((episodeKind) => {
         it(`accepts the value ${episodeKind}`, () => {
           return expect('kind').not.toFailEnumFor(episodeKind, Episode);
         });

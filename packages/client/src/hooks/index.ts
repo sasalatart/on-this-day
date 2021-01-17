@@ -1,1 +1,1 @@
-export { default as useTriggerError } from './useTriggerError';
+export { useTriggerError } from './use-trigger-error';

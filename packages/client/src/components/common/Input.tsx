@@ -8,7 +8,7 @@ export type InputProps = {
   component?: ComponentType<TextFieldProps>;
 } & TextFieldProps;
 
-export default function Input({
+export function Input({
   name,
   component = TextField,
   ...rest

@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 import upperFirst from 'lodash/upperFirst';
-import { EpisodeKinds } from '@on-this-day/shared';
+import { EpisodeKind } from '@on-this-day/shared';
 
 function assertChronologicalEpisodes(): void {
   let firstYear: number;
@@ -93,7 +93,7 @@ describe('Episodes Timeline', () => {
 
     describe('initial tab', () => {
       it('corresponds to events', () => {
-        cy.get(`button[role="tab"][data-kind=${EpisodeKinds.events}]`).should(
+        cy.get(`button[role="tab"][data-kind=${EpisodeKind.events}]`).should(
           'have.attr',
           'aria-selected',
           'true',
@@ -103,7 +103,7 @@ describe('Episodes Timeline', () => {
       it("makes the title's text be 'Events'", () => {
         cy.get('#timeline-title').should(
           'have.text',
-          upperFirst(EpisodeKinds.events),
+          upperFirst(EpisodeKind.events),
         );
       });
 
@@ -113,7 +113,7 @@ describe('Episodes Timeline', () => {
     });
 
     describe('clicking tabs', () => {
-      Object.values(EpisodeKinds).forEach((episodeKind) => {
+      Object.values(EpisodeKind).forEach((episodeKind) => {
         context(`when clicking on ${episodeKind}`, () => {
           it('sets it as selected', () => {
             cy.get(`button[role="tab"][data-kind="${episodeKind}"]`)

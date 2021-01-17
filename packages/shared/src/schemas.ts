@@ -1,7 +1,7 @@
 import * as Yup from 'yup';
-import { daysByMonthNumber } from './dates';
+import { DAYS_BY_MONTH_NUMBER } from './dates';
 
-const dayOfMonth = Yup.object().shape({
+export const dayOfMonthSchema = Yup.object().shape({
   day: Yup.number()
     .integer()
     .positive()
@@ -10,12 +10,8 @@ const dayOfMonth = Yup.object().shape({
       'invalid-day-for-month',
       'errors.invalidDayForMonth',
       function assertValidDayForMonth(value) {
-        return value <= daysByMonthNumber[this.parent.month];
+        return value <= DAYS_BY_MONTH_NUMBER[this.parent.month];
       },
     ),
   month: Yup.number().integer().positive().lessThan(13),
 });
-
-export default {
-  dayOfMonth,
-};

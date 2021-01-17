@@ -3,14 +3,14 @@ import mapValues from 'lodash/mapValues';
 import times from 'lodash/times';
 import { MonthName } from './types';
 
-const now = new Date();
+const NOW = new Date();
 
-export const today = {
-  day: now.getDate(),
-  month: now.getMonth() + 1,
+export const TODAY = {
+  day: NOW.getDate(),
+  month: NOW.getMonth() + 1,
 };
 
-export const daysByMonthNumber: { [k: string]: number } = {
+export const DAYS_BY_MONTH_NUMBER: { [k: string]: number } = {
   '1': 31,
   '2': 29,
   '3': 31,
@@ -25,7 +25,7 @@ export const daysByMonthNumber: { [k: string]: number } = {
   '12': 31,
 };
 
-export const months: { name: MonthName; number: number; days: number }[] = [
+export const MONTHS: { name: MonthName; number: number; days: number }[] = [
   { name: 'January', number: 1 },
   { name: 'February', number: 2 },
   { name: 'March', number: 3 },
@@ -41,15 +41,13 @@ export const months: { name: MonthName; number: number; days: number }[] = [
 ].map(({ name, number }) => ({
   name: name as MonthName,
   number,
-  days: daysByMonthNumber[`${number}`],
+  days: DAYS_BY_MONTH_NUMBER[`${number}`],
 }));
 
-export const monthsByName = keyBy(months, 'name');
+export const MONTHS_BY_NAME = keyBy(MONTHS, 'name');
 
-export const monthNumbersByName = mapValues(monthsByName, 'number');
+export const MONTHS_NUMBERS_BY_NAME = mapValues(MONTHS_BY_NAME, 'number');
 
-export const datesOfYear = months
-  .map(({ name, days }) =>
-    times(days, (i) => ({ monthName: name, day: i + 1 })),
-  )
-  .flat();
+export const DATES_OF_YEAR = MONTHS.map(({ name, days }) =>
+  times(days, (i) => ({ monthName: name, day: i + 1 })),
+).flat();

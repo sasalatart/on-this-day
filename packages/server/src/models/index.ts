@@ -1,5 +1,5 @@
-import Episode from './Episode';
-import YearDate from './YearDate';
+import { Episode } from './episode';
+import { YearDate } from './year-date';
 
 export * from './types';
 

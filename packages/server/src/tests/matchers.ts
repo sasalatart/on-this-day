@@ -1,5 +1,5 @@
 import { Document, Error, Model } from 'mongoose';
-import _ from 'lodash';
+import { get, set } from 'lodash';
 
 type MatcherResult = {
   pass: boolean;
@@ -43,7 +43,7 @@ async function hasError(
   let pass = false;
 
   await instance.validate().catch((err: Error.ValidationError) => {
-    const pathErr = _.get(err.errors, path);
+    const pathErr = get(err.errors, path);
 
     if (!pathErr) return;
 
@@ -86,7 +86,7 @@ expect.extend({
   toFailValidation,
   toBeRequiredFor(path: string, MongooseModel: Model<Document>) {
     const instance = new MongooseModel();
-    _.set(instance, path, null);
+    set(instance, path, null);
     return toFailValidation.bind(this)(instance, path, { kind: 'required' });
   },
   async toBeBetween(
@@ -118,7 +118,7 @@ expect.extend({
   },
   toFailEnumFor(path: string, value: string, MongooseModel: Model<Document>) {
     const instance = new MongooseModel();
-    _.set(instance, path, value);
+    set(instance, path, value);
     return toFailValidation.bind(this)(instance, path, { kind: 'enum' });
   },
 });

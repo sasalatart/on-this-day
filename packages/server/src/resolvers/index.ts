@@ -1,7 +1,7 @@
 /* eslint-disable global-require */
 import fs from 'fs';
 import path from 'path';
-import _ from 'lodash';
+import { merge } from 'lodash';
 
 const resolvers = fs
   .readdirSync(__dirname)
@@ -10,4 +10,4 @@ const resolvers = fs
   )
   .map((fileName) => require(path.join(__dirname, fileName)));
 
-export default _.merge({}, ...resolvers);
+export default merge({}, ...resolvers);

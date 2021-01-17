@@ -1,8 +1,8 @@
 import path from 'path';
-import { ApolloServer } from 'apollo-server-express';
-import express from 'express';
+import { ApolloServer, ApolloServerExpressConfig } from 'apollo-server-express';
 import cors from 'cors';
-import _ from 'lodash';
+import express from 'express';
+import { merge } from 'lodash';
 import { CLIENT_DIR } from './config';
 import schemaDirectives from './directives';
 import i18n from './i18n';
@@ -11,9 +11,9 @@ import resolvers from './resolvers';
 import scalars from './scalars';
 import typeDefs from './type-defs';
 
-export const baseServerConfig = {
+export const baseServerConfig: Partial<ApolloServerExpressConfig> = {
   typeDefs,
-  resolvers: _.merge(resolvers, scalars),
+  resolvers: merge(resolvers, scalars),
   schemaDirectives,
   context: { models, t: i18n.t.bind(i18n) },
 };

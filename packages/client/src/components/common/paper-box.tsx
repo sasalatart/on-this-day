@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Paper as MUIPaper, PaperProps } from '@material-ui/core';
-import { StyledTheme } from '../common';
+import { StyledTheme } from './styled-theme';
 
 const Paper = styled(MUIPaper)`
   ${({ theme }: StyledTheme): string => `
@@ -18,6 +18,6 @@ const Paper = styled(MUIPaper)`
   `}
 `;
 
-export default function PaperBox(props: PaperProps): JSX.Element {
+export function PaperBox(props: PaperProps): JSX.Element {
   return <Paper elevation={5} {...props} />;
 }

@@ -1,10 +1,6 @@
 import mongoose, { Schema } from 'mongoose';
-import { daysByMonthNumber } from '@on-this-day/shared';
+import { DAYS_BY_MONTH_NUMBER } from '@on-this-day/shared';
 import { YearDateDocument } from './types';
-
-function validateDayOfMonth(this: YearDateDocument, value: number): boolean {
-  return value <= daysByMonthNumber[this.month];
-}
 
 const episodeRef = {
   type: Schema.Types.ObjectId,
@@ -45,4 +41,11 @@ yearDateSchema.post<YearDateDocument>('remove', function postRemove(
   return mongoose.models.Episode.deleteMany({ yearDate: this._id });
 });
 
-export default mongoose.model<YearDateDocument>('YearDate', yearDateSchema);
+function validateDayOfMonth(this: YearDateDocument, value: number): boolean {
+  return value <= DAYS_BY_MONTH_NUMBER[this.month];
+}
+
+export const YearDate = mongoose.model<YearDateDocument>(
+  'YearDate',
+  yearDateSchema,
+);

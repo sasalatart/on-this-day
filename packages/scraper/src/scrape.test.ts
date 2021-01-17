@@ -3,7 +3,7 @@ import {
   ScrapedEpisode,
   ScrapedYearDate,
 } from '@on-this-day/shared';
-import scrapeYearDate from './scrape';
+import { scrapeYearDate } from './scrape';
 
 describe('scrapeYearDate', () => {
   describe('with invalid day of month', () => {

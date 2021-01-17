@@ -5,16 +5,7 @@ import { GitHub as GitHubIcon } from '@material-ui/icons';
 import { REPO_URL } from '../../config';
 import { Link, StyledTheme } from '../common';
 
-const Title = styled(Typography)`
-  ${({ theme }: StyledTheme): string => `
-    flex-grow: 1;
-    a {
-      color: ${theme.palette.primary.contrastText};
-    }
-  `}
-`;
-
-export default function Header(): JSX.Element {
+export function Header(): JSX.Element {
   return (
     <AppBar position="static">
       <Toolbar>
@@ -36,3 +27,12 @@ export default function Header(): JSX.Element {
     </AppBar>
   );
 }
+
+const Title = styled(Typography)`
+  ${({ theme }: StyledTheme): string => `
+    flex-grow: 1;
+    a {
+      color: ${theme.palette.primary.contrastText};
+    }
+  `}
+`;

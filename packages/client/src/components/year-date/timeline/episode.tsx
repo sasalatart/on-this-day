@@ -6,26 +6,13 @@ import { Episode } from '@on-this-day/shared';
 import { WIKI_URL } from '../../../config';
 import { Anchor } from '../../common';
 
-type EpisodeProps = {
+interface Props {
   episode: Episode;
-};
+}
 
-const Description = styled(Typography)`
-  margin: 0;
-`;
-
-const KeywordsContainer = styled.div`
-  font-weight: bold;
-  margin-top: 0.75em;
-`;
-
-const Keywords = styled(Typography)`
-  font-style: italic;
-`;
-
-export default function EpisodeItem({
+export function EpisodeItem({
   episode: { description, keywords },
-}: EpisodeProps): JSX.Element {
+}: Props): JSX.Element {
   const { t } = useTranslation();
 
   const keywordsText = useMemo(() => {
@@ -51,3 +38,16 @@ export default function EpisodeItem({
     </>
   );
 }
+
+const Description = styled(Typography)`
+  margin: 0;
+`;
+
+const Keywords = styled(Typography)`
+  font-style: italic;
+`;
+
+const KeywordsContainer = styled.div`
+  font-weight: bold;
+  margin-top: 0.75em;
+`;

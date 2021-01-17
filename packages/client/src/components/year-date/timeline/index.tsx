@@ -1,18 +1,15 @@
 import React, { useMemo } from 'react';
 import { VerticalTimeline } from 'react-vertical-timeline-component';
 import groupBy from 'lodash/groupBy';
-import { Episode, EpisodeKinds } from '@on-this-day/shared';
-import TimelineItem from './Item';
+import { Episode, EpisodeKind } from '@on-this-day/shared';
+import { TimelineItem } from './item';
 
-type TimelineProps = {
+interface Props {
   episodes: Episode[];
-  episodesKind: EpisodeKinds;
-};
+  episodesKind: EpisodeKind;
+}
 
-export default function Timeline({
-  episodes,
-  episodesKind,
-}: TimelineProps): JSX.Element {
+export function Timeline({ episodes, episodesKind }: Props): JSX.Element {
   const groupedEpisodes = useMemo(() => groupBy(episodes, 'year'), [episodes]);
 
   const sortedYears = useMemo(
