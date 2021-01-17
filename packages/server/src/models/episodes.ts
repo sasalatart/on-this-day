@@ -1,7 +1,7 @@
 import mongoose, { Schema } from 'mongoose';
 import { DAYS_BY_MONTH_NUMBER, EpisodeKind } from '@on-this-day/shared';
 import { EpisodeDocument, YearDateDocument } from './types';
-import { YearDate } from './year-date';
+import { YearDate } from './year-dates';
 
 const keyWordSchema = new Schema(
   {

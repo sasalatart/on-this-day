@@ -1,6 +1,6 @@
 import { EpisodeKind } from '@on-this-day/shared';
 import { createYearDate } from '../tests/factories';
-import { Episode } from './episode';
+import { Episode } from './episodes';
 
 describe('Episode Model', () => {
   describe('attributes', () => {
