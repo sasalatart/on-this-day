@@ -88,9 +88,9 @@ describe('Date Select', () => {
       cy.get('#submit-search').should('be.enabled');
     });
 
-    it('it redirects to the episodes route after submitting', () => {
+    it('it redirects to the yearDate route after submitting', () => {
       cy.get('#submit-search').click();
-      cy.url().should('contain', `/episodes?day=${day}&month=${month}`);
+      cy.url().should('contain', `/year-date?day=${day}&month=${month}`);
     });
   });
 });

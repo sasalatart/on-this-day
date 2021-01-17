@@ -17,9 +17,9 @@ describe('Routing', () => {
     });
   });
 
-  describe('/episodes?day=<day>&month=<month>', () => {
+  describe('/year-date?day=<day>&month=<month>', () => {
     it('renders the episodes timeline', () => {
-      cy.visit('/episodes?day=15&month=1');
+      cy.visit('/year-date?day=15&month=1');
       cy.get('#timeline-subtitle').should('contain.text', 'January 15');
     });
 

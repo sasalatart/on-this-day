@@ -32,7 +32,7 @@ function assertChronologicalEpisodes(): void {
 }
 
 function assertRootRedirectionWithAlert(query: string): void {
-  cy.visit(`/episodes${query}`);
+  cy.visit(`/year-date${query}`);
   cy.location('pathname').should('equal', '/');
   cy.get('#swal2-content').should('contain.text', 'Invalid date');
 }
@@ -69,7 +69,7 @@ describe('Episodes Timeline', () => {
     const month = 1;
 
     before(() => {
-      cy.visit(`/episodes?day=${day}&month=${month}`);
+      cy.visit(`/year-date?day=${day}&month=${month}`);
     });
 
     it('specifies the selected date', () => {
