@@ -2,17 +2,20 @@ import React, { ComponentType, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useField } from 'formik';
 import { TextField, TextFieldProps } from '@material-ui/core';
+import styled from 'styled-components';
 
-export type InputProps = {
+type BaseProps = {
   name: string;
   component?: ComponentType<TextFieldProps>;
 } & TextFieldProps;
 
-export function Input({
+type Props = BaseProps & { width?: string };
+
+function BaseFieldInput({
   name,
   component = TextField,
   ...rest
-}: InputProps): JSX.Element {
+}: BaseProps): JSX.Element {
   const { t } = useTranslation();
   const [{ value, onBlur, onChange }, { error, touched }] = useField(name);
 
@@ -33,3 +36,7 @@ export function Input({
   const Component = component;
   return <Component {...props} />;
 }
+
+export const FieldInput = styled(BaseFieldInput)<Props>`
+  width: ${(props: Props): string => props?.width || 'default'};
+`;

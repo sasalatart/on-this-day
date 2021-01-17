@@ -5,13 +5,11 @@ import styled from 'styled-components';
 import { Box, Button, MenuItem } from '@material-ui/core';
 import { Search as SearchIcon } from '@material-ui/icons';
 import { MONTHS, TODAY, dayOfMonthSchema } from '@on-this-day/shared';
-import { Input, InputProps, StyledTheme } from '../common';
+import { FieldInput, StyledTheme } from '../common';
 
 interface Props {
   onSubmit: ({ day, month }: typeof TODAY) => void | Promise<void>;
 }
-
-type FieldInputProps = { width: string } & InputProps;
 
 export function DateSelectForm({ onSubmit }: Props): JSX.Element {
   const { t } = useTranslation();
@@ -70,10 +68,6 @@ const Container = styled(Form)`
       align-items: baseline;
     }
   `}
-`;
-
-const FieldInput = styled(Input)<FieldInputProps>`
-  width: ${(props: FieldInputProps): string => props.width};
 `;
 
 const Submit = styled(Button)`
