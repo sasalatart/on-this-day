@@ -23,7 +23,7 @@
     "apollo-server-express": "^2.12.0",
     "bluebird": "^3.7.2",
     "cors": "^2.8.5",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "graphql-import": "^1.0.2",
     "graphql-tools": "^4.0.7",
     "i18next": "^19.4.1",
